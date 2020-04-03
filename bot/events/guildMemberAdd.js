@@ -30,6 +30,7 @@ exports.run = async (bot, guild, member) => {
       // Show member add card
       bot.database.Guilddata.findOne({ guildID: guild.id }, async (err, guilddata) => {
         if (err) bot.log("error", err)
+
         if (guilddata && guilddata.welcomeChannel[0] != " ") {
           let welcomeChannel = guild.channels.find(channel => channel.id == guilddata.welcomeChannel[0])
           const canvas = Canvas.createCanvas(700, 250)

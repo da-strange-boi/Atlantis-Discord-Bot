@@ -18,7 +18,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     const huntbotData = JSON.parse(huntbotDataFile)
     huntbotData.push(...newHuntBotTime)
 
-    fs.writeFile(path.join(__dirname, 'huntBot.json'), JSON.stringify(huntbotData), 'utf8', err => { bot.log("error", err) })
+    fs.writeFile(path.join(__dirname, 'huntBot.json'), JSON.stringify(huntbotData), 'utf8', err => { if (err) bot.log("error", err) })
   }
 
   let timeoutTime = huntbotTimeout - Date.now()
@@ -33,7 +33,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
         huntbotData.splice(i, 1)
       }
     }
-    fs.writeFile(path.join(__dirname, 'huntBot.json'), JSON.stringify(huntbotData), 'utf8', err => { bot.log("error", err) })
+    fs.writeFile(path.join(__dirname, 'huntBot.json'), JSON.stringify(huntbotData), 'utf8', err => { if (err) bot.log("error", err) })
 
     // Send them the message
     let displayTime
@@ -43,6 +43,8 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
       displayTime = ""
     }
     //huntbotUser
-    bot.createMessage(bot.getDMChannel(huntbotUser.id), `<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
+    bot.getDMChannel(huntbotUser.id).then(dmChannel => {
+      dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
+    })
   }, timeoutTime)
 }

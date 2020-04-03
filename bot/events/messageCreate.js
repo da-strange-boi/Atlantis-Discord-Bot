@@ -7,7 +7,7 @@ const praycurseCoolDown = 300000
 let userTimeouts = {}
 
 exports.run = async (bot, message) => {
-  //if (!message.guild || message.IsPrivate) return
+  if (!message.member) return
   if (message.author.bot && message.author.id != "408785106942164992") return
 
   // TESTING
@@ -23,25 +23,18 @@ exports.run = async (bot, message) => {
       if (guilddata) {
         if (guilddata.deleteUserMessagesChannels.includes(message.channel.id)) {
           if (!message.author.bot) {
-            message.delete({timeout:100, reason:`User messages deleted in ${message.channel.name}`})
+            setTimeout(() => {message.delete(`User messages deleted in ${message.channel.name}`)}, 100)
           }
         }
         if (guilddata.deleteBotMessagesChannels.includes(message.channel.id)) {
           if (message.author.bot) {
-            message.delete({timeout:100, reason:`Bot messages deleted in ${message.channel.name}`})
+            setTimeout(() => {message.delete(`Bot messages deleted in ${message.channel.name}`)}, 100)
           }
         }
         if (guilddata.owoChannel.includes(message.channel.id)) {
           if (message.content.toLowerCase().trim() != "owo") {
-            message.delete({timeout:100, reason:`Other messages then "owo" deleted in ${message.channel.name}`})
+            setTimeout(() => {message.delete(`Other messages then "owo" deleted in ${message.channel.name}`)}, 100)
           }
-        }
-        // updated shit
-        if (!guilddata.deleteBotMessagesChannels) {
-          bot.database.Guilddata.findOneAndUpdate({ guildID: message.guild.id }, {$set: {"deleteBotMessagesChannels":[]}})
-        }
-        if (!guilddata.owoChannel) {
-          bot.database.Guilddata.findOneAndUpdate({ guildID: message.guild.id }, {$set: {"owoChannel":[]}})
         }
       }
     })
@@ -128,8 +121,9 @@ exports.run = async (bot, message) => {
     if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g)) {
       let huntBotTime = message.content.split("I WILL BE BACK IN ")[1].split(" ")[0] // 6H2M
       let userUsername = message.content.split("BEEP BOOP. `**`").pop().split("`**`, YOU SPENT ")[0]
+      bot.log("system", `"${userUsername}"`)
       let timeElements = huntBotTime.match(/[0-9][0-9][M|H]{1}|[0-9][M|H]{1}/g)
-      let getMember = await message.guild.members.find(member => member.user.username == userUsername)
+      let getMember = message.member.guild.members.find(member => member.user.username == userUsername)
 
       bot.database.Userdata.findOne({ userID: getMember.id }, async (err, userdata) => {
         if (err) bot.log("error", err)

@@ -41,6 +41,7 @@ exports.run = async (bot) => {
     // Util Commands
     helpUtilEmbed.embed.description += "\n***Until Commands***\n\n"
     addCMD(helpUtilEmbed, "atl", "Sends an invite link to join Atlantis")
+    addCMD(helpUtilEmbed, "invite", "Invite Atlantis bot to your server")
 
     // Admin Commands
     if (message.member.permission.has("administrator")) {
