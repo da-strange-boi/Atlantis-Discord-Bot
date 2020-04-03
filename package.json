@@ -1,0 +1,16 @@
+{
+  "name": "atlantis",
+  "version": "1.0.0",
+  "main": "bot/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "chalk": "^4.0.0",
+    "eris": "^0.11.2",
+    "lodash": "^4.17.15",
+    "mongodb": "^3.5.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

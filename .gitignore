@@ -1,0 +1,8 @@
+# modules
+node_modules/
+
+# contains bot token
+.env
+
+# vscode project settings
+.vscode
