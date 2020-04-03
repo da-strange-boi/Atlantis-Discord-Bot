@@ -9,7 +9,7 @@ exports.run = async (bot) => {
         const showEmbed = {
           embed: {
             color: bot.getEmbedColor(bot, message),
-            description: `:peacock: **Hunt**    ~ ${userdata.hunt ? "Enabled" : "Disabled"}\n:tropical_fish: **Battle**      ~ ${userdata.battle ? "Enabled" : "Disabled"}\n:dragon: **Pray/Curse** ~ ${userdata.praycurse ? "Enabled" : "Disabled"}\n:deer: **HuntBot**    ~ ${userdata.huntbot ? "Enabled" : "Disabled"}`,
+            description: `:peacock: **Hunt**   ~ ${userdata.hunt ? "Enabled" : "Disabled"}\n:tropical_fish: **Battle**     ~ ${userdata.battle ? "Enabled" : "Disabled"}\n:dragon: **Pray/Curse** ~ ${userdata.praycurse ? "Enabled" : "Disabled"}\n:deer: **HuntBot**    ~ ${userdata.huntbot ? "Enabled" : "Disabled"}`,
             timestamp: new Date()
           }
         }

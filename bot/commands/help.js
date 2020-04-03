@@ -40,13 +40,13 @@ exports.run = async (bot) => {
 
     // Util Commands
     helpUtilEmbed.embed.description += "\n***Until Commands***\n\n"
-    addCMD(helpUtilEmbed, "atl", "Sends an invite link to join Atlantis")
+    addCMD(helpUtilEmbed, "atlantis", "Sends an invite link to join Atlantis")
     addCMD(helpUtilEmbed, "invite", "Invite Atlantis bot to your server")
 
     // Admin Commands
     if (message.member.permission.has("administrator")) {
 
-      helpAdminEmbed.embed.footer.text = "Atlantis, made by `da strange boi#7087` with lots of love!"
+      helpAdminEmbed.embed.footer.text = "Atlantis Bot, made by `da strange boi#7087` with lots of love!"
       helpAdminEmbed.embed.timestamp = new Date()
 
       helpAdminEmbed.embed.description += "\n***Admin Commands***\n(run the command as is for more info)\n\n"
@@ -59,7 +59,7 @@ exports.run = async (bot) => {
       helpAdminEmbed.embed.description += "\nThanks to `pri8000#8266` for the profile picture art!"
     } else {
       helpUtilEmbed.embed.description += "\nThanks to `pri8000#8266` for the profile picture art!"
-      helpUtilEmbed.embed.footer.text = "Atlantis, made by `da strange boi#7087` with lots of love!"
+      helpUtilEmbed.embed.footer.text = "Atlantis Bot, made by `da strange boi#7087` with lots of love!"
       helpUtilEmbed.embed.timestamp = new Date()
     }
 
