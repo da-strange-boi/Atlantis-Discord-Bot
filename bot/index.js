@@ -48,6 +48,7 @@ bot.color = {
   green: 0x00FF00,
   red: 0xFF0000
 }
+bot.admin = "295255543596187650"
 
 bot.checkUserAndGuild = async (message) => {
   await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
