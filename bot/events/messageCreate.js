@@ -120,10 +120,11 @@ exports.run = async (bot, message) => {
     if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP. I AM BACK WITH/g)) return
     if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g)) {
       let huntBotTime = message.content.split("I WILL BE BACK IN ")[1].split(" ")[0] // 6H2M
-      let userUsername = message.content.split("BEEP BOOP. `**`").pop().split("`**`, YOU SPENT ")[0]
-      bot.log("system", `"${userUsername}"`)
       let timeElements = huntBotTime.match(/[0-9][0-9][M|H]{1}|[0-9][M|H]{1}/g)
+
+      let userUsername = message.content.split("BEEP BOOP. `**`").pop().split("`**`, YOU SPENT ")[0]
       let getMember = message.member.guild.members.find(member => member.user.username == userUsername)
+      if (!getMember) return
 
       bot.database.Userdata.findOne({ userID: getMember.id }, async (err, userdata) => {
         if (err) bot.log("error", err)

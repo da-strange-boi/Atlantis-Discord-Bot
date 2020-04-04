@@ -9,9 +9,9 @@ exports.run = async (bot) => {
       // if userdata doesn't exist make it
       if (userdata) {
         if (userdata.huntbot) {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"battle":false}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"huntbot":false}})
         } else {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"battle":true}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"huntbot":true}})
         }
         const huntbotEmbed = {
           embed: {

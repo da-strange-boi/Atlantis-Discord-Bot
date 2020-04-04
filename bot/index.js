@@ -38,7 +38,8 @@ setTimeout(() => {
   const dbObject = {
     db: client,
     Userdata: client.db("atlantis").collection("userdata"),
-    Guilddata: client.db("atlantis").collection("guilddata")
+    Guilddata: client.db("atlantis").collection("guilddata"),
+    HuntBot: client.db("atlantis").collection("huntbot")
   }
   bot.database = dbObject
   bot.log("dbConnected")

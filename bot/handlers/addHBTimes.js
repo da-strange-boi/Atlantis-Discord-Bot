@@ -1,6 +1,3 @@
-const path = require('path')
-const fs = require('fs')
-
 exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) => {
   if (!bot || !huntbotTimeout) bot.log("error", 'addUserHB does not have all the data needed to run!')
 
@@ -13,27 +10,23 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
 
   // add times to muteTimes.json to save just in case
   if (makeNew) {
-    const newHuntBotTime = [{ [huntbotUser.id]: huntbotTimeout }]
-    const huntbotDataFile = fs.readFileSync(path.join(__dirname, 'huntBot.json'))
-    const huntbotData = JSON.parse(huntbotDataFile)
-    huntbotData.push(...newHuntBotTime)
-
-    fs.writeFile(path.join(__dirname, 'huntBot.json'), JSON.stringify(huntbotData), 'utf8', err => { if (err) bot.log("error", err) })
+    bot.database.HuntBot.insertOne({
+      userID: huntbotUser.id,
+      timeout: huntbotTimeout
+    })
   }
 
   let timeoutTime = huntbotTimeout - Date.now()
   setTimeout(() => {
 
     // delete the mute timeout from the file
-    const huntbotDataFile = fs.readFileSync(path.join(__dirname, 'huntBot.json'))
-    const huntbotData = JSON.parse(huntbotDataFile)
+    bot.database.HuntBot.findOne({userID: huntbotUser.id}, (err, userHuntbot) => {
+      if (err) bot.log("error", err)
 
-    for (let i = 0; i < huntbotData.length; i++) {
-      if (huntbotUser.id in huntbotData[i]) {
-        huntbotData.splice(i, 1)
+      if (huntbotUser.id == userHuntbot.userID) {
+        bot.database.HuntBot.deleteOne({ userID: huntbotUser.id })
       }
-    }
-    fs.writeFile(path.join(__dirname, 'huntBot.json'), JSON.stringify(huntbotData), 'utf8', err => { if (err) bot.log("error", err) })
+    })
 
     // Send them the message
     let displayTime
