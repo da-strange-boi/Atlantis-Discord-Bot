@@ -5,4 +5,4 @@
 
 ---
 ## Join Atlantis Discord Server
-[![](https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2)](https://discord.gg/Rp9Gzmh)
+[![](https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2)](https://discord.gg/FCUZeGb)

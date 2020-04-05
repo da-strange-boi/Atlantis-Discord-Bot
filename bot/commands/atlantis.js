@@ -3,7 +3,7 @@ exports.run = async (bot) => {
   bot.registerCommand("atlantis", async (message, args) => {
     await bot.checkUserAndGuild(message)
 
-    bot.createMessage(message.channel.id, "https://discord.gg/Rp9Gzmh")
+    bot.createMessage(message.channel.id, "https://discord.gg/FCUZeGb")
   }, {
     aliases: ["atl"],
     cooldown: 3000,
