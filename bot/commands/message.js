@@ -12,9 +12,7 @@ exports.run = async (bot) => {
           embed: {
             title: "Message Control",
             color: bot.getEmbedColor(bot, message),
-            fields: [
-
-            ],
+            fields: [],
             timestamp: new Date()
           }
         }
@@ -24,7 +22,7 @@ exports.run = async (bot) => {
           _.remove(updatedList, function(n) {
             return n == channelID
           })
-          return bot.database.Guilddata.findOneAndUpdate({ guildID: msg.member.guild.id }, {$set: {category:updatedList}})
+          return bot.database.Guilddata.findOneAndUpdate({ guildID: msg.member.guild.id }, {$set: {[category]:updatedList}})
         }
 
         let hasAddChannelsToCategories = false
@@ -40,6 +38,7 @@ exports.run = async (bot) => {
             }
           })
           hasAddChannelsToCategories = true
+          console.log({name: "Delete User Message", value: dChannels})
           messageEmbed.embed.fields.push({name: "Delete User Message", value: dChannels})
         }
         // deletebotmessage
@@ -69,7 +68,7 @@ exports.run = async (bot) => {
           messageEmbed.embed.fields.push({name: "OwO Channel", value: dChannels})
         }
         // welcomechannel
-        if (guilddata.welcomeChannel[0] != " ") {
+        if (guilddata.welcomeChannel[0] != " " && guilddata.welcomeChannel[0]) {
           let dChannels = ""
           guilddata.welcomeChannel.forEach(channelID => {
             if (message.member.guild.channels.find(channel => channel.id == channelID)) {
@@ -83,6 +82,8 @@ exports.run = async (bot) => {
         }
 
         if (!hasAddChannelsToCategories) messageEmbed.embed.description = "*No channels are set under any categories*\nSee: `a!deletebotmessages`, `a!owochannel`"
+        console.log(messageEmbed)
+        console.log(messageEmbed.embed.fields)
         bot.createMessage(message.channel.id, messageEmbed)
       }
     })
