@@ -23,17 +23,17 @@ exports.run = async (bot, message) => {
       if (guilddata) {
         if (guilddata.deleteUserMessagesChannels.includes(message.channel.id)) {
           if (!message.author.bot) {
-            setTimeout(() => {message.delete(`User messages deleted`)}, 100)
+            setTimeout(() => {message.delete(`User messages deleted`)}, 150)
           }
         }
         if (guilddata.deleteBotMessagesChannels.includes(message.channel.id)) {
           if (message.author.bot) {
-            setTimeout(() => {message.delete(`Bot messages deleted`)}, 100)
+            setTimeout(() => {message.delete(`Bot messages deleted`)}, 150)
           }
         }
         if (guilddata.owoChannel.includes(message.channel.id)) {
           if (message.content.toLowerCase().trim() != "owo") {
-            setTimeout(() => {message.delete(`Other messages then "owo" deleted`)}, 100)
+            setTimeout(() => {message.delete(`Other messages then "owo" deleted`)}, 150)
           }
         }
       }
