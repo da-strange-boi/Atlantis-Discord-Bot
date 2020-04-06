@@ -12,6 +12,7 @@
 # How do I use Atlantis?
 By adding Atlantis to your server it is enabled automatically. 
 All you need to do is use the OwO bot and you'll get reminded of when the cooldowns expire.
+
 [![](https://i.imgur.com/mLepryJ.png)]()
 
 ## Want to disable the reminder for a command?

@@ -1,6 +1,17 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
     <style>
+      	@keyframes rotate-image {
+          0% { transform: rotate(0deg); }
+      	  25% { transform: rotate(25deg); }
+          50% { transform: rotate(-25deg); }
+          100% { transform: rotate(0deg); }
+        }
+      	@keyframes rotate-border {
+        	100% {
+                  transform: rotate(1turn);
+            }
+        }
         * {
             font-family: 'Roboto', sans-serif;
         }
@@ -14,21 +25,33 @@
       	h4 {
       		padding-bottom: 50px;
       	}
-      	.longdescription .content {
-      		background-color: #303030;
-      	}
-      	.longdescription h3, .longdescription h2, .longdescription h4, .longdescription p {
+      	.longdescription h1, .longdescription h2, .longdescription h3, .longdescription h4, .longdescription p, .longdescription li {
       		color: #ffffff;
+      	}
+      	.longdescription code {
+      		background-color: #2c2f33;
+      		color: #018ba8;
       	}
       	/* -------------------------------------------------------------------------------------------------------- */
       	body {
       		background-color: #101010;
       	}
+      	#menu {
+      		background-color: #101010 !important;
+      	}
+      	#menu .menu {
+      		background-color: #005e5e !important;
+      		border-radius: 0px 0px 25px 25px;
+      	}
       	.container .columns .bot-img {
         	box-shadow: none !important;
-      		border: 3px #017a97 solid;
-      		border-radius: 50%;
+      		animation: rotate-image 5s infinite;
+      		background: linear-gradient(#101010, #101010) padding-box, linear-gradient(to left, #00FFFF, #017a97, #005e5e) border-box !important;
         }
+      	.container .columns .bot-img {
+      		border: 5px solid transparent;
+      		border-radius: 50%
+      	}
       	.bot-name {
       		color: #018ba8;
         }
@@ -36,35 +59,67 @@
       		color: #0e5c5e;
       		font-size: 17px;
         }
+      	.votebutton {
+      		background-color: #0e5c5e;
+      	}
       	.botpagebutton {
       		background-color: #073a3b;
+      		color: #00FFFF;
+      	}
+      	.left-container .column p {
       		color: #00FFFF;
       	}
       	#prefix code {
       		background-color: #073a3b;
       		color: #FFFFFF;
       		margin-left: 10px;
-      		border-radius: 15px;
+      		border-radius: 10px;
       	}
       	.bot-tags-title, #createdby {
       		color: #00bfd3;
       	}
-        
+      	#createdby b {
+      		background-color: #202020;
+      	}
+      	#createdby b a span {
+      		color: #00FFFF;
+      	}
+      	#tags .atag {
+      		background-color: #073a3b;
+      		color: #00FFFF;
+      	}
+      	.blog_card {
+      		background-color: #017a97;
+      	}
+      	.blog_card_container .blog_card::after {
+      		background-color: #0e5c5e;
+      		color: #FFFFFF;
+      	}
+      	.longdescription .content {
+      		background-color: #36393f;
+      		border-radius: 25px;
+      	}
     </style>
+  	<script>
+    	let changeInvite = document.getElementsByClassName("votebutton");
+      	for (let i = 0; i < changeInvite.length; i++) {if (changeInvite[i].innerHTML == "Invite"){changeInvite[i].innerHTML = "Invite Atlantis!";}}
+    </script>
 </head>
 <body>
-    <h3>This bot was made for the OwO bot community Atlantis. Join here!</h3>
-    <a href="https://discord.gg/Rp9Gzmh"><img src="https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2" alt="Atlantis Discord Server Join"></a>
-    <h3>Want to help me out? Donate to me on Ko-fi</h3>
-    <a href="https://ko-fi.com/B0B21I7HA"><img src="https://www.ko-fi.com/img/githubbutton_sm.svg" alt="Donate to me on ko-fi"></a>
-    <h2 style="color: #9E0000;">A requirement for Atlantis bot is to have OwO bot in your server as Atlantis is made for it</h2>
-    <a href="https://top.gg/bot/owo">Click here to add OwO bot to your Discord Server</a>
-    <hr>
-    <h2>Main Commands</h2>
-    <h4>The <code>hunt</code>, <code>praycurse</code> and <code>huntbot</code> commands are enabled by default</h4>
-    <p><b>hunt</b> ~ Toggles the reminder for owo hunt</p>
-    <p><b>battle</b> ~ Toggles the reminder for owo battle</p>
-    <p><b>praycurse</b> ~ Toggles the reminder for owo pray & owo curse</p>
-    <p><b>huntbot</b> ~ Toggles the reminder for owo huntbot</p>
-    <p><b>show</b> ~ Shows what is enabled/disabled</p>
+    <h1>Atlantis Discord Bot</h1><hr>
+  	<h3>Atlantis is a Discord Bot made for the <a href="https://top.gg/bot/owo">OwO Discord Bot</a> community Atlantis</h3>
+  	<h2>Join Atlantis Discord Server</h2>
+  	<a href="https://discord.gg/FCUZeGb"><img src="https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2"></a><br>
+  	<a href="https://ko-fi.com/B0B21I7HA"><img src="https://www.ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi"></a>
+  	<!-- <h1>Invite Atlantis to your server!</h1> -->
+  	<h1>How do I use Atlantis?</h1><hr>
+  	<p>By adding Atlantis to your server it is enabled automatically. All you need to do is use the OwO bot and you'll get reminded of when the cooldowns expire.</p>
+  	<img src="https://i.imgur.com/mLepryJ.png">
+  	<h2>Want to disable the reminder for a command?</h2>
+  	<p>You can do just that. By running the help command <code>a!help</code> you can see all the commands in the bot.</p>
+  	<ul><li>If you are a admin of the server you will have extra commands to be able to control other features the bot has to offer!</li></ul>
+  	<h1>Full Command List</h1><hr>
+  	<img src="https://i.imgur.com/eoDWf8I.png">
+  	<h1>Issues / Suggestions / New Features</h1><hr>
+  	<h3>As far as this goes if you find an issue/bug with Atlantis or have a new suggestion to be made rather DM me (<code>da strange boi#7087</code>) or join <a href="https://discord.gg/FCUZeGb">Atlantis</a> and contact me through there</h3>
 </body>
