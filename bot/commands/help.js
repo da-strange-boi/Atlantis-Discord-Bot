@@ -33,6 +33,7 @@ exports.run = async (bot) => {
     // User Command
     addCMD(helpUserEmbed, "hunt", "Toggles the reminder for \`owo hunt\`")
     addCMD(helpUserEmbed, "battle", "Toggles the reminder for \`owo battle\`")
+    addCMD(helpUserEmbed, "owo", "Toggles the reminder for \`owo\`")
     addCMD(helpUserEmbed, "praycurse", "Toggles the reminder for \`owo pray\` & \`owo curse\`")
     addCMD(helpUserEmbed, "huntbot", "Toggles the reminder for \`owo huntbot\`")
     addCMD(helpUserEmbed, "show", "Shows what is enabled/disabled")

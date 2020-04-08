@@ -3,6 +3,7 @@ const _ = require("lodash")
 const huntCoolDown = 15000
 const battleCoolDown = 15000
 const praycurseCoolDown = 300000
+const owoCoolDown = 10000
 
 let userTimeouts = {}
 
@@ -111,6 +112,31 @@ exports.run = async (bot, message) => {
             userTimeouts[message.author.id].praycurse = false
             bot.createMessage(message.channel.id, `<@${message.author.id}>, \`${whichOne}\` cooldown has passed! :trident:`)
           }, praycurseCoolDown)
+        }
+      }
+    })
+  }
+  // Reminder for owo/uwu
+  if (messageContent == "owo" || messageContent == "uwu") {
+    bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+      if (err) bot.log("error", err)
+
+      if (userdata) {
+        if (userdata.owo) {
+          if (!_.has(userTimeouts, message.author.id)) {
+            userTimeouts[message.author.id] = {}
+          }
+          if (_.has(userTimeouts[message.author.id], "owo")) {
+            if (userTimeouts[message.author.id].owo) return
+          }
+          userTimeouts[message.author.id].owo = true
+
+          setTimeout(() => {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`owo\` cooldown has passed! :trident:`).then(sentMessage => {
+              userTimeouts[message.author.id].owo = false
+              setTimeout(() => {sentMessage.delete(`Deleted owo reminder for ${message.author.tag}`)}, 3000)
+            })
+          }, owoCoolDown)
         }
       }
     })

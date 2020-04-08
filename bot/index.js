@@ -49,7 +49,7 @@ bot.color = {
   green: 0x00FF00,
   red: 0xFF0000
 }
-bot.admin = "295255543596187650"
+bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
 
 bot.checkUserAndGuild = async (message) => {
   await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
@@ -59,9 +59,15 @@ bot.checkUserAndGuild = async (message) => {
         userID: message.author.id,
         hunt: true,
         battle: false,
+        owo: false,
         praycurse: true,
         huntbot: true
       })
+    }
+    if (userdata) {
+      if (!userdata.owo) {
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"owo":false}})
+      }
     }
   })
   await bot.database.Guilddata.findOne({ guildID: message.member.guild.id }, async (err, guilddata) => {

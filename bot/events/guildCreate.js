@@ -8,6 +8,7 @@ exports.run = async (bot, guild) => {
             userID: member.id,
             hunt: true,
             battle: false,
+            owo: false,
             praycurse: true,
             huntbot: true
           })
