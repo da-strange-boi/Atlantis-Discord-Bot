@@ -13,7 +13,6 @@ exports.run = async (bot) => {
         }
 
         bot.guilds.forEach(guild => {
-          console.log('e')
           serversEmbed.embed.description += `\`${guild.name}\` | Members: \`${guild.members.filter(member => !member.bot).length}\`\n`
         })
 
