@@ -1,3 +1,6 @@
+// Hey maxi im watching you 👀
+const _ = require("lodash")
+const memoryOfAddedUsers = {}
 exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) => {
   if (!bot || !huntbotTimeout) bot.log("error", 'addUserHB does not have all the data needed to run!')
 
@@ -14,7 +17,19 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
       userID: huntbotUser.id,
       timeout: huntbotTimeout
     })
+
+    if (!_.has(memoryOfAddedUsers, message.author.id)) {
+      memoryOfAddedUsers[message.author.id] = {}
+    }
+    if (_.has(memoryOfAddedUsers[message.author.id], "hb")) {
+      if (memoryOfAddedUsers[message.author.id].hb) return
+    }
+    memoryOfAddedUsers[message.author.id].hb = true
+
   }
+
+  // make sure when the bot starts up it doesn't remind twice
+  if (memoryOfAddedUsers[message.author.id].hb) return
 
   let timeoutTime = huntbotTimeout - Date.now()
   setTimeout(() => {
@@ -39,5 +54,6 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     bot.getDMChannel(huntbotUser.id).then(dmChannel => {
       dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
     })
+    memoryOfAddedUsers[message.author.id].hb = false
   }, timeoutTime)
 }

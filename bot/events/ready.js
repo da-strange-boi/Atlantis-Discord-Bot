@@ -1,13 +1,18 @@
+// Hey maxi im watching you 👀
 const addHBTimes = require("../handlers/addHBTimes")
 exports.run = async (bot) => {
   bot.log("botOnline")
-  bot.editStatus("online", {
-    name: `Join Atlantis here: https://discord.gg/RPHFFpK`,
-    type: 0
-  })
+
+  setTimeout(() => {
+    bot.database.Guilddata.find({}).toArray((err, guilddata) => {
+      bot.editStatus("online", {
+        name: `Reminding ${guilddata.length} users | a!help`,
+        type: 0
+      })
+    })
+  }, 4000)
 
   // get mute user data
-
   setTimeout(() => {
     bot.database.HuntBot.find({}).toArray(async(err, huntbot) => {
       if (err) bot.log("error", err)

@@ -1,3 +1,4 @@
+// Hey maxi im watching you 👀
 const _ = require("lodash")
 exports.run = async (bot) => {
   bot.registerCommand("owochannel", async (message, args) => {
@@ -12,9 +13,25 @@ exports.run = async (bot) => {
             title: "OwO Channel Help",
             color: bot.getEmbedColor(bot, message),
             description: "***owochannel*** will delete all messages expect `owo` in a given channel\n\n__**add**__ ~ Add a channel to the category\nexample: `a!owochannel add #channel`\n\n__**delete**__ ~ Deletes a channel from the category\nexample: `a!owochannel delete #channel`",
+            fields: [
+
+            ],
             timestamp: new Date()
           }
         }
+
+        if (guilddata.owoChannel.length != 0) {
+          let dChannels = ""
+          guilddata.owoChannel.forEach(channelID => {
+            if (message.member.guild.channels.find(channel => channel.id == channelID)) {
+              dChannels += `<#${channelID}> `
+            } else {
+              bot.checkAndUpdateCategories(message, "owoChannel", channelID)
+            }
+          })
+          helpEmbed.embed.fields.push({name: "OwO Channel", value: dChannels})
+        }
+
         bot.createMessage(message.channel.id, helpEmbed)
       }
 

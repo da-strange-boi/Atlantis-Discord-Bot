@@ -1,10 +1,13 @@
+// Hey maxi im watching you 👀
 /** @type {import("eris")} */
 const Eris = require("eris")
 const fs = require("fs")
+const _ = require("lodash")
 require("dotenv").config({path:".env"})
 const bot = new Eris.CommandClient(process.env.TOKEN, {
   disableEveryone: true,
   defaultImageFormat: "png",
+  restMode: true,
   disableEvents: {
     CHANNEL_DELETE: true,
     CHANNEL_UPDATE: true,
@@ -51,6 +54,30 @@ bot.color = {
 }
 bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
 
+/** @typedef {function} checkPermission
+ * Checks the permission of the user within the bot
+ * @param {Eris.message} message Eris message class
+ * @param {String} typeOfPermission "botAdmin" | "botOwner"
+ * @returns {Boolean} If true it has that permission
+ */
+bot.checkPermission = async (message, typeOfPermission) => {
+  let hasPermission
+  switch (typeOfPermission) {
+    case "botAdmin": bot.admins.includes(message.author.id) ? hasPermission = true : hasPermission = false; break
+    case "botOwner": message.author.id == "295255543596187650" ? hasPermission = true : hasPermission = false; break
+    default: return new TypeError("Invalid 'typeOfPermission' type")
+  }
+  return hasPermission
+}
+
+bot.checkAndUpdateCategories = (msg, category, channelID, guilddata) => {
+  let updatedList = guilddata[category]
+  _.remove(updatedList, function(n) {
+    return n == channelID
+  })
+  return bot.database.Guilddata.findOneAndUpdate({ guildID: msg.member.guild.id }, {$set: {[category]:updatedList}})
+}
+
 bot.checkUserAndGuild = async (message) => {
   await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log("error", err)
@@ -85,6 +112,9 @@ bot.checkUserAndGuild = async (message) => {
 }
 
 /** @typedef {function} getEmbedColor
+ * Gets the embed color depending on the bots roles
+ * @param {Eris.CommandClient} bot The Eris Client
+ * @param {Eris.message} message The Eris Message Class
  * @returns {number} base 10 of color
 */
 bot.getEmbedColor = (bot, message) => {

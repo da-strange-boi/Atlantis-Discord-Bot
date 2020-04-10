@@ -1,7 +1,8 @@
+// Hey maxi im watching you 👀
 const { inspect } = require("util")
 exports.run = async (bot) => {
   bot.registerCommand("eval", async (message, args) => {
-    if (message.author.id == "295255543596187650") {
+    if (bot.checkPermission(message, "botOwner")) {
       const toEval = args.join(" ")
       try {
         const evaluated = inspect(eval(toEval, { depth: 0 }))

@@ -1,5 +1,5 @@
+// Hey maxi im watching you 👀
 const fs = require("fs")
-
 exports.run = (bot) => {
   let path = require("path").join(__dirname, "../")
   fs.readdirSync(path).forEach(file => {

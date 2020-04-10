@@ -1,3 +1,4 @@
+// Hey maxi im watching you 👀
 const chalk = require('chalk')
 const version = require("../../package.json")
 

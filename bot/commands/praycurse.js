@@ -1,3 +1,4 @@
+// Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("praycurse", async (message, args) => {
     await bot.checkUserAndGuild(message)

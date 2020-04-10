@@ -1,6 +1,7 @@
+// Hey maxi im watching you 👀
 const _ = require("lodash")
 exports.run = async (bot) => {
-  bot.registerCommand("deleteusermessages", async (message, args) => {
+  bot.registerCommand("delbot", async (message, args) => {
     await bot.checkUserAndGuild(message)
 
     bot.database.Guilddata.findOne({ guildID: message.member.guild.id }, async (err, guilddata) => {
@@ -9,12 +10,28 @@ exports.run = async (bot) => {
       if (!args[0]) {
         const helpEmbed = {
           embed: {
-            title: "Delete User Messages Help",
+            title: "Delete Bot Messages Help",
             color: bot.getEmbedColor(bot, message),
-            description: "***deleteusermessages*** will delete all user messages in a given channel\n\n__**add**__ ~ Add a channel to the category\nexample: `a!deleteusermessages add #channel`\n\n__**delete**__ ~ Deletes a channel from the category\nexample: `a!deleteusermessages delete #channel`",
+            description: "***delbot*** will delete all bot messages in a given channel\n\n__**add**__ ~ Add a channel to the list\nexample: `a!delbot add #channel`\n\n__**delete**__ ~ Deletes a channel from the list\nexample: `a!delbot delete #channel`",
+            fields: [
+
+            ],
             timestamp: new Date()
           }
         }
+
+        if (guilddata.deleteBotMessagesChannels.length != 0) {
+          let dChannels = ""
+          guilddata.deleteBotMessagesChannels.forEach(channelID => {
+            if (message.member.guild.channels.find(channel => channel.id == channelID)) {
+              dChannels += `<#${channelID}> `
+            } else {
+              bot.checkAndUpdateCategories(message, "deleteBotMessagesChannels", channelID)
+            }
+          })
+          helpEmbed.embed.fields.push({name: "Delete Bot Messages Channels", value: dChannels})
+        }
+
         bot.createMessage(message.channel.id, helpEmbed)
       }
 
@@ -35,18 +52,18 @@ exports.run = async (bot) => {
         if (args[0] == "add") {
           
           if (!args[1] || !message.channelMentions[0]) return bot.createMessage(message.channel.id, inputError("Please include the channel mention"))
-          if (guilddata.deleteUserMessagesChannels.includes(message.channelMentions[0])) return bot.createMessage(message.channel.id, inputError("That channel is already in the list"))
+          if (guilddata.deleteBotMessagesChannels.includes(message.channelMentions[0])) return bot.createMessage(message.channel.id, inputError("That channel is already in the list"))
 
 
-          let updatedList = guilddata.deleteUserMessagesChannels
+          let updatedList = guilddata.deleteBotMessagesChannels
           updatedList.push(message.channelMentions[0])
-          bot.database.Guilddata.findOneAndUpdate({ guildID: message.member.guild.id }, {$set: {"deleteUserMessagesChannels":updatedList}})
+          bot.database.Guilddata.findOneAndUpdate({ guildID: message.member.guild.id }, {$set: {"deleteBotMessagesChannels":updatedList}})
 
           const messageEmbed = {
             embed: {
               title: "Success!",
               color: bot.color.green,
-              description: `User messages will be deleted in ${args[1]}`,
+              description: `Bot messages will be deleted in ${args[1]}`,
               timestamp: new Date()
             }
           }
@@ -55,19 +72,19 @@ exports.run = async (bot) => {
         }
         if (args[0] == "delete") {
           if (!args[1] || !message.channelMentions[0]) return bot.createMessage(message.channel.id, inputError("Please include the channel mention"))
-          if (!guilddata.deleteUserMessagesChannels.includes(message.channelMentions[0])) return bot.createMessage(message.channel.id, inputError("That channel is not in the list"))
+          if (!guilddata.deleteBotMessagesChannels.includes(message.channelMentions[0])) return bot.createMessage(message.channel.id, inputError("That channel is not in the list"))
 
-          let updatedList = guilddata.deleteUserMessagesChannels
+          let updatedList = guilddata.deleteBotMessagesChannels
           _.remove(updatedList, function(n) {
             return n == message.channelMentions[0]
           })
-          bot.database.Guilddata.findOneAndUpdate({ guildID: message.member.guild.id }, {$set: {"deleteUserMessagesChannels":updatedList}})
+          bot.database.Guilddata.findOneAndUpdate({ guildID: message.member.guild.id }, {$set: {"deleteBotMessagesChannels":updatedList}})
 
           const messageEmbed = {
             embed: {
               title: "Success!",
               color: bot.color.green,
-              description: `User messages will no longer be deleted in ${args[1]}`,
+              description: `Bot messages will no longer be deleted in ${args[1]}`,
               timestamp: new Date()
             }
           }
