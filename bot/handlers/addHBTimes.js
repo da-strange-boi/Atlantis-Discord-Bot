@@ -30,6 +30,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
 
   // make sure when the bot starts up it doesn't remind twice
   if (memoryOfAddedUsers[message.author.id].hb) return
+  if (!huntbotUser) return
 
   let timeoutTime = huntbotTimeout - Date.now()
   setTimeout(() => {
