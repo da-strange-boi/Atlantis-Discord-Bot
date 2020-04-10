@@ -24,7 +24,18 @@ exports.run = async (bot, guild, member) => {
             battle: false,
             owo: false,
             praycurse: true,
-            huntbot: true
+            huntbot: true,
+            stats: {
+              owoCount: 0,
+              huntCount: 0,
+              battleCount: 0,
+              praycurseCount: 0,
+              completedHuntbots: 0,
+              totalHuntbotTime: 0,
+              dailyOwoCount: 0,
+              dailyHuntCount: 0,
+              dailyPraycurseCount: 0,
+            }
           })
         }
       })

@@ -58,6 +58,7 @@ exports.run = async (bot, message) => {
       if (userdata) {
         await bot.checkUserAndGuild(message)
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.huntCount":userdata.stats.huntCount+1}})
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyHuntCount":userdata.stats.dailyHuntCount+1}})
 
         if (userdata.hunt) {
           if (!_.has(userTimeouts, message.author.id)) {
@@ -86,6 +87,7 @@ exports.run = async (bot, message) => {
       if (userdata) {
         await bot.checkUserAndGuild(message)
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.battleCount":userdata.stats.battleCount+1}})
+        
         if (userdata.battle) {
           if (!_.has(userTimeouts, message.author.id)) {
             userTimeouts[message.author.id] = {}
@@ -113,6 +115,7 @@ exports.run = async (bot, message) => {
       if (userdata) {
         await bot.checkUserAndGuild(message)
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.praycurseCount":userdata.stats.praycurseCount+1}})
+
         if (userdata.praycurse) {
           if (!_.has(userTimeouts, message.author.id)) {
             userTimeouts[message.author.id] = {}
@@ -140,6 +143,8 @@ exports.run = async (bot, message) => {
       if (userdata) {
         await bot.checkUserAndGuild(message)
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.owoCount":userdata.stats.owoCount+1}})
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyOwoCount":userdata.stats.dailyOwoCount+1}})
+
         if (userdata.owo) {
           if (!_.has(userTimeouts, message.author.id)) {
             userTimeouts[message.author.id] = {}

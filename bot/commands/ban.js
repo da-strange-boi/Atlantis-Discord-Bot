@@ -31,6 +31,16 @@ exports.run = async (bot) => {
         
         await message.member.guild.banMember(userIDToBan, daysToDeleteTheirMessages, banReason)
         await bot.createMessage(message.channel.id, banEmbed)
+      } else {
+        const errorEmbed = {
+          embed: {
+            title: "Incorrect Format",
+            description: "See `a!help ban`",
+            color: bot.getEmbedColor(bot, message),
+            timestamp: new Date()
+          }
+        }
+        bot.createMessage(message.channel.id, errorEmbed)
       }
     }
   })
