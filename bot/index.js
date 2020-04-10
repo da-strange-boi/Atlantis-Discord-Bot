@@ -53,6 +53,7 @@ bot.color = {
   red: 0xFF0000
 }
 bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
+bot.botBannedUsers = ["577893510041042974", "264213981231579147 "]
 
 /** @typedef {function} checkPermission
  * Checks the permission of the user within the bot
@@ -79,6 +80,7 @@ bot.checkAndUpdateCategories = (msg, category, channelID, guilddata) => {
 }
 
 bot.checkUserAndGuild = async (message) => {
+  if (message.author.bot) return
   await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log("error", err)
     if (!userdata) {
@@ -88,12 +90,23 @@ bot.checkUserAndGuild = async (message) => {
         battle: false,
         owo: false,
         praycurse: true,
-        huntbot: true
+        huntbot: true,
+        stats: {
+          owoCount: 0,
+          huntCount: 0,
+          battleCount: 0,
+          praycurseCount: 0,
+          completedHuntbots: 0,
+          totalHuntbotTime: 0
+        }
       })
     }
     if (userdata) {
       if (!userdata.owo) {
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"owo":false}})
+      }
+      if (!userdata.stats) {
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats":{owoCount: 0,huntCount: 0,battleCount: 0,praycurseCount: 0,completedHuntbots: 0,totalHuntbotTime: 0}}})
       }
     }
   })

@@ -1,5 +1,6 @@
 // Hey maxi im watching you 👀
 const ms = require("parse-ms")
+const package = require("../../package.json")
 exports.run = async (bot) => {
   bot.registerCommand("status", async (message, args) => {
     bot.database.Userdata.find({}).toArray((err, docs) => {
@@ -28,7 +29,12 @@ exports.run = async (bot) => {
               {
                 name: "Uptime",
                 value: `\`${uptime.days} days, ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s\``,
-                inline: false
+                inline: true
+              },
+              {
+                name: "Version",
+                value: `\`${package.version}\``,
+                inline: true
               }
             ],
             timestamp: new Date()

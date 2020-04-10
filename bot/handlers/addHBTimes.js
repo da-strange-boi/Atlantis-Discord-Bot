@@ -32,28 +32,35 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
   if (!huntbotUser) return
 
   let timeoutTime = huntbotTimeout - Date.now()
-  setTimeout(() => {
+  bot.database.Userdata.findOne({userID: huntbotUser.id}, async (err, userdata) => {
+    if (err) bot.log("error", err)
 
-    // delete the mute timeout from the file
-    bot.database.HuntBot.findOne({userID: huntbotUser.id}, (err, userHuntbot) => {
-      if (err) bot.log("error", err)
+    await bot.database.Userdata.findOneAndUpdate({ userID: huntbotUser.id }, {$set: {"stats.totalHuntbotTime":userdata.stats.totalHuntbotTime+timeoutTime}})
 
-      if (huntbotUser.id == userHuntbot.userID) {
-        bot.database.HuntBot.deleteOne({ userID: huntbotUser.id })
+    setTimeout(async() => {
+
+      // delete the mute timeout from the file
+      bot.database.HuntBot.findOne({userID: huntbotUser.id}, async (err, userHuntbot) => {
+        if (err) bot.log("error", err)
+
+        if (huntbotUser.id == userHuntbot.userID) {
+          bot.database.HuntBot.deleteOne({ userID: huntbotUser.id })
+          await bot.database.Userdata.findOneAndUpdate({ userID: huntbotUser.id }, {$set: {"stats.completedHuntbots":userdata.stats.completedHuntbots+1}})
+        }
+      })
+
+      // Send them the message
+      let displayTime
+      if (timeString) {
+        displayTime = `\n<:blank:689966696244838459> **|** Took \`${timeString}\` to finish`
+      } else {
+        displayTime = ""
       }
-    })
-
-    // Send them the message
-    let displayTime
-    if (timeString) {
-      displayTime = `\n<:blank:689966696244838459> **|** Took \`${timeString}\` to finish`
-    } else {
-      displayTime = ""
-    }
-    //huntbotUser
-    bot.getDMChannel(huntbotUser.id).then(dmChannel => {
-      dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
-    })
-    memoryOfAddedUsers[huntbotUser.id].hb = false
-  }, timeoutTime)
+      //huntbotUser
+      bot.getDMChannel(huntbotUser.id).then(dmChannel => {
+        dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
+      })
+      memoryOfAddedUsers[huntbotUser.id].hb = false
+    }, timeoutTime)
+  })
 }
