@@ -17,19 +17,18 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
       userID: huntbotUser.id,
       timeout: huntbotTimeout
     })
-
-    if (!_.has(memoryOfAddedUsers, message.author.id)) {
-      memoryOfAddedUsers[message.author.id] = {}
-    }
-    if (_.has(memoryOfAddedUsers[message.author.id], "hb")) {
-      if (memoryOfAddedUsers[message.author.id].hb) return
-    }
-    memoryOfAddedUsers[message.author.id].hb = true
-
   }
 
+  if (!_.has(memoryOfAddedUsers, huntbotUser.id)) {
+    memoryOfAddedUsers[huntbotUser.id] = {}
+  }
+  if (_.has(memoryOfAddedUsers[huntbotUser.id], "hb")) {
+    if (memoryOfAddedUsers[huntbotUser.id].hb) return
+  }
+  memoryOfAddedUsers[huntbotUser.id].hb = true
+
   // make sure when the bot starts up it doesn't remind twice
-  if (memoryOfAddedUsers[message.author.id].hb) return
+  if (memoryOfAddedUsers[huntbotUser.id].hb) return
   if (!huntbotUser) return
 
   let timeoutTime = huntbotTimeout - Date.now()
@@ -55,6 +54,6 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     bot.getDMChannel(huntbotUser.id).then(dmChannel => {
       dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
     })
-    memoryOfAddedUsers[message.author.id].hb = false
+    memoryOfAddedUsers[huntbotUser.id].hb = false
   }, timeoutTime)
 }

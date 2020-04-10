@@ -4,9 +4,10 @@ exports.run = async (bot) => {
   bot.log("botOnline")
 
   setTimeout(() => {
-    bot.database.Guilddata.find({}).toArray((err, guilddata) => {
+    bot.database.Userdata.find({}).toArray((err, userdata) => {
+      if (err) bot.log("error", err)
       bot.editStatus("online", {
-        name: `Reminding ${guilddata.length} users | a!help`,
+        name: `Reminding ${userdata.length} users | a!help`,
         type: 0
       })
     })
