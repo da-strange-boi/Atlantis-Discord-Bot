@@ -6,6 +6,8 @@
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B21I7HA)
 
+(Will also take nitro as donation)
+
 # Bot Lists
 [![Atlantis's Widget](https://api.botlist.space/widget/688911718788628496/6?rounded=true&background=017a97&shadows=true "Atlantis's Widget")](https://botlist.space/bot/688911718788628496?utm_source=bls&utm_medium=widget&utm_campaign=688911718788628496)
 

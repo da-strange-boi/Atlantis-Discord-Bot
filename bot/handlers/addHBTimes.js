@@ -11,7 +11,8 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     huntbotUser =  await bot.users.get(userID)
   }
   
-  bot.database.Userdata.findOne({userID: huntbotUser.id}, async (err, userdata) => {
+  if (!huntbotUser) return
+  await bot.database.Userdata.findOne({userID: huntbotUser.id}, async (err, userdata) => {
     if (err) bot.log("error", err)
 
     // add times to muteTimes.json to save just in case
@@ -34,7 +35,6 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
 
     // make sure when the bot starts up it doesn't remind twice
     if (!memoryOfAddedUsers[huntbotUser.id].hb) return
-    if (!huntbotUser) return
 
     setTimeout(async() => {
 
