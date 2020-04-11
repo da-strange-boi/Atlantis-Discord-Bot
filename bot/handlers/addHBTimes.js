@@ -4,39 +4,38 @@ const memoryOfAddedUsers = {}
 exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) => {
   if (!bot || !huntbotTimeout) bot.log("error", 'addUserHB does not have all the data needed to run!')
 
-  let huntbotUser
-  if (userObj) {
-    huntbotUser = userObj
-  } else {
-    huntbotUser =  await bot.users.get(userID)
-  }
-
-  // add times to muteTimes.json to save just in case
-  if (makeNew) {
-    bot.database.HuntBot.insertOne({
-      userID: huntbotUser.id,
-      timeout: huntbotTimeout
-    })
-  }
-
-  if (!_.has(memoryOfAddedUsers, huntbotUser.id)) {
-    memoryOfAddedUsers[huntbotUser.id] = {}
-  }
-  if (_.has(memoryOfAddedUsers[huntbotUser.id], "hb")) {
-    if (memoryOfAddedUsers[huntbotUser.id].hb) return
-  }
-  memoryOfAddedUsers[huntbotUser.id].hb = true
-
-  // make sure when the bot starts up it doesn't remind twice
-  if (!memoryOfAddedUsers[huntbotUser.id].hb) return
-  if (!huntbotUser) return
-
-  let timeoutTime = huntbotTimeout - Date.now()
   bot.database.Userdata.findOne({userID: huntbotUser.id}, async (err, userdata) => {
     if (err) bot.log("error", err)
 
-    await bot.database.Userdata.findOneAndUpdate({ userID: huntbotUser.id }, {$set: {"stats.totalHuntbotTime":userdata.stats.totalHuntbotTime+timeoutTime}})
+    let huntbotUser
+    if (userObj) {
+      huntbotUser = userObj
+    } else {
+      huntbotUser =  await bot.users.get(userID)
+    }
 
+    // add times to muteTimes.json to save just in case
+    if (makeNew) {
+      bot.database.HuntBot.insertOne({
+        userID: huntbotUser.id,
+        timeout: huntbotTimeout
+      })
+      await bot.database.Userdata.findOneAndUpdate({ userID: huntbotUser.id }, {$set: {"stats.totalHuntbotTime":userdata.stats.totalHuntbotTime+timeoutTime}})
+    }
+
+    if (!_.has(memoryOfAddedUsers, huntbotUser.id)) {
+      memoryOfAddedUsers[huntbotUser.id] = {}
+    }
+    if (_.has(memoryOfAddedUsers[huntbotUser.id], "hb")) {
+      if (memoryOfAddedUsers[huntbotUser.id].hb) return
+    }
+    memoryOfAddedUsers[huntbotUser.id].hb = true
+
+    // make sure when the bot starts up it doesn't remind twice
+    if (!memoryOfAddedUsers[huntbotUser.id].hb) return
+    if (!huntbotUser) return
+
+    let timeoutTime = huntbotTimeout - Date.now()
     setTimeout(async() => {
 
       // delete the mute timeout from the file
