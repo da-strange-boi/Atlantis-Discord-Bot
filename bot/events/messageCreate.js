@@ -57,25 +57,26 @@ exports.run = async (bot, message) => {
 
       if (userdata) {
         await bot.checkUserAndGuild(message)
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.huntCount":userdata.stats.huntCount+1}})
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyHuntCount":userdata.stats.dailyHuntCount+1}})
+        
+        if (!_.has(userTimeouts, message.author.id)) {
+          userTimeouts[message.author.id] = {}
+        }
+        if (_.has(userTimeouts[message.author.id], "hunt")) {
+          if (userTimeouts[message.author.id].hunt) return
+        }
+        userTimeouts[message.author.id].hunt = true
 
-        if (userdata.hunt) {
-          if (!_.has(userTimeouts, message.author.id)) {
-            userTimeouts[message.author.id] = {}
-          }
-          if (_.has(userTimeouts[message.author.id], "hunt")) {
-            if (userTimeouts[message.author.id].hunt) return
-          }
-          userTimeouts[message.author.id].hunt = true
+        setTimeout(async() => {
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.huntCount":userdata.stats.huntCount+1}})
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyHuntCount":userdata.stats.dailyHuntCount+1}})
+          userTimeouts[message.author.id].hunt = false
 
-          setTimeout(() => {
+          if (userdata.hunt) {
             bot.createMessage(message.channel.id, `<@${message.author.id}>, \`hunt\` cooldown has passed! :bow_and_arrow:`).then(sentMessage => {
-              userTimeouts[message.author.id].hunt = false
               setTimeout(() => {sentMessage.delete(`Deleted hunt reminder for ${message.author.tag}`)}, 5000)
             })
-          }, huntCoolDown)
-        }
+          }
+        }, huntCoolDown)
       }
     })
   }
@@ -86,24 +87,25 @@ exports.run = async (bot, message) => {
 
       if (userdata) {
         await bot.checkUserAndGuild(message)
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.battleCount":userdata.stats.battleCount+1}})
         
-        if (userdata.battle) {
-          if (!_.has(userTimeouts, message.author.id)) {
-            userTimeouts[message.author.id] = {}
-          }
-          if (_.has(userTimeouts[message.author.id], "battle")) {
-            if (userTimeouts[message.author.id].battle) return
-          }
-          userTimeouts[message.author.id].battle = true
+        if (!_.has(userTimeouts, message.author.id)) {
+          userTimeouts[message.author.id] = {}
+        }
+        if (_.has(userTimeouts[message.author.id], "battle")) {
+          if (userTimeouts[message.author.id].battle) return
+        }
+        userTimeouts[message.author.id].battle = true
 
-          setTimeout(() => {
+        setTimeout(async() => {
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.battleCount":userdata.stats.battleCount+1}})
+          userTimeouts[message.author.id].battle = false
+
+          if (userdata.battle) {
             bot.createMessage(message.channel.id, `<@${message.author.id}>, \`battle\` cooldown has passed! :crossed_swords:`).then(sentMessage => {
-              userTimeouts[message.author.id].battle = false
               setTimeout(() => {sentMessage.delete(`Deleted battle reminder for ${message.author.tag}` )}, 5000)
             })
-          }, battleCoolDown)
-        }
+          }
+        }, battleCoolDown)
       }
     })
   }
@@ -114,25 +116,26 @@ exports.run = async (bot, message) => {
 
       if (userdata) {
         await bot.checkUserAndGuild(message)
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.praycurseCount":userdata.stats.praycurseCount+1}})
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyPraycurseCount":userdata.stats.dailyPraycurseCount+1}})
 
-        if (userdata.praycurse) {
-          if (!_.has(userTimeouts, message.author.id)) {
-            userTimeouts[message.author.id] = {}
-          }
-          if (_.has(userTimeouts[message.author.id], "praycurse")) {
-            if (userTimeouts[message.author.id].praycurse) return
-          }
-          userTimeouts[message.author.id].praycurse = true
-
-          let whichText = messageContent.startsWith("owopray") ? "pray" : "curse"
-          let whichEmoji = messageContent.startsWith("owopray") ? "<:epray:698234994967052348>" : "<:curse:698235155482935387> "
-          setTimeout(() => {
-            userTimeouts[message.author.id].praycurse = false
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`)
-          }, praycurseCoolDown)
+        if (!_.has(userTimeouts, message.author.id)) {
+          userTimeouts[message.author.id] = {}
         }
+        if (_.has(userTimeouts[message.author.id], "praycurse")) {
+          if (userTimeouts[message.author.id].praycurse) return
+        }
+        userTimeouts[message.author.id].praycurse = true
+
+        let whichText = messageContent.startsWith("owopray") ? "pray" : "curse"
+        let whichEmoji = messageContent.startsWith("owopray") ? "<:epray:698234994967052348>" : "<:curse:698235155482935387> "
+        setTimeout(async() => {
+          userTimeouts[message.author.id].praycurse = false
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.praycurseCount":userdata.stats.praycurseCount+1}})
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyPraycurseCount":userdata.stats.dailyPraycurseCount+1}})
+          
+          if (userdata.praycurse) {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`)
+          }
+        }, praycurseCoolDown)
       }
     })
   }
@@ -143,25 +146,26 @@ exports.run = async (bot, message) => {
 
       if (userdata) {
         await bot.checkUserAndGuild(message)
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.owoCount":userdata.stats.owoCount+1}})
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyOwoCount":userdata.stats.dailyOwoCount+1}})
+        
+        if (!_.has(userTimeouts, message.author.id)) {
+          userTimeouts[message.author.id] = {}
+        }
+        if (_.has(userTimeouts[message.author.id], "owo")) {
+          if (userTimeouts[message.author.id].owo) return
+        }
+        userTimeouts[message.author.id].owo = true
 
-        if (userdata.owo) {
-          if (!_.has(userTimeouts, message.author.id)) {
-            userTimeouts[message.author.id] = {}
-          }
-          if (_.has(userTimeouts[message.author.id], "owo")) {
-            if (userTimeouts[message.author.id].owo) return
-          }
-          userTimeouts[message.author.id].owo = true
+        setTimeout(async() => {
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.owoCount":userdata.stats.owoCount+1}})
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyOwoCount":userdata.stats.dailyOwoCount+1}})
+          userTimeouts[message.author.id].owo = false
 
-          setTimeout(() => {
+          if (userdata.owo) {
             bot.createMessage(message.channel.id, `<@${message.author.id}>, \`owo\` cooldown has passed! <:owo:698235134964531272>`).then(sentMessage => {
-              userTimeouts[message.author.id].owo = false
               setTimeout(() => {sentMessage.delete(`Deleted owo reminder for ${message.author.tag}`)}, 3000)
             })
-          }, owoCoolDown)
-        }
+          }
+        }, owoCoolDown)
       }
     })
   }
