@@ -1,5 +1,6 @@
 const Eris = require("eris")
 const CronJob = require('cron').CronJob
+const _ = require("lodash")
 module.exports = async (bot) => {
   /** @typedef {function} bot.checkPermission
    * Checks the permission of the user within the bot
