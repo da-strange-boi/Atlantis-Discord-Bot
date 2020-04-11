@@ -2,7 +2,18 @@
 const ms = require("parse-ms")
 exports.run = async (bot) => {
   bot.registerCommand("stats", async (message, args) => {
-    bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+
+    let userStats
+    if (!args[0]) {
+      userStats = message.author
+    } else if (message.mentions[0]) {
+      userStats = message.mentions[0]
+    } else {
+      userStats = message.author
+    }
+
+
+    bot.database.Userdata.findOne({ userID: userStats.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
       await bot.checkUserAndGuild(message)
 
@@ -11,8 +22,8 @@ exports.run = async (bot) => {
         const statsEmbed = {
           embed: {
             author: {
-              name: `${message.author.username}'s stats`,
-              icon_url: message.author.avatarURL
+              name: `${userStats.username}'s stats`,
+              icon_url: userStats.avatarURL
             },
             color: bot.getEmbedColor(bot, message),
             fields: [

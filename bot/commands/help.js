@@ -87,7 +87,7 @@ exports.run = async (bot) => {
         case "owochannel": commandDetailToSend = commandDetails("OwO Channel", "`a!owochannel add/delete <#channel mention>`", "Deletes all messages expect \"owo\"", "`a!owochannel add #owo`"); break
         case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
-        case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats`", "Show your OwO stats"); break
+        case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break
         default: commandDetailToSend = {embed:{title:"Error",color:bot.color.red,description:"You have to add specify a command name",timestamp: new Date()}}; break
       }
       bot.createMessage(message.channel.id, commandDetailToSend)
