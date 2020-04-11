@@ -15,6 +15,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     }
 
     // add times to muteTimes.json to save just in case
+    let timeoutTime = huntbotTimeout - Date.now()
     if (makeNew) {
       bot.database.HuntBot.insertOne({
         userID: huntbotUser.id,
@@ -35,7 +36,6 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     if (!memoryOfAddedUsers[huntbotUser.id].hb) return
     if (!huntbotUser) return
 
-    let timeoutTime = huntbotTimeout - Date.now()
     setTimeout(async() => {
 
       // delete the mute timeout from the file
