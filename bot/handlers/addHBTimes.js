@@ -4,15 +4,15 @@ const memoryOfAddedUsers = {}
 exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) => {
   if (!bot || !huntbotTimeout) bot.log("error", 'addUserHB does not have all the data needed to run!')
 
+  let huntbotUser
+  if (userObj) {
+    huntbotUser = userObj
+  } else {
+    huntbotUser =  await bot.users.get(userID)
+  }
+  
   bot.database.Userdata.findOne({userID: huntbotUser.id}, async (err, userdata) => {
     if (err) bot.log("error", err)
-
-    let huntbotUser
-    if (userObj) {
-      huntbotUser = userObj
-    } else {
-      huntbotUser =  await bot.users.get(userID)
-    }
 
     // add times to muteTimes.json to save just in case
     let timeoutTime = huntbotTimeout - Date.now()
