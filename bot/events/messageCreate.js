@@ -115,6 +115,7 @@ exports.run = async (bot, message) => {
       if (userdata) {
         await bot.checkUserAndGuild(message)
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.praycurseCount":userdata.stats.praycurseCount+1}})
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyPraycurseCount":userdata.stats.dailyPraycurseCount+1}})
 
         if (userdata.praycurse) {
           if (!_.has(userTimeouts, message.author.id)) {
