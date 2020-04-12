@@ -7,7 +7,17 @@ exports.run = async (bot) => {
       let amountOfOwO = 0
 
       const hrStart = process.hrtime()
-      const hrDiff = process.hrtime(hrStart)
+
+      // setup embed
+      const showEmbed = {
+        embed: {
+          title: "OwO check started",
+          description: "check started",
+          color: bot.getEmbedColor(bot, message),
+          timestamp: new Date()
+        }
+      }
+      const sentMessage = await bot.createMessage(message.channel.id, showEmbed)
 
       // decide how to get the user object
       let userToCheck
@@ -22,6 +32,9 @@ exports.run = async (bot) => {
         let channelCounter = 0
         await message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
+            showEmbed.embed.description = `Getting messages from: <#${channel.id}>`
+            await sentMessage.edit(showEmbed)
+
             while (true) {
               let second = await channel.getMessages(100, listOfMessages[listOfMessages.length-1] ? listOfMessages[listOfMessages.length-1].id : channel.lastMessageID)
               if (second.length == 0) break
@@ -44,6 +57,9 @@ exports.run = async (bot) => {
         let messageCounter = 0
         const owoInChannels = {}
         listOfMessages.forEach(async(messageInChannel) => {
+          showEmbed.embed.description = `Counting owo's in: <#${messageInChannel.channel.id}>`
+          await sentMessage.edit(showEmbed)
+
           if (messageInChannel.content == "owo" && messageInChannel.author.id == userToCheck.id) {
             if (!Object.keys(owoInChannels).includes(messageInChannel.channel.id)) owoInChannels[messageInChannel.channel.id] = 0
             amountOfOwO++
@@ -56,6 +72,7 @@ exports.run = async (bot) => {
               owoPerChannel += `<#${channelID}> - \`${owoInChannels[channelID]}\`\n`
             }
 
+            const hrDiff = process.hrtime(hrStart)
             const checkowoEmbed = {
               embed: {
                 author: {
@@ -79,7 +96,8 @@ exports.run = async (bot) => {
                 timestamp: new Date()
               }
             }
-            await bot.createMessage(message.channel.id, checkowoEmbed)
+            await sentMessage.edit(checkowoEmbed)
+            await bot.createMessage(message.channel.id, `<@${message.author.id}>`)
           }
         })
       })
