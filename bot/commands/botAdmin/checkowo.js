@@ -30,11 +30,11 @@ exports.run = async (bot) => {
       // get all messages in all channels and put them into `listOfMessages`
       const getAllChannelMessages = new Promise(async function(resolve, reject) {
         let channelCounter = 0
+        showEmbed.embed.description = "Getting messages from channels"
+        await sentMessage.edit(showEmbed)
+
         await message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
-            showEmbed.embed.description = `Getting messages from: <#${channel.id}>`
-            await sentMessage.edit(showEmbed)
-
             while (true) {
               let second = await channel.getMessages(100, listOfMessages[listOfMessages.length-1] ? listOfMessages[listOfMessages.length-1].id : channel.lastMessageID)
               if (second.length == 0) break
@@ -53,12 +53,14 @@ exports.run = async (bot) => {
       })
 
       // once `listOfMessages` contents all messages check them for owo and the check user
-      getAllChannelMessages.then(() => {
+      getAllChannelMessages.then(async() => {
         let messageCounter = 0
         const owoInChannels = {}
+
+        showEmbed.embed.description = `Counting owo's in channels`
+        await sentMessage.edit(showEmbed)
+
         listOfMessages.forEach(async(messageInChannel) => {
-          showEmbed.embed.description = `Counting owo's in: <#${messageInChannel.channel.id}>`
-          await sentMessage.edit(showEmbed)
 
           if (messageInChannel.content == "owo" && messageInChannel.author.id == userToCheck.id) {
             if (!Object.keys(owoInChannels).includes(messageInChannel.channel.id)) owoInChannels[messageInChannel.channel.id] = 0
@@ -98,6 +100,7 @@ exports.run = async (bot) => {
             }
             await sentMessage.edit(checkowoEmbed)
             await bot.createMessage(message.channel.id, `<@${message.author.id}>`)
+            const listOfMessages = []
           }
         })
       })
