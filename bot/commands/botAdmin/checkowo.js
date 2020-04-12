@@ -35,13 +35,13 @@ exports.run = async (bot) => {
 
         await message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
-            let lastCheckChannel = ""
+            let lastChannelChecked = ""
             while (true) {
-              let second = await channel.getMessages(100, lastCheckChannel ? lastCheckChannel : channel.lastMessageID)
+              let second = await channel.getMessages(100, lastChannelChecked ? lastChannelChecked : channel.lastMessageID)
               if (second.length == 0) break
               second.forEach(channelMessage => {
-                lastCheckChannel = channelMessage.channel.id
-                if (!listOfMessages.includes(channelMessage) && !channelMessage.author.bot && channelMessage.content == "owo") {
+                lastChannelChecked = channelMessage.channel.id
+                if (!listOfMessages.includes(channelMessage) && channelMessage.content.trim().toLowerCase() == "owo" && !channelMessage.author.bot) {
                   listOfMessages.push(channelMessage)
                 }
               })
@@ -65,7 +65,7 @@ exports.run = async (bot) => {
 
         listOfMessages.forEach(async(messageInChannel) => {
 
-          if (messageInChannel.content == "owo" && messageInChannel.author.id == userToCheck.id) {
+          if (messageInChannel.author.id == userToCheck.id) {
             if (!Object.keys(owoInChannels).includes(messageInChannel.channel.id)) owoInChannels[messageInChannel.channel.id] = 0
             amountOfOwO++
             owoInChannels[messageInChannel.channel.id]++
