@@ -19,6 +19,7 @@ const logging = async function Log (logType, logMessage) {
     // case 'statsPosted': console.log(chalk.inverse('[LOG][STATS POSTED]') + chalk.hex(config.color.lightblue)(` ${logMessage} `) + chalk.blue(getCurrentDate())); break
     case 'botOnline': console.log(chalk.inverse('[LOG][ONLINE]') + chalk.hex("#00FFFF")(` Version ${version.version} `) + chalk.blue(getCurrentDate())); break
     case 'dbConnected': console.log(chalk.inverse('[LOG][SYSTEM]') + chalk.hex("#FFAA00")(' Database Connected Successfully ') + chalk.blue(getCurrentDate())); break
+    case 'botDisconnected': console.log(chalk.inverse('[LOG][DISCONNECT]') + chalk.hex("#00FF00")(' Bot Disconnected ') + chalk.blue(getCurrentDate())); break
     default: console.log(chalk.inverse('[LOG][DEFAULT]') + chalk.hex("#FFFFFF")(` ${logMessage} `) + chalk.blue(getCurrentDate())); break
   }
 }
