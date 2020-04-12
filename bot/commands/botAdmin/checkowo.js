@@ -43,6 +43,7 @@ exports.run = async (bot) => {
                   listOfMessages.push(channelMessage)
                 }
               })
+              console.log(`${channel.name} ~ ${listOfMessages.length}`)
             }
           }
           channelCounter++
