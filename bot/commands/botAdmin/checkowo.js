@@ -35,11 +35,13 @@ exports.run = async (bot) => {
 
         await message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
+            let lastCheckChannel = ""
             while (true) {
-              let second = await channel.getMessages(100, listOfMessages[listOfMessages.length-1] ? listOfMessages[listOfMessages.length-1].id : channel.lastMessageID)
+              let second = await channel.getMessages(100, lastCheckChannel ? lastCheckChannel : channel.lastMessageID)
               if (second.length == 0) break
               second.forEach(channelMessage => {
-                if (!listOfMessages.includes(channelMessage)) {
+                lastCheckChannel = channelMessage.channel.id
+                if (!listOfMessages.includes(channelMessage) && !channelMessage.author.bot && channelMessage.content == "owo") {
                   listOfMessages.push(channelMessage)
                 }
               })
