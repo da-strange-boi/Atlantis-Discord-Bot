@@ -32,19 +32,18 @@ exports.run = async (bot) => {
         showEmbed.embed.description = `Getting messages in channels`
         await sentMessage.edit(showEmbed)
 
-        message.channel.guild.channels.forEach(async(channel) => {
+        await message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
             let lastMessageChecked = ""
             while (true) {
-              let getMessagesInChannel = await channel.getMessages(200, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
+              let getMessagesInChannel = await channel.getMessages(50, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
               if (getMessagesInChannel.length == 0) break
               getMessagesInChannel.forEach(gotMessage => {
-                lastMessageChecked = gotMessage.channel.id
+                lastMessageChecked = gotMessage.id
                 if (gotMessage.content == "owo" && gotMessage.author.id == userToCheck.id) {
                   owoMessageList.push(gotMessage)
                 }
               })
-              console.log(`${channel.name} - ${owoMessageList.length}`)
             }
           }
 
