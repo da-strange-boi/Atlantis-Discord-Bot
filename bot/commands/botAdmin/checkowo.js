@@ -61,6 +61,7 @@ exports.run = async (bot) => {
 
       // handle afterwards
       getOwoMessages.then(async() => {
+        console.log("eee")
         let messageCounter = 0
         const owoInChannels = {}
 
