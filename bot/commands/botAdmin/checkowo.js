@@ -29,11 +29,14 @@ exports.run = async (bot) => {
       // Get messages that contain owo
       const getOwoMessages = new Promise(async function(finished, reject) {
         let channelCounter = 0
+        showEmbed.embed.description = `Getting messages in channels`
+        await sentMessage.edit(showEmbed)
+
         message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
             let lastMessageChecked = ""
             while (true) {
-              let getMessagesInChannel = await channel.getMessages(100, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
+              let getMessagesInChannel = await channel.getMessages(200, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
               if (getMessagesInChannel.length == 0) break
               getMessagesInChannel.forEach(gotMessage => {
                 lastMessageChecked = gotMessage.channel.id
@@ -41,6 +44,7 @@ exports.run = async (bot) => {
                   owoMessageList.push(gotMessage)
                 }
               })
+              console.log(`${channel.name} - ${owoMessageList.length}`)
             }
           }
 
