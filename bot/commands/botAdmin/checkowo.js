@@ -1,10 +1,10 @@
 // Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("checkowo", async (message, args) => {
-
     if (bot.checkPermission(message, "botAdmin") && (message.mentions[0] || args[0])) {
-      const listOfMessages = []
-      let amountOfOwO = 0
+
+      let owoMessageList = []
+      amountOfOwO = 0
 
       const hrStart = process.hrtime()
 
@@ -12,7 +12,6 @@ exports.run = async (bot) => {
       const showEmbed = {
         embed: {
           title: "OwO check started",
-          description: "check started",
           color: bot.getEmbedColor(bot, message),
           timestamp: new Date()
         }
@@ -26,52 +25,49 @@ exports.run = async (bot) => {
       } else {
         userToCheck = message.mentions[0]
       }
-      
-      // get all messages in all channels and put them into `listOfMessages`
-      const getAllChannelMessages = new Promise(async function(resolve, reject) {
-        let channelCounter = 0
-        showEmbed.embed.description = "Getting messages from channels"
-        await sentMessage.edit(showEmbed)
 
-        await message.channel.guild.channels.forEach(async(channel) => {
+      // Get messages that contain owo
+      const getOwoMessages = new Promise(async function(finished, reject) {
+        let channelCounter = 0
+        message.channel.guild.channels.forEach(async(channel) => {
           if (channel.type == 0) {
-            let lastChannelChecked = ""
+            let lastMessageChecked = ""
             while (true) {
-              let second = await channel.getMessages(100, lastChannelChecked ? lastChannelChecked : channel.lastMessageID)
-              if (second.length == 0) break
-              second.forEach(channelMessage => {
-                lastChannelChecked = channelMessage.channel.id
-                if (!listOfMessages.includes(channelMessage) && channelMessage.content.trim().toLowerCase() == "owo" && !channelMessage.author.bot) {
-                  listOfMessages.push(channelMessage)
+              let getMessagesInChannel = await channel.getMessages(100, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
+              if (getMessagesInChannel.length == 0) break
+              getMessagesInChannel.forEach(gotMessage => {
+                lastMessageChecked = gotMessage.channel.id
+                if (gotMessage.content == "owo" && gotMessage.author.id == userToCheck.id) {
+                  owoMessageList.push(gotMessage)
                 }
               })
-              console.log(`${channel.name} ~ ${listOfMessages.length}`)
             }
           }
+
           channelCounter++
-          if (channelCounter === message.channel.guild.channels.size) {
-            resolve()
+          if (channelCounter == message.channel.guild.channels.size) {
+            finished()
           }
         })
       })
 
-      // once `listOfMessages` contents all messages check them for owo and the check user
-      getAllChannelMessages.then(async() => {
+      // handle afterwards
+      getOwoMessages.then(async() => {
         let messageCounter = 0
         const owoInChannels = {}
 
         showEmbed.embed.description = `Counting owo's in channels`
         await sentMessage.edit(showEmbed)
 
-        listOfMessages.forEach(async(messageInChannel) => {
+        owoMessageList.forEach(async(messageInChannel) => {
 
-          if (messageInChannel.author.id == userToCheck.id) {
+          if (messageInChannel.content == "owo" && messageInChannel.author.id == userToCheck.id) {
             if (!Object.keys(owoInChannels).includes(messageInChannel.channel.id)) owoInChannels[messageInChannel.channel.id] = 0
             amountOfOwO++
             owoInChannels[messageInChannel.channel.id]++
           }
           messageCounter++
-          if (messageCounter === listOfMessages.length) {
+          if (messageCounter === owoMessageList.length) {
             let owoPerChannel = ""
             for (channelID in owoInChannels) {
               owoPerChannel += `<#${channelID}> - \`${owoInChannels[channelID]}\`\n`
@@ -103,20 +99,10 @@ exports.run = async (bot) => {
             }
             await sentMessage.edit(checkowoEmbed)
             await bot.createMessage(message.channel.id, `<@${message.author.id}>`)
-            const listOfMessages = []
+            const owoMessageList = []
           }
         })
       })
-    } else {
-      const errorEmbed = {
-        embed: {
-          title: "Error",
-          description: "You rather don't have bot admin permission or entered in the wrong parameters",
-          color: bot.color.red,
-          timestamp: new Date()
-        }
-      }
-      bot.createMessage(message.channel.id, errorEmbed)
     }
   })
 }
