@@ -50,7 +50,7 @@ exports.run = async (bot) => {
             console.log(`${channel.name} ~ ${owoMessageList.length}`)
           }
 
-          updateEmbed = setInterval(async() => {showEmbed.embed.description = `Getting messages in channels: ${owoMessageList.length}`;await sentMessage.edit(showEmbed)}, 10000)
+          // updateEmbed = setInterval(async() => {showEmbed.embed.description = `Getting messages in channels: ${owoMessageList.length}`;await sentMessage.edit(showEmbed)}, 10000)
 
           channelCounter++
           if (channelCounter == message.channel.guild.channels.size) {
@@ -65,7 +65,7 @@ exports.run = async (bot) => {
         let messageCounter = 0
         const owoInChannels = {}
 
-        clearInterval(updateEmbed)
+        // clearInterval(updateEmbed)
 
         showEmbed.embed.description = `Counting owo's in channels`
         await sentMessage.edit(showEmbed)
@@ -83,6 +83,7 @@ exports.run = async (bot) => {
             for (channelID in owoInChannels) {
               owoPerChannel += `<#${channelID}> - \`${owoInChannels[channelID]}\`\n`
             }
+            console.log("bbb")
 
             const hrDiff = process.hrtime(hrStart)
             const checkowoEmbed = {
@@ -109,6 +110,7 @@ exports.run = async (bot) => {
               }
             }
             await sentMessage.edit(checkowoEmbed)
+            console.log("111")
             await bot.createMessage(message.channel.id, `<@${message.author.id}>`)
             owoMessageList = []
           }
