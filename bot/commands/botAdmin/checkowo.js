@@ -38,7 +38,7 @@ exports.run = async (bot) => {
           if (channel.type == 0) {
             let lastMessageChecked = ""
             while (true) {
-              let getMessagesInChannel = await channel.getMessages(50, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
+              let getMessagesInChannel = await channel.getMessages(100, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
               if (getMessagesInChannel.length == 0) break
               getMessagesInChannel.forEach(gotMessage => {
                 lastMessageChecked = gotMessage.id
@@ -46,8 +46,8 @@ exports.run = async (bot) => {
                   owoMessageList.push(gotMessage)
                 }
               })
-              console.log(`${channel.name} ~ ${owoMessageList.length}`)
             }
+            console.log(`${channel.name} ~ ${owoMessageList.length}`)
           }
 
           updateEmbed = setInterval(async() => {showEmbed.embed.description = `Getting messages in channels: ${owoMessageList.length}`;await sentMessage.edit(showEmbed)}, 10000)
