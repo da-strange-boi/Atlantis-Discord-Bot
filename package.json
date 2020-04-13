@@ -1,6 +1,6 @@
 {
   "name": "atlantis",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "main": "bot/index.js",
   "license": "MIT",
   "dependencies": {

@@ -1,7 +1,8 @@
 // Hey maxi im watching you 👀
+const CronJob = require('cron').CronJob
 exports.run = async (bot) => {
   bot.registerCommand("checkowo", async (message, args) => {
-    return
+    //return
 
     /*
       Until a possible other way can be coded in this will be not used
@@ -9,9 +10,12 @@ exports.run = async (bot) => {
 
     if (bot.checkPermission(message, "botAdmin") && (message.mentions[0] || args[0])) {
 
+      // setup vars
       let owoMessageList = []
-      amountOfOwO = 0
+      let amountOfOwO = 0
+      let messagesToSearchThroughPerLoop = args[1] || 100
 
+      // start timer process
       const hrStart = process.hrtime()
 
       // setup embed
@@ -44,19 +48,25 @@ exports.run = async (bot) => {
           if (channel.type == 0) {
             let lastMessageChecked = ""
             while (true) {
-              let getMessagesInChannel = await channel.getMessages(100, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
+              let getMessagesInChannel = await channel.getMessages(messagesToSearchThroughPerLoop, lastMessageChecked != "" ? lastMessageChecked : channel.lastMessageID)
               if (getMessagesInChannel.length == 0) break
               getMessagesInChannel.forEach(gotMessage => {
                 lastMessageChecked = gotMessage.id
-                if (gotMessage.content == "owo" && gotMessage.author.id == userToCheck.id) {
+                if (gotMessage.content.trim().toLowerCase() == "owo" && gotMessage.author.id == userToCheck.id) {
                   owoMessageList.push(gotMessage)
                 }
               })
             }
-            console.log(`${channel.name} ~ ${owoMessageList.length}`)
           }
 
-          // updateEmbed = setInterval(async() => {showEmbed.embed.description = `Getting messages in channels: ${owoMessageList.length}`;await sentMessage.edit(showEmbed)}, 10000)
+          // after 10 seconds if not complete show how many message it has gotten
+          updateEmbed = new CronJob("*/5 * * * * *", async () => {
+            if (showEmbed.embed.description == "Getting messages in channels") {
+              showEmbed.embed.description = `Getting messages in channels: ${owoMessageList.length}`
+              await sentMessage.edit(showEmbed)
+            }
+          }, null, true, "America/New_York")
+          updateEmbed.start()
 
           channelCounter++
           if (channelCounter == message.channel.guild.channels.size) {
@@ -65,13 +75,12 @@ exports.run = async (bot) => {
         })
       })
 
-      // handle afterwards
+      // handle messages after all collected
       getOwoMessages.then(async() => {
-        console.log("eee")
         let messageCounter = 0
         const owoInChannels = {}
 
-        // clearInterval(updateEmbed)
+        updateEmbed.stop()
 
         showEmbed.embed.description = `Counting owo's in channels`
         await sentMessage.edit(showEmbed)
@@ -89,7 +98,6 @@ exports.run = async (bot) => {
             for (channelID in owoInChannels) {
               owoPerChannel += `<#${channelID}> - \`${owoInChannels[channelID]}\`\n`
             }
-            console.log("bbb")
 
             const hrDiff = process.hrtime(hrStart)
             const checkowoEmbed = {
@@ -116,7 +124,6 @@ exports.run = async (bot) => {
               }
             }
             await sentMessage.edit(checkowoEmbed)
-            console.log("111")
             await bot.createMessage(message.channel.id, `<@${message.author.id}>`)
             owoMessageList = []
           }

@@ -21,6 +21,7 @@ exports.run = async (bot, guild) => {
               totalHuntbotTime: 0,
               dailyOwoCount: 0,
               dailyHuntCount: 0,
+              dailyBattleCount: 0,
               dailyPraycurseCount: 0,
             }
           })

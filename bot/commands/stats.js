@@ -73,6 +73,11 @@ exports.run = async (bot) => {
                 inline: true
               },
               {
+                name: "Daily Battle Count",
+                value: `\`${userdata.stats.dailyBattleCount}\``,
+                inline: true
+              },
+              {
                 name: "Daily Pray/Curse Count",
                 value: `\`${userdata.stats.dailyPraycurseCount}\``,
                 inline: true

@@ -58,6 +58,7 @@ module.exports = async (bot) => {
             totalHuntbotTime: 0,
             dailyOwoCount: 0,
             dailyHuntCount: 0,
+            dailyBattleCount: 0,
             dailyPraycurseCount: 0,
           }
         })
@@ -68,6 +69,9 @@ module.exports = async (bot) => {
         }
         if (!userdata.stats) {
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats":{owoCount: 0,huntCount: 0,battleCount: 0,praycurseCount: 0,completedHuntbots: 0,totalHuntbotTime: 0,dailyOwoCount: 0,dailyHuntCount: 0,dailyPraycurseCount: 0}}})
+        }
+        if (!userdata.stats.dailyBattleCount) {
+          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyBattleCount":0}})
         }
       }
     })
