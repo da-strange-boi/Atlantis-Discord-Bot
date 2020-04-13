@@ -26,6 +26,8 @@ exports.run = async (bot) => {
         userToCheck = message.mentions[0]
       }
 
+      let updateEmbed
+
       // Get messages that contain owo
       const getOwoMessages = new Promise(async function(finished, reject) {
         let channelCounter = 0
@@ -44,8 +46,11 @@ exports.run = async (bot) => {
                   owoMessageList.push(gotMessage)
                 }
               })
+              console.log(`${channel.name} ~ ${owoMessageList.length}`)
             }
           }
+
+          updateEmbed = setInterval(async() => {showEmbed.embed.description = `Getting messages in channels: ${owoMessageList.length}`;await sentMessage.edit(showEmbed)}, 10000)
 
           channelCounter++
           if (channelCounter == message.channel.guild.channels.size) {
@@ -58,6 +63,8 @@ exports.run = async (bot) => {
       getOwoMessages.then(async() => {
         let messageCounter = 0
         const owoInChannels = {}
+
+        clearInterval(updateEmbed)
 
         showEmbed.embed.description = `Counting owo's in channels`
         await sentMessage.edit(showEmbed)
@@ -95,14 +102,14 @@ exports.run = async (bot) => {
                   }
                 ],
                 footer: {
-                  text: `${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.`
+                  text: `${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}`
                 },
                 timestamp: new Date()
               }
             }
             await sentMessage.edit(checkowoEmbed)
             await bot.createMessage(message.channel.id, `<@${message.author.id}>`)
-            const owoMessageList = []
+            owoMessageList = []
           }
         })
       })
