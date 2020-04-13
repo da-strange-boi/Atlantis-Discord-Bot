@@ -1,6 +1,12 @@
 // Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("checkowo", async (message, args) => {
+    return
+
+    /*
+      Until a possible other way can be coded in this will be not used
+    */
+
     if (bot.checkPermission(message, "botAdmin") && (message.mentions[0] || args[0])) {
 
       let owoMessageList = []
