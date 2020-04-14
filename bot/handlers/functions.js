@@ -123,6 +123,7 @@ module.exports = async (bot) => {
       users.forEach(user => {
         bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyOwoCount":0}})
         bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyHuntCount":0}})
+        bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyBattleCount":0}})
         bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyPraycurseCount":0}})
       })
     })
