@@ -8,7 +8,7 @@ exports.run = async (bot) => {
       Until a possible other way can be coded in this will be not used
     */
 
-    if (bot.checkPermission(message, "botAdmin") && (message.mentions[0] || args[0])) {
+    if (await bot.checkPermission(message, "botAdmin") && (message.mentions[0] || args[0])) {
 
       // setup vars
       let owoMessageList = []

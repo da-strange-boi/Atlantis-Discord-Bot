@@ -1,7 +1,7 @@
 // Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("ban", async (message, args) => {
-    if (bot.checkPermission(message, "botAdmin")) {
+    if (await bot.checkPermission(message, "botAdmin")) {
       let userIDToBan = args[0]
       let daysToDeleteTheirMessages = args[1]
       let banReason = args.splice(2, args.length-2).join(" ")

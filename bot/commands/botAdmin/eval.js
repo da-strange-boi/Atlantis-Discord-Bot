@@ -2,13 +2,17 @@
 const { inspect } = require("util")
 exports.run = async (bot) => {
   bot.registerCommand("eval", async (message, args) => {
-    if (bot.checkPermission(message, "botOwner")) {
+    if (await bot.checkPermission(message, "botAdmin")) {
       const toEval = args.join(" ")
       try {
-        const evaluated = inspect(eval(toEval, { depth: 0 }))
-        if (toEval) {
+        let evaluated
+        let hrDiff
+        async () => {
           const hrStart = process.hrtime()
-          const hrDiff = process.hrtime(hrStart)
+          evaluated = inspect(eval(toEval, { depth: 0 }))
+          hrDiff = process.hrtime(hrStart)
+        }
+        if (toEval) {
     
           const evalEmbed = {
             embed: {

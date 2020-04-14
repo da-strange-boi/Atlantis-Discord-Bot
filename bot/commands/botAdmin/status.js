@@ -3,10 +3,10 @@ const ms = require("parse-ms")
 const package = require("../../../package.json")
 exports.run = async (bot) => {
   bot.registerCommand("status", async (message, args) => {
-    bot.database.Userdata.find({}).toArray((err, docs) => {
+    bot.database.Userdata.find({}).toArray(async(err, docs) => {
       if (err) bot.log("error", err)
 
-      if (bot.checkPermission(message, "botAdmin")) {
+      if (await bot.checkPermission(message, "botAdmin")) {
         const uptime = ms(bot.uptime)
         const statusEmbed = {
           embed: {
