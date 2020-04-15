@@ -213,7 +213,7 @@ exports.run = async (bot, message) => {
               }
             })
             message.addReaction("⏰")
-            require("../handlers/addHBTimes").run(bot, timeToComplete + Date.now(), huntBotTime, getMember.id, getMember, true)
+            require("../handlers/addHBTimes").run(bot, timeToComplete + Date.now(), huntBotTime, getMember.id, getMember, message.channel.id, true)
           }
         }
       })

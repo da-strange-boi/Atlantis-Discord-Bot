@@ -1,6 +1,6 @@
 const _ = require("lodash")
 const memoryOfAddedUsers = {}
-exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) => {
+exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, channelID, makeNew) => {
   if (!bot || !huntbotTimeout) bot.log("error", 'addUserHB does not have all the data needed to run!')
 
   // Decide how to get the User class
@@ -20,6 +20,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
     if (makeNew) {
       bot.database.HuntBot.insertOne({
         userID: huntbotUser.id,
+        channelID: channelID,
         timeout: huntbotTimeout
       })
       await bot.database.Userdata.findOneAndUpdate({ userID: huntbotUser.id }, {$set: {"stats.totalHuntbotTime":userdata.stats.totalHuntbotTime+timeoutTime}})
@@ -58,11 +59,12 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
 
       // Send them the remind message
       try {
-        bot.getDMChannel(huntbotUser.id).then(dmChannel => {
-          dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
+        await bot.getDMChannel(huntbotUser.id).then(async dmChannel => {
+          await dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
         })
       } catch (e) {
-        bot.log("error", e)
+        if (!channelID) return
+        await bot.createMessage(channelID, `<:info:689965598997872673> **|** <@${huntbotUser.id}> (Your DM's are turned off so i ping you here)\n<:blank:689966696244838459> **|** your HuntBot is complete!${displayTime}`)
       }
       memoryOfAddedUsers[huntbotUser.id].hb = false
     }, timeoutTime)

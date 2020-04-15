@@ -40,10 +40,11 @@ exports.run = async (bot) => {
 
       for (let i = 0; i < huntbot.length; i++) {
         const userID = huntbot[i].userID
+        const channelID = huntbot[i].channelID
         const huntbotTimeout = huntbot[i].timeout
 
         const userObj = await bot.users.find(user => user.id == userID)
-        addHBTimes.run(bot, huntbotTimeout, false, false, userObj, false)
+        await addHBTimes.run(bot, huntbotTimeout, false, false, userObj, channelID, false)
       }
     })
   }, 5000)
