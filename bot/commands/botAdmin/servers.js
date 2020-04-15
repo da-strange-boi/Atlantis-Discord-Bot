@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("servers", async (message, args) => {
     if (await bot.checkPermission(message, "botAdmin")) {

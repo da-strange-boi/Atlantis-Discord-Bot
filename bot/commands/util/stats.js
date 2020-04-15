@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const ms = require("parse-ms")
 exports.run = async (bot) => {
   bot.registerCommand("stats", async (message, args) => {

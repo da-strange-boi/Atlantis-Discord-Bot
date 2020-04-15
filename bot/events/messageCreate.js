@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const _ = require("lodash")
 
 const huntCoolDown = 15000

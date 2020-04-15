@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("atlantis", async (message, args) => {
     await bot.checkUserAndGuild(message)

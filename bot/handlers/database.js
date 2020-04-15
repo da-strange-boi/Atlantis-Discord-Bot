@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const assert = require('assert')
 const client = require('mongodb').MongoClient
 

@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const { inspect } = require("util")
 exports.run = async (bot) => {
   bot.registerCommand("eval", async (message, args) => {

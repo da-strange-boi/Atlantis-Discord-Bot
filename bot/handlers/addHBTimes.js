@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const _ = require("lodash")
 const memoryOfAddedUsers = {}
 exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) => {

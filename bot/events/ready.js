@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const addHBTimes = require("../handlers/addHBTimes")
 exports.run = async (bot) => {
   bot.log("botOnline")

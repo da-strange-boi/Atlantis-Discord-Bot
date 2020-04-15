@@ -1,11 +1,9 @@
-// Hey maxi im watching you 👀
 const CronJob = require('cron').CronJob
 exports.run = async (bot) => {
   bot.registerCommand("checkowo", async (message, args) => {
-    //return
-
     /*
       Until a possible other way can be coded in this will be not used
+      Test Command
     */
 
     if (await bot.checkPermission(message, "botAdmin") && (message.mentions[0] || args[0])) {

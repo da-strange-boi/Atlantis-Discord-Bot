@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const Canvas = require("canvas")
 const path = require("path")
 

@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 exports.run = async (bot) => {
   bot.registerCommand("help", async (message, args) => {
     await bot.checkUserAndGuild(message)
@@ -46,7 +45,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Util",
-              value: "`atlantis`, `invite`, `stats`"
+              value: "`atlantis`, `help`, `invite`, `stats`"
             },
             {
               name: "Admin (must be admin to use)",
@@ -85,7 +84,7 @@ exports.run = async (bot) => {
         case "deluser": commandDetailToSend = commandDetails("Deluser", "`a!deluser add/delete <#channel mention>`", "Deletes user messages in a given channel", "`a!deluser add #general`"); break
         case "delbot": commandDetailToSend = commandDetails("Delbot", "`a!delbot add/delete <#channel mention>`", "Deletes bot messages in a given channel", "`a!delbot delete #owo`"); break
         case "owochannel": commandDetailToSend = commandDetails("OwO Channel", "`a!owochannel add/delete <#channel mention>`", "Deletes all messages expect \"owo\"", "`a!owochannel add #owo`"); break
-        case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
+        case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel\n(`THIS IS CURRENTLY UNSTABLE`)", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
         case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break
         case "checkowo": commandDetailToSend = commandDetails("Checkowo", "`a!checkowo <@mention / user id>`", "To get the count of all 'owo' messages a user has sent", "a!checkowo 296155961230622720"); break

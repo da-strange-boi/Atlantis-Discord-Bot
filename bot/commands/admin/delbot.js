@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const _ = require("lodash")
 exports.run = async (bot) => {
   bot.registerCommand("delbot", async (message, args) => {

@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 /** @type {import("eris")} */
 const Eris = require("eris")
 const fs = require("fs")

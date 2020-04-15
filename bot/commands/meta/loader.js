@@ -1,4 +1,3 @@
-// Hey maxi im watching you 👀
 const fs = require("fs")
 exports.run = (bot) => {
   const path = require("path").join(__dirname, "../")
