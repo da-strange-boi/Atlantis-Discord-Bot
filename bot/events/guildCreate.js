@@ -33,6 +33,7 @@ exports.run = async (bot, guild) => {
     if (!guilddata) {
       await bot.database.Guilddata.insertOne({
         guildID: guild.id,
+        prefix: "",
         deleteUserMessagesChannels: [],
         deleteBotMessagesChannels: [],
         owoChannel: [],

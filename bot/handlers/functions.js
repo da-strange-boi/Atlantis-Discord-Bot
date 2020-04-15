@@ -80,6 +80,7 @@ module.exports = async (bot) => {
       if (!guilddata) {
         await bot.database.Guilddata.insertOne({
           guildID: message.member.guild.id,
+          prefix: "",
           deleteUserMessagesChannels: [],
           deleteBotMessagesChannels: [],
           owoChannel: [],

@@ -9,8 +9,8 @@ client.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, async 
 
     let counter = 0
     guild.forEach(async gu => {
-      if (!gu.delete) {
-        await guilddata.findOneAndUpdate({ guildID: gu.guildID }, {$set: {"delete":[]}})
+      if (!gu.prefix) {
+        await guilddata.findOneAndUpdate({ guildID: gu.guildID }, {$set: {"prefix":""}})
       }
       counter++
       if (counter == guild.length) {

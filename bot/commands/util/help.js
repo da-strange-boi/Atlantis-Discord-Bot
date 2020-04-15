@@ -49,7 +49,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Admin (must be admin to use)",
-              value: "`deluser`, `delbot`, `delete`, `owochannel`, `welcome`"
+              value: "`deluser`, `delbot`, `delete`, `owochannel`, `welcome`, `prefix`"
             }
           ],
           footer: {
@@ -60,10 +60,7 @@ exports.run = async (bot) => {
       }
 
       if (bot.admins.includes(message.author.id) && args[0] == "admin") {
-        helpEmbed.embed.fields.push({name: "Bot Admin", value: "`ban`, `checkowo`, `status`, `servers`"})
-      }
-      if (message.author.id == "295255543596187650" && args[0] == "admin") {
-        helpEmbed.embed.fields.push({name: "Bot Owner", value: "`eval`"})
+        helpEmbed.embed.fields.push({name: "Bot Admin", value: "`ban`, `checkowo`, `eval`, `status`, `servers`"})
       }
 
       bot.createMessage(message.channel.id, helpEmbed)
@@ -86,6 +83,7 @@ exports.run = async (bot) => {
         case "delete": commandDetailToSend = commandDetails("Delete", "`a!delete add/delete <prefix word> <#channel mention>`", "Deletes all messages that match the given channel and message prefix", "`a!delete add bot_command #channel`"); break
         case "owochannel": commandDetailToSend = commandDetails("OwO Channel", "`a!owochannel add/delete <#channel mention>`", "Deletes all messages expect \"owo\"", "`a!owochannel add #owo`"); break
         case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel\n(`THIS IS CURRENTLY UNSTABLE`)", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
+        case "prefix": commandDetailToSend = commandDetails("Prefix", "`a!prefix [new prefix]`", "Change the server's bot prefix", "`a!prefix atl{space}`\n**{space}** - inserts a space"); break
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
         case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break
         case "checkowo": commandDetailToSend = commandDetails("Checkowo", "`a!checkowo <@mention / user id>`", "To get the count of all 'owo' messages a user has sent", "a!checkowo 296155961230622720"); break
