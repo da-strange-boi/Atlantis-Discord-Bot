@@ -5,13 +5,16 @@ exports.run = async (bot) => {
 
   setTimeout(async() => {
     // Setting the bots status
-    await bot.database.Userdata.find({}).toArray((err, userdata) => {
-      if (err) bot.log("error", err)
-      bot.editStatus("online", {
-        name: `Reminding ${userdata.length} users | a!help`,
-        type: 0
+    let updateStatus = new CronJob("0 */30 * * * *", async () => {
+      await bot.database.Userdata.find({}).toArray((err, userdata) => {
+        if (err) bot.log("error", err)
+        bot.editStatus("online", {
+          name: `Reminding ${userdata.length} users | a!help`,
+          type: 0
+        })
       })
-    })
+    }, null, true, "America/New_York")
+    updateStatus.start()
 
     // Setting custom guild prefixes
     await bot.database.Guilddata.find({}).toArray((err, guilddata) => {
