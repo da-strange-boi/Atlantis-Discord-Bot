@@ -49,7 +49,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Admin (must be admin to use)",
-              value: "`deluser`, `delbot`, `owochannel`, `welcome`"
+              value: "`deluser`, `delbot`, `delete`, `owochannel`, `welcome`"
             }
           ],
           footer: {
@@ -79,10 +79,11 @@ exports.run = async (bot) => {
         case "praycurse": commandDetailToSend = commandDetails("Praycuse", "`a!praycurse`", "Toggles the reminder for \`owo pray\` & \`owo curse\`", false, "`pray`, `curse`"); break
         case "huntbot": commandDetailToSend = commandDetails("Huntbot", "`a!huntbot`", "Toggles the reminder for \`owo huntbot\`", false, "`huntbot`"); break
         case "show": commandDetailToSend = commandDetails("Show", "`a!show`", "Shows what is enabled/disabled"); break
-        case "atlantis": commandDetailToSend = commandDetails("Atlantis", "a!atlantis", "Sends an DM invite link to join Atlantis", false, "`atl`"); break
+        case "atlantis": commandDetailToSend = commandDetails("Atlantis", "`a!atlantis`", "Sends an DM invite link to join Atlantis", false, "`atl`"); break
         case "invite": commandDetailToSend = commandDetails("Invite", "`a!invite`", "Invite Atlantis bot to your server"); break
         case "deluser": commandDetailToSend = commandDetails("Deluser", "`a!deluser add/delete <#channel mention>`", "Deletes user messages in a given channel", "`a!deluser add #general`"); break
         case "delbot": commandDetailToSend = commandDetails("Delbot", "`a!delbot add/delete <#channel mention>`", "Deletes bot messages in a given channel", "`a!delbot delete #owo`"); break
+        case "delete": commandDetailToSend = commandDetails("Delete", "`a!delete add/delete <prefix word> <#channel mention>`", "Deletes all messages that match the given channel and message prefix", "`a!delete add bot_command #channel`"); break
         case "owochannel": commandDetailToSend = commandDetails("OwO Channel", "`a!owochannel add/delete <#channel mention>`", "Deletes all messages expect \"owo\"", "`a!owochannel add #owo`"); break
         case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel\n(`THIS IS CURRENTLY UNSTABLE`)", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
