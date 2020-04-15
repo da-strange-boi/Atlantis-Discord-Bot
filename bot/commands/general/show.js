@@ -34,6 +34,11 @@ exports.run = async (bot) => {
                 name: ":unicorn: **OwO**",
                 value: userdata.owo ? "Enabled" : "Disabled",
                 inline: true
+              },
+              {
+                name: "**Drop**",
+                value: userdata.drop ? "Enabled" : "Disabled",
+                inline: true
               }
             ],
             timestamp: new Date()

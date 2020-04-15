@@ -2,18 +2,18 @@ const client = require('mongodb').MongoClient
 client.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, async (err, db) => {
   if (err) throw err
 
-  const guilddata = db.db("atlantis").collection("guilddata")
+  const userdata = db.db("atlantis").collection("userdata")
 
-  await guilddata.find({}).toArray(async(err, guild) => {
+  await userdata.find({}).toArray(async(err, user) => {
     if (err) throw err
 
     let counter = 0
-    guild.forEach(async gu => {
-      if (!gu.prefix) {
-        await guilddata.findOneAndUpdate({ guildID: gu.guildID }, {$set: {"prefix":""}})
+    user.forEach(async us => {
+      if (!us.drop) {
+        await userdata.findOneAndUpdate({ userID: us.userID }, {$set: {"drop":false}})
       }
       counter++
-      if (counter == guild.length) {
+      if (counter == user.length) {
         process.exit()
       }
     })

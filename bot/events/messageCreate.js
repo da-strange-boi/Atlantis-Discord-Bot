@@ -4,6 +4,7 @@ const huntCoolDown = 15000
 const battleCoolDown = 15000
 const praycurseCoolDown = 300000
 const owoCoolDown = 10000
+const dropCoolDown = 30000
 
 const userTimeouts = {}
 
@@ -178,6 +179,34 @@ exports.run = async (bot, message) => {
             })
           }
         }, owoCoolDown)
+      }
+    })
+  }
+  // Reminder for drop/pickup
+  if (messageContent.startsWith("owodrop") || messageContent.startsWith("owopick")) {
+    bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+      if (err) bot.log("error", err)
+
+      if (userdata) {
+        await bot.checkUserAndGuild(message)
+        
+        if (!_.has(userTimeouts, message.author.id)) {
+          userTimeouts[message.author.id] = {}
+        }
+        if (_.has(userTimeouts[message.author.id], "drop")) {
+          if (userTimeouts[message.author.id].drop) return
+        }
+        userTimeouts[message.author.id].drop = true
+
+        setTimeout(async() => {
+          userTimeouts[message.author.id].drop = false
+
+          if (userdata.drop) {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`drop\` cooldown has passed! <:owo:698235134964531272>`).then(sentMessage => {
+              setTimeout(() => {sentMessage.delete(`Deleted drop reminder for ${message.author.tag}`)}, 5000)
+            })
+          }
+        }, dropCoolDown)
       }
     })
   }
