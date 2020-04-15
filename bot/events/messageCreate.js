@@ -176,8 +176,8 @@ exports.run = async (bot, message) => {
   }
   // Reminder for `owo huntbot`
   if (message.author.id == "408785106942164992") {
-    if (message.content.match(/(\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP. I AM BACK WITH)|(\*\*<a:spotify:[0-9]{18}> \|\*\* `Oops!)/g)) return
-    if (message.content.match(/(\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP.)|(\*\*<a:spotify:[0-9]{18}> \|)/g)) {
+    if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP. I AM BACK WITH/g)) return
+    if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g)) {
       let huntBotTime = message.content.split("I WILL BE BACK IN ")[1].split(" ")[0] // 6H2M
       let timeElements = huntBotTime.match(/[0-9][0-9][M|H]{1}|[0-9][M|H]{1}/g)
 
