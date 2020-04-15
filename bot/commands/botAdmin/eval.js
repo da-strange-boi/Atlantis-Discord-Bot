@@ -4,13 +4,9 @@ exports.run = async (bot) => {
     if (await bot.checkPermission(message, "botAdmin")) {
       const toEval = args.join(" ")
       try {
-        let evaluated
-        let hrDiff
-        async () => {
-          const hrStart = process.hrtime()
-          evaluated = inspect(eval(toEval, { depth: 0 }))
-          hrDiff = process.hrtime(hrStart)
-        }
+        const hrStart = process.hrtime()
+        const evaluated = inspect(eval(toEval, { depth: 0 }))
+        hrDiff = process.hrtime(hrStart)
         if (toEval) {
     
           const evalEmbed = {
@@ -34,12 +30,12 @@ exports.run = async (bot) => {
             }
           }
 
-          bot.createMessage(message.channel.id, evalEmbed)
+          await bot.createMessage(message.channel.id, evalEmbed)
         } else {
-          bot.createMessage(message.channel.id, "Error whilst evaluating: `cannot evaluated air`")
+          await bot.createMessage(message.channel.id, "Error whilst evaluating: `cannot evaluated air`")
         }
       } catch (e) {
-        bot.createMessage(message.channel.id, `Error whilst evaluating: \`${e.message}\``)
+        await bot.createMessage(message.channel.id, `Error whilst evaluating: \`${e.message}\``)
       }
     }
   })
