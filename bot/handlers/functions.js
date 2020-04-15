@@ -75,7 +75,7 @@ module.exports = async (bot) => {
         }
       }
     })
-    await bot.database.Guilddata.findOne({ guildID: message.member.guild.id }, async (err, guilddata) => {
+    await bot.database.Guilddata.findOne({ guildID: message.channel.guild.id }, async (err, guilddata) => {
       if (err) bot.log("error", err)
       if (!guilddata) {
         await bot.database.Guilddata.insertOne({
@@ -83,7 +83,8 @@ module.exports = async (bot) => {
           deleteUserMessagesChannels: [],
           deleteBotMessagesChannels: [],
           owoChannel: [],
-          welcomeChannel: [" ", "Welcome {user} to **{server}**!"]
+          welcomeChannel: [" ", "Welcome {user} to **{server}**!"],
+          delete: []
         })
       }
     })

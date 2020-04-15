@@ -36,7 +36,8 @@ exports.run = async (bot, guild) => {
         deleteUserMessagesChannels: [],
         deleteBotMessagesChannels: [],
         owoChannel: [],
-        welcomeChannel: [" ", "Welcome {user} to **{server}**!"]
+        welcomeChannel: [" ", "Welcome {user} to **{server}**!"],
+        delete: []
       })
     }
   })

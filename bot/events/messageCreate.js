@@ -31,24 +31,29 @@ exports.run = async (bot, message) => {
       if (guilddata) {
         if (guilddata.deleteUserMessagesChannels.includes(message.channel.id)) {
           if (!message.author.bot) {
-            setTimeout(() => {message.delete(`User messages deleted`)}, 150)
+            setTimeout(() => {message.delete("User messages deleted")}, 150)
           }
         }
         if (guilddata.deleteBotMessagesChannels.includes(message.channel.id)) {
           if (message.author.bot) {
-            setTimeout(() => {message.delete(`Bot messages deleted`)}, 150)
+            setTimeout(() => {message.delete("Bot messages deleted")}, 150)
           }
         }
         if (guilddata.owoChannel.includes(message.channel.id)) {
           if (message.content.toLowerCase().trim() != "owo") {
-            setTimeout(() => {message.delete(`Other messages then "owo" deleted`)}, 150)
+            setTimeout(() => {message.delete("Other messages then \"owo\" deleted")}, 150)
           }
         }
+        guilddata.delete.forEach(deleteObj => {
+          if ((message.channel.id == deleteObj.channel) && (message.content.startsWith(deleteObj.word))) {
+            setTimeout(() => {message.delete("Messages started with a word specified in delete")}, 150)
+          }
+        })
       }
     })
   }
 
-  messageContent = message.content.toLowerCase().replace(" ", "")
+  messageContent = message.content.toLowerCase().replace(/\s/g, "")
   // Reminder for `owo hunt`
   if (messageContent == "owohunt" || messageContent == "owoh" || messageContent == "owocatch") {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
