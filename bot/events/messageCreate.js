@@ -5,7 +5,7 @@ const battleCoolDown = 15000
 const praycurseCoolDown = 300000
 const owoCoolDown = 10000
 
-let userTimeouts = {}
+const userTimeouts = {}
 
 exports.run = async (bot, message) => {
   if (!message.member) return
@@ -18,14 +18,21 @@ exports.run = async (bot, message) => {
     }
   })
 
-  // TESTING
-  // if (message.content == "---") {
-  //   bot.emit("guildMemberAdd", message.member.guild, message.member)
-  // }
+  // User just mentioning the bot
+  if (message.content.replace("!", "") == `<@${bot.user.id}>`) {
+    if (bot.database) {
+      bot.database.Guilddata.findOne({ guildID: message.channel.guild.id }, async (err, guilddata) => {
+        if (err) bot.log("error", err)
+
+        const prefix = guilddata.prefix == "" ? "a!" : guilddata.prefix
+        bot.createMessage(message.channel.id, `Hello there ***${message.author.username}***, my prefix ${prefix == "a!" ? "is `a!`" : `for **${message.channel.guild.name}** is \`${prefix}\``}`)
+      })
+    }
+  }
 
   // User message deletion in selected channels
   if (bot.database) {
-    bot.database.Guilddata.findOne({ guildID: message.member.guild.id }, async (err, guilddata) => {
+    bot.database.Guilddata.findOne({ guildID: message.channel.guild.id }, async (err, guilddata) => {
       if (err) bot.log("error", err)
 
       if (guilddata) {

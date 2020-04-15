@@ -67,7 +67,7 @@ const init = async () => {
     })
   })
   // load commands
-  const loader = require("./commands/meta/loader.js")
+  const loader = require("./commands/loader.js")
   loader.run(bot)
 }
 init()

@@ -37,7 +37,7 @@ exports.run = async (bot) => {
         embed: {
           title: "Atlantis Help :trident:",
           color: bot.getEmbedColor(bot, message),
-          description: `This is the full command list for ${bot.user.username}! For more info on what a command does do \`a!help <command name>\`\nThanks to \`pri8000#8266\` for the profile picture art!`,
+          description: `This is the full command list for **${bot.user.username}**! For more info on what a command does do \`a!help <command name>\`\nThanks to \`pri8000#8266\` for the profile picture art!`,
           fields: [
             {
               name: "General",

@@ -9,8 +9,33 @@ exports.run = async (bot) => {
         const showEmbed = {
           embed: {
             color: bot.getEmbedColor(bot, message),
-            // This needs a better setout
-            description: `:peacock: **Hunt**   ~ ${userdata.hunt ? "Enabled" : "Disabled"}\n:tropical_fish: **Battle**     ~ ${userdata.battle ? "Enabled" : "Disabled"}\n:dragon: **Pray/Curse** ~ ${userdata.praycurse ? "Enabled" : "Disabled"}\n:deer: **HuntBot**    ~ ${userdata.huntbot ? "Enabled" : "Disabled"}\n:unicorn: **OwO**            ~ ${userdata.owo ? "Enabled" : "Disabled"}`,
+            fields: [
+              {
+                name: ":peacock: **Hunt**",
+                value: userdata.hunt ? "Enabled" : "Disabled",
+                inline: true
+              },
+              {
+                name: ":tropical_fish: **Battle**",
+                value: userdata.battle ? "Enabled" : "Disabled",
+                inline: true
+              },
+              {
+                name: ":dragon: **Pray/Curse**",
+                value: userdata.praycurse ? "Enabled" : "Disabled",
+                inline: true
+              },
+              {
+                name: ":deer: **HuntBot**",
+                value: userdata.huntbot ? "Enabled" : "Disabled",
+                inline: true
+              },
+              {
+                name: ":unicorn: **OwO**",
+                value: userdata.owo ? "Enabled" : "Disabled",
+                inline: true
+              }
+            ],
             timestamp: new Date()
           }
         }

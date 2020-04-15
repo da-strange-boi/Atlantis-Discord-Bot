@@ -3,6 +3,11 @@ const CronJob = require("cron").CronJob
 exports.run = async (bot) => {
   bot.log("botOnline")
 
+  /*
+    Just using setTimeout to make this work is obv but im not sure
+    how to make it better lol
+  */
+
   setTimeout(async() => {
     // Setting the bots status
     let updateStatus = new CronJob("0 */30 * * * *", async () => {
@@ -29,8 +34,8 @@ exports.run = async (bot) => {
   }, 4000)
 
   // get mute user data
-  setTimeout(() => {
-    bot.database.HuntBot.find({}).toArray(async(err, huntbot) => {
+  setTimeout(async() => {
+    await bot.database.HuntBot.find({}).toArray(async(err, huntbot) => {
       if (err) bot.log("error", err)
 
       for (let i = 0; i < huntbot.length; i++) {
