@@ -19,9 +19,9 @@ exports.run = async (bot, message) => {
   })
 
   // TESTING
-  if (message.content == "---") {
-    bot.emit("guildMemberAdd", message.member.guild, message.member)
-  }
+  // if (message.content == "---") {
+  //   bot.emit("guildMemberAdd", message.member.guild, message.member)
+  // }
 
   // User message deletion in selected channels
   if (bot.database) {

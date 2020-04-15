@@ -7,7 +7,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, makeNew) 
   if (userObj) {
     huntbotUser = userObj
   } else {
-    huntbotUser =  await bot.users.get(userID)
+    huntbotUser = await bot.users.get(userID)
   }
   
   if (!huntbotUser) return
