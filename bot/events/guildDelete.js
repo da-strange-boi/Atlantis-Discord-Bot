@@ -19,6 +19,6 @@ exports.run = async (bot, guild) => {
       timestamp: new Date()
     }
   }
-  bot.createMessage("699837667084599406", loggingEmbed)
+  bot.createMessage("700418791523352703", loggingEmbed)
   
 }
