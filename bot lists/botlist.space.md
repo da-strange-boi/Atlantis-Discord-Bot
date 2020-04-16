@@ -22,7 +22,7 @@ You can do just that. By running the help command `a!help` you can see all the c
 * If you are a admin of the server you will have extra commands to be able to control other features the bot has to offer!
 
 # Full Command List
-![](https://i.imgur.com/eoDWf8I.png)
+![](https://i.imgur.com/oymBTPB.png)
 
 # Issues / Suggestions / New Features
 ## As far as this goes if you find an issue/bug with Atlantis or have a new suggestion to be made rather DM me (`da strange boi#7087`) or join [Atlantis](https://discord.gg/FCUZeGb) and contact me through there
