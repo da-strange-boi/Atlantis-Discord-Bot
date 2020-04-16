@@ -21,6 +21,7 @@ exports.run = async (bot, guild, member) => {
             userID: member.id,
             hunt: true,
             battle: false,
+            drop: false,
             owo: false,
             praycurse: true,
             huntbot: true,

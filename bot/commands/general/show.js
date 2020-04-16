@@ -9,34 +9,38 @@ exports.run = async (bot) => {
         const showEmbed = {
           embed: {
             color: bot.getEmbedColor(bot, message),
+            author: {
+              name: `${message.author.username}#${message.author.discriminator}`,
+              icon_url: message.author.avatarURL
+            },
             fields: [
               {
-                name: ":peacock: **Hunt**",
+                name: `${bot.emojis.native.hunt} **Hunt**`,
                 value: userdata.hunt ? "Enabled" : "Disabled",
                 inline: true
               },
               {
-                name: ":tropical_fish: **Battle**",
+                name: `${bot.emojis.native.battle} **Battle**`,
                 value: userdata.battle ? "Enabled" : "Disabled",
                 inline: true
               },
               {
-                name: ":dragon: **Pray/Curse**",
+                name: `${bot.emojis.pray} **Pray/Curse**`,
                 value: userdata.praycurse ? "Enabled" : "Disabled",
                 inline: true
               },
               {
-                name: ":deer: **HuntBot**",
+                name: `${bot.emojis.native.huntbot} **HuntBot**`,
                 value: userdata.huntbot ? "Enabled" : "Disabled",
                 inline: true
               },
               {
-                name: ":unicorn: **OwO**",
+                name: `${bot.emojis.owo} **OwO**`,
                 value: userdata.owo ? "Enabled" : "Disabled",
                 inline: true
               },
               {
-                name: "**Drop**",
+                name: `${bot.emojis.native.drop} **Drop**`,
                 value: userdata.drop ? "Enabled" : "Disabled",
                 inline: true
               }

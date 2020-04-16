@@ -84,7 +84,7 @@ exports.run = async (bot, message) => {
           userTimeouts[message.author.id].hunt = false
 
           if (userdata.hunt) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`hunt\` cooldown has passed! :bow_and_arrow:`).then(sentMessage => {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`hunt\` cooldown has passed! ${bot.emojis.native.hunt}`).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted hunt reminder for ${message.author.tag}`)}, 5000)
             })
           }
@@ -114,7 +114,7 @@ exports.run = async (bot, message) => {
           userTimeouts[message.author.id].battle = false
 
           if (userdata.battle) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`battle\` cooldown has passed! :crossed_swords:`).then(sentMessage => {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`battle\` cooldown has passed! ${bot.emojis.native.battle}`).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted battle reminder for ${message.author.tag}` )}, 5000)
             })
           }
@@ -139,7 +139,7 @@ exports.run = async (bot, message) => {
         userTimeouts[message.author.id].praycurse = true
 
         let whichText = messageContent.startsWith("owopray") ? "pray" : "curse"
-        let whichEmoji = messageContent.startsWith("owopray") ? "<:epray:698234994967052348>" : "<:curse:698235155482935387> "
+        let whichEmoji = whichText == "pray" ? bot.emojis.pray : bot.emojis.curse
         setTimeout(async() => {
           userTimeouts[message.author.id].praycurse = false
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.praycurseCount":userdata.stats.praycurseCount+1}})
@@ -174,7 +174,7 @@ exports.run = async (bot, message) => {
           userTimeouts[message.author.id].owo = false
 
           if (userdata.owo) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`owo\` cooldown has passed! <:owo:698235134964531272>`).then(sentMessage => {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`owo\` cooldown has passed! ${bot.emojis.owo}`).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted owo reminder for ${message.author.tag}`)}, 3000)
             })
           }
@@ -202,7 +202,7 @@ exports.run = async (bot, message) => {
           userTimeouts[message.author.id].drop = false
 
           if (userdata.drop) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`drop\` cooldown has passed! <:owo:698235134964531272>`).then(sentMessage => {
+            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`drop\` cooldown has passed! ${bot.emojis.native.drop}`).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted drop reminder for ${message.author.tag}`)}, 5000)
             })
           }

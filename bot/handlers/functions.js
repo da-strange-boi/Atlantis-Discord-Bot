@@ -46,6 +46,7 @@ module.exports = async (bot) => {
           userID: message.author.id,
           hunt: true,
           battle: false,
+          drop: false,
           owo: false,
           praycurse: true,
           huntbot: true,

@@ -35,13 +35,13 @@ exports.run = async (bot) => {
     if (!args[0] || args[0] == "admin") {
       const helpEmbed = {
         embed: {
-          title: "Atlantis Help :trident:",
+          title: `Atlantis Help ${bot.emojis.native.trident}`,
           color: bot.getEmbedColor(bot, message),
-          description: `This is the full command list for **${bot.user.username}**! For more info on what a command does do \`a!help <command name>\`\nThanks to \`pri8000#8266\` for the profile picture art!`,
+          description: `**Support** me on ${bot.emojis.kofi} **[Ko-fi](https://ko-fi.com/dastrangeboi)** | **Join** Atlantis ${bot.emojis.atlantisPfp} **[here](https://discord.gg/FCUZeGb)**\nThis is the full command list for **${bot.user.username}**! For more info on what a command does do \`a!help <command name>\`\nThanks to \`pri8000#8266\` for the profile picture art!`,
           fields: [
             {
               name: "General",
-              value: "`hunt`, `battle`, `owo`, `praycurse`, `huntbot`, `show`"
+              value: "`hunt`, `battle`, `drop` `owo`, `praycurse`, `huntbot`, `show`"
             },
             {
               name: "Util",
@@ -73,6 +73,7 @@ exports.run = async (bot) => {
         case "hunt": commandDetailToSend = commandDetails("Hunt", "`a!hunt`", "Toggles the reminder for \`owo hunt\`", false, "`h`, `catch`"); break
         case "battle": commandDetailToSend = commandDetails("Battle", "`a!battle`", "Toggles the reminder for \`owo battle\`", false, "`b`, `fight`"); break
         case "owo": commandDetailToSend = commandDetails("OwO", "`a!owo`", "Toggles the reminder for \`owo\`"); break
+        case "drop": commandDetailToSend = commandDetails("Drop", "`a!drop`", "Toggles the reminder for \`owo drop\`"); break
         case "praycurse": commandDetailToSend = commandDetails("Praycuse", "`a!praycurse`", "Toggles the reminder for \`owo pray\` & \`owo curse\`", false, "`pray`, `curse`"); break
         case "huntbot": commandDetailToSend = commandDetails("Huntbot", "`a!huntbot`", "Toggles the reminder for \`owo huntbot\`", false, "`huntbot`"); break
         case "show": commandDetailToSend = commandDetails("Show", "`a!show`", "Shows what is enabled/disabled"); break

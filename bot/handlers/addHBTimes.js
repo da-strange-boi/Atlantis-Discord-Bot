@@ -52,7 +52,7 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, channelID
       
       let displayTime
       if (timeString) {
-        displayTime = `\n<:blank:689966696244838459> **|** Took \`${timeString}\` to finish`
+        displayTime = `\n${bot.emojis.blank} **|** Took \`${timeString}\` to finish`
       } else {
         displayTime = ""
       }
@@ -60,11 +60,11 @@ exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, channelID
       // Send them the remind message
       try {
         await bot.getDMChannel(huntbotUser.id).then(async dmChannel => {
-          await dmChannel.createMessage(`<:info:689965598997872673> **|** Your HuntBot is complete!${displayTime}`)
+          await dmChannel.createMessage(`${bot.emojis.info} **|** Your HuntBot is complete!${displayTime}`)
         })
       } catch (e) {
         if (!channelID) return
-        await bot.createMessage(channelID, `<:info:689965598997872673> **|** <@${huntbotUser.id}> (Your DM's are turned off so i ping you here)\n<:blank:689966696244838459> **|** your HuntBot is complete!${displayTime}`)
+        await bot.createMessage(channelID, `${bot.emojis.info} **|** <@${huntbotUser.id}> (Your DM's are turned off so i ping you here)\n${bot.emojis.blank} **|** your HuntBot is complete!${displayTime}`)
       }
       memoryOfAddedUsers[huntbotUser.id].hb = false
     }, timeoutTime)
