@@ -53,7 +53,7 @@ exports.run = async (bot, guild) => {
       thumbnail: {
         url: guild.iconURL ? guild.iconURL : `https://cdn.discordapp.com/embed/avatars/${(Math.floor(Math.random() * 9999)+1) % 5}.png`
       },
-      description: `**• Guild:** \`${guild.name}\`\n**• Users:** \`${bot.users.filter(user => !user.bot).length}\`\n**• Bots:** \`${bot.users.filter(user => user.bot).length}\`\n**• Owner:** \`${owner.username}#${owner.discriminator}\` (<@${guild.ownerID}>)\n**• Region:** \`${guild.region}\``,
+      description: `**• Guild:** \`${guild.name}\`\n**• Users:** \`${message.channel.guild.members.filter(member => !member.bot).length}\`\n**• Bots:** \`${message.channel.guild.members.filter(member => member.bot).length}\`\n**• Owner:** \`${owner.username}#${owner.discriminator}\` (<@${guild.ownerID}>)\n**• Region:** \`${guild.region}\``,
       footer: {
         text: `${bot.guilds.size} guilds`,
         icon_url: await owner.avatarURL
