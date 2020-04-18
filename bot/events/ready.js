@@ -31,6 +31,14 @@ exports.run = async (bot) => {
       })
     })
 
+    // Add bot banned users
+    await bot.database.BotBan.find({}).toArray(async(err, users) => {
+      if (err) bot.log("error", err)
+      users.forEach(user => {
+        bot.botBannedUsers.push(user.userID)
+      })
+    })
+
   }, 4000)
 
   // get mute user data

@@ -60,7 +60,7 @@ exports.run = async (bot) => {
       }
 
       if (bot.admins.includes(message.author.id) && args[0] == "admin") {
-        helpEmbed.embed.fields.push({name: "Bot Admin", value: "`ban`, `checkowo`, `eval`, `status`, `servers`"})
+        helpEmbed.embed.fields.push({name: "Bot Admin", value: "`ban`, `botban`, `checkowo`, `eval`, `status`, `servers`"})
       }
 
       bot.createMessage(message.channel.id, helpEmbed)
@@ -86,6 +86,7 @@ exports.run = async (bot) => {
         case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel\n(`THIS IS CURRENTLY UNSTABLE`)", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
         case "prefix": commandDetailToSend = commandDetails("Prefix", "`a!prefix [new prefix]`", "Change the server's bot prefix", "`a!prefix atl{space}`\n**{space}** - inserts a space"); break
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
+        case "botban": commandDetailToSend = commandDetails("Botban", "`a!botban <user id> <reason>`", "`a!botban 295255543596187650 for testing`"); break
         case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break
         case "checkowo": commandDetailToSend = commandDetails("Checkowo", "`a!checkowo <@mention / user id>`", "To get the count of all 'owo' messages a user has sent", "a!checkowo 296155961230622720"); break
         default: commandDetailToSend = {embed:{title:"Error",color:bot.color.red,description:"You have to add specify a command name",timestamp: new Date()}}; break
