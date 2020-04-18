@@ -3,12 +3,11 @@ exports.run = async (bot) => {
   bot.registerCommand("ban", async (message, args) => {
     if (await bot.checkPermission(message, "botAdmin")) {
       let userIDToBan = message.mentions[0].id || args[0]
-      let daysToDeleteTheirMessages = args[1]
-      let banReason = args.splice(2, args.length-2).join(" ")
+      let banReason = args.splice(1, args.length-1).join(" ")
 
       let isUserInGuild = message.member.guild.members.find(member => member.id == userIDToBan) ? true : false
 
-      if (userIDToBan, daysToDeleteTheirMessages, banReason) {
+      if (userIDToBan, banReason) {
         const gotUser = await bot.getRESTUser(userIDToBan)
         const banEmbed = {
           embed: {
@@ -24,9 +23,13 @@ exports.run = async (bot) => {
         }
 
         if (isUserInGuild) {
-          bot.getDMChannel(userIDToBan).then(channel => {
-            channel.createMessage(`**You have been banned in ${message.member.guild.name}**\nReason: \`${banReason}\``)
-          })
+          try {
+            await bot.getDMChannel(userIDToBan).then(async channel => {
+              await channel.createMessage(`**You have been banned in ${message.member.guild.name}**\nReason: \`${banReason}\``)
+            })
+          } catch (e) {
+            console.log(e.message)
+          }
         }
 
         // if lee sends the message show a gif
@@ -34,8 +37,12 @@ exports.run = async (bot) => {
           banEmbed.embed.image = {url:"https://media1.tenor.com/images/3efd6172556b0866d51f20959298ff93/tenor.gif"}
         }
         
-        await message.member.guild.banMember(userIDToBan, daysToDeleteTheirMessages, banReason)
-        await bot.createMessage(message.channel.id, banEmbed)
+        try {
+          await message.member.guild.banMember(userIDToBan, 0, banReason)
+          await bot.createMessage(message.channel.id, banEmbed)
+        } catch (e) {
+          await bot.createMessage(message.channel.id, "Bot doesn't have `ban_members` permission OR user has more permissions then the bot")
+        }
       } else {
         const errorEmbed = {
           embed: {
