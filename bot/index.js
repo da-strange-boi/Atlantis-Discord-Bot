@@ -41,7 +41,8 @@ setTimeout(() => {
     db: client,
     Userdata: client.db("atlantis").collection("userdata"),
     Guilddata: client.db("atlantis").collection("guilddata"),
-    HuntBot: client.db("atlantis").collection("huntbot")
+    HuntBot: client.db("atlantis").collection("huntbot"),
+    BotBan: client.db("atlantis").collection("botban")
   }
   bot.database = dbObject
   bot.log("dbConnected")
@@ -52,7 +53,8 @@ bot.color = {
   red: 0xFF0000
 }
 bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
-bot.botBannedUsers = ["577893510041042974", "264213981231579147 "]
+// bot.botBannedUsers = ["577893510041042974", "264213981231579147"]
+bot.botBannedUsers = []
 bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
 require("./handlers/functions")(bot)
