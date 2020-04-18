@@ -2,6 +2,7 @@ const _ = require("lodash")
 exports.run = async (bot) => {
   bot.registerCommand("deluser", async (message, args) => {
     await bot.checkUserAndGuild(message)
+    if (bot.checkBannedUsers(message.author.id)) return
 
     bot.database.Guilddata.findOne({ guildID: message.member.guild.id }, async (err, guilddata) => {
       if (err) bot.log("error", err)

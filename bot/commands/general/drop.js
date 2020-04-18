@@ -1,6 +1,7 @@
 exports.run = async (bot) => {
   bot.registerCommand("drop", async (message, args) => {
     await bot.checkUserAndGuild(message)
+    if (bot.checkBannedUsers(message.author.id)) return
 
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)

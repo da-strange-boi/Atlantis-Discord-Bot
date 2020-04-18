@@ -1,6 +1,7 @@
 exports.run = async (bot) => {
   bot.registerCommand("atlantis", async (message, args) => {
     await bot.checkUserAndGuild(message)
+    if (bot.checkBannedUsers(message.author.id)) return
 
     try {
       await bot.getDMChannel(message.author.id).then(async channel => {

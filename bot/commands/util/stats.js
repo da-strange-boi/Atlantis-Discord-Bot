@@ -1,6 +1,8 @@
 const ms = require("parse-ms")
 exports.run = async (bot) => {
   bot.registerCommand("stats", async (message, args) => {
+    await bot.checkUserAndGuild(message)
+    if (bot.checkBannedUsers(message.author.id)) return
 
     let userStats
     if (!args[0]) {
@@ -14,7 +16,6 @@ exports.run = async (bot) => {
 
     bot.database.Userdata.findOne({ userID: userStats.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
-      await bot.checkUserAndGuild(message)
 
       if (userdata && userdata.stats) {
         const hbTime = ms(userdata.stats.totalHuntbotTime)

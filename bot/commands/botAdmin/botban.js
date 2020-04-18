@@ -1,7 +1,6 @@
 exports.run = async (bot) => {
   bot.registerCommand("botban", async (message, args) => {
     if (await bot.checkPermission(message, "botAdmin")) {
-      console.log("ee")
 
       // bot.database.BotBan.findOne({}, async (err, bannedUser) => {
       bot.database.BotBan.find({}).toArray(async(err, users) => {
@@ -45,6 +44,7 @@ exports.run = async (bot) => {
               timestamp: new Date()
             }
           }
+          bot.botBannedUsers.push(userID)
           await bot.createMessage(message.channel.id, botbannedEmbed)
         }
       })

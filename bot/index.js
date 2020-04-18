@@ -53,11 +53,18 @@ bot.color = {
   red: 0xFF0000
 }
 bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
-// bot.botBannedUsers = ["577893510041042974", "264213981231579147"]
 bot.botBannedUsers = []
 bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
 require("./handlers/functions")(bot)
+
+bot.checkBannedUsers = (id) => {
+  if (bot.botBannedUsers.includes(id)) {
+    return true
+  } else {
+    return false
+  }
+}
 
 const init = async () => {
   // Load Events

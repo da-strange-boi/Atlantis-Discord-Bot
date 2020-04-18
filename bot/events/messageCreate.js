@@ -13,11 +13,7 @@ exports.run = async (bot, message) => {
   if (message.author.bot && message.author.id != "408785106942164992") return
 
   // Guild ban check
-  message.member.guild.members.forEach(member => {
-    if (bot.botBannedUsers.includes(member.id)) {
-      message.member.guild.leave()
-    }
-  })
+  if (bot.checkBannedUsers(message.author.id)) return
 
   // User just mentioning the bot
   if (message.content.replace("!", "") == `<@${bot.user.id}>`) {
