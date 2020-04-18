@@ -1,3 +1,4 @@
+const fs = require("fs")
 exports.run = async (bot) => {
   bot.registerCommand("ban", async (message, args) => {
     if (await bot.checkPermission(message, "botAdmin")) {
@@ -26,6 +27,11 @@ exports.run = async (bot) => {
           bot.getDMChannel(userIDToBan).then(channel => {
             channel.createMessage(`**You have been banned in ${message.member.guild.name}**\nReason: \`${banReason}\``)
           })
+        }
+
+        // if lee sends the message show a gif
+        if (message.author.id == "296155961230622720") {
+          banEmbed.embed.image = {url:"https://media1.tenor.com/images/3efd6172556b0866d51f20959298ff93/tenor.gif"}
         }
         
         await message.member.guild.banMember(userIDToBan, daysToDeleteTheirMessages, banReason)
