@@ -212,6 +212,7 @@ exports.run = async (bot, message) => {
   }
   // Reminder for `owo huntbot`
   if (message.author.id == "408785106942164992") {
+    console.log(message.content)
     if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP. I AM BACK WITH/g)) return
     if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g)) {
       let huntBotTime = message.content.split("I WILL BE BACK IN ")[1].split(" ")[0] // 6H2M
@@ -249,3 +250,9 @@ exports.run = async (bot, message) => {
     }
   }
 }
+
+/*
+
+
+
+*/
