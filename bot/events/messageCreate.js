@@ -12,9 +12,6 @@ exports.run = async (bot, message) => {
   if (!message.member) return
   if (message.author.bot && message.author.id != "408785106942164992") return
 
-  // Guild ban check
-  if (bot.checkBannedUsers(message.author.id)) return
-
   // User just mentioning the bot
   if (message.content.replace("!", "") == `<@${bot.user.id}>`) {
     if (bot.database) {
@@ -22,10 +19,13 @@ exports.run = async (bot, message) => {
         if (err) bot.log("error", err)
 
         const prefix = guilddata.prefix == "" ? "a!" : guilddata.prefix
-        bot.createMessage(message.channel.id, `Hello there ***${message.author.username}***, my prefix ${prefix == "a!" ? "is `a!`" : `for **${message.channel.guild.name}** is \`${prefix}\``}`)
+        bot.createMessage(message.channel.id, `Hello there ***${message.author.username}***, my prefix ${prefix == "a!" ? "is `a!`" : `for **${message.channel.guild.name}** is \`${prefix}\``}${bot.checkBannedUsers(message.author.id) ? "\n> __***You are bot banned***__" : ""}`)
       })
     }
   }
+
+  // Guild ban check
+  if (bot.checkBannedUsers(message.author.id)) return
 
   // User message deletion in selected channels
   if (bot.database) {

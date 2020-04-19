@@ -23,8 +23,8 @@ exports.run = async (bot) => {
           await bot.createMessage(message.channel.id, botbannedEmbed)
         } else {
 
-          const userID = args.shift()
-          const reason = args.join(" ")
+          const userID = message.mentions[0].id || args[0]
+          const reason = args.splice(1, args.length-1).join(" ")
           const userObj = await bot.getRESTUser(userID)
 
           await bot.database.BotBan.insertOne({

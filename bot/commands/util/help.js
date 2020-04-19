@@ -49,7 +49,7 @@ exports.run = async (bot) => {
               value: "`atlantis`, `help`, `invite`, `stats`"
             },
             {
-              name: "Admin (must be admin to use)",
+              name: "Admin",
               value: "`deluser`, `delbot`, `delete`, `owochannel`, `welcome`, `prefix`"
             }
           ],

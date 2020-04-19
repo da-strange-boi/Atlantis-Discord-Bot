@@ -35,9 +35,7 @@ exports.run = async (bot) => {
     await bot.database.BotBan.find({}).toArray(async(err, users) => {
       if (err) bot.log("error", err)
       users.forEach(user => {
-        if (bot.botBannedUsers == []) {
           bot.botBannedUsers.push(user.userID)
-        }
       })
     })
 

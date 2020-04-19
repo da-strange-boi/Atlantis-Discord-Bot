@@ -48,7 +48,7 @@ exports.run = async (bot) => {
                 inline: true
               },
               {
-                name: "Completed Huntbot's",
+                name: "Completed Huntbots",
                 value: `\`${userdata.stats.completedHuntbots}\``,
                 inline: true
               },
