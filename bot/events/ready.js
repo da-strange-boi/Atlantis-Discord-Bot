@@ -8,7 +8,7 @@ exports.run = async (bot) => {
     how to make it better lol
   */
 
-  if (process.env.DEV === "false") require("./handlers/updateAPIStats")(bot)
+  if (process.env.DEV === "false") require("../handlers/updateAPIStats")(bot)
 
   setTimeout(async() => {
     // Setting the bots status
