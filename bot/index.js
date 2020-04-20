@@ -57,6 +57,7 @@ bot.botBannedUsers = []
 bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
 require("./handlers/functions")(bot)
+if (process.env.DEV === "false") require("./handlers/updateAPIStats")(bot)
 
 const init = async () => {
   // Load Events

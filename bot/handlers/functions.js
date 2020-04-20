@@ -1,5 +1,5 @@
 const Eris = require("eris")
-const CronJob = require('cron').CronJob
+const { CronJob } = require('cron')
 const _ = require("lodash")
 module.exports = async (bot) => {
   /** @typedef {function} bot.checkPermission
