@@ -119,6 +119,19 @@ module.exports = async (bot) => {
     return color.color
   }
 
+  /** @typedef {function} checkBannedUsers
+   * Checks to see if the given user id is bot banned
+   * @param {String} id The user id
+   * @returns {Boolean} If the user is bot banned or not
+   */
+  bot.checkBannedUsers = (id) => {
+    if (bot.botBannedUsers.includes(id)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   // Delete daily stats
   let resetDailyStats = new CronJob("0 0 3 * * *", async () => {
     await bot.database.Userdata.find({}).toArray((err, users) => {

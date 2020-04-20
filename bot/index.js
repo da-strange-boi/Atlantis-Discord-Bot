@@ -58,14 +58,6 @@ bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
 require("./handlers/functions")(bot)
 
-bot.checkBannedUsers = (id) => {
-  if (bot.botBannedUsers.includes(id)) {
-    return true
-  } else {
-    return false
-  }
-}
-
 const init = async () => {
   // Load Events
   fs.readdir("./bot/events/", (err, files) => {
