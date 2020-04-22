@@ -9,7 +9,9 @@
 (Will also take nitro as donation)
 
 # Bot Lists
-[![Atlantis's Widget](https://api.botlist.space/widget/688911718788628496/6?rounded=true&background=017a97&shadows=true "Atlantis's Widget")](https://botlist.space/bot/688911718788628496?utm_source=bls&utm_medium=widget&utm_campaign=688911718788628496)
+[![Atlantis's Widget](https://api.botlist.space/widget/688911718788628496/6?rounded=true&background=017a97&shadows=true "Atlantis on botlist.space")](https://botlist.space/bot/688911718788628496?utm_source=bls&utm_medium=widget&utm_campaign=688911718788628496)
+
+[![Atlantis's Widget](https://top.gg/api/widget/688911718788628496.svg?middlecolor=073a3b&usernamecolor=d4af37&highlightcolor=101010&topcolor=0e5c5e "Atlantis on top.gg")](https://top.gg/bot/688911718788628496)
 
 # How do I use Atlantis?
 By adding Atlantis to your server it is enabled automatically. 
