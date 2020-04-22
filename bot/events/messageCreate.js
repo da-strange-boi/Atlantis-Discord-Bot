@@ -1,7 +1,6 @@
 const _ = require("lodash")
 
-const huntCoolDown = 15000
-const battleCoolDown = 15000
+const huntCoolDown = battleCoolDown = 15000
 const praycurseCoolDown = 300000
 const owoCoolDown = 10000
 const dropCoolDown = 30000

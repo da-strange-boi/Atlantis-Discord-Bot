@@ -19,8 +19,8 @@ const getContentFormat = (message) => {
 const logging = async function Log (logType, logMessage) {
   switch (logType) {
     case 'system': console.log(chalk.inverse('[LOG][SYSTEM]') + getContentFormat(chalk.hex("#FFFFFF")(logMessage)) + getCurrentDate()); break
-    case 'error': console.log(chalk.inverse('[LOG][ERROR]') + chalk.hex("#FF0000")(logMessage) + getCurrentDate()); break
-    case 'statsPosted': console.log(chalk.inverse('[LOG][STATS]') + chalk.hex("#AA00FF")(logMessage) + getCurrentDate()); break
+    case 'error': console.log(chalk.inverse('[LOG][ERROR]') + getContentFormat(chalk.hex("#FF0000")(logMessage)) + getCurrentDate()); break
+    case 'statsPosted': console.log(chalk.inverse('[LOG][STATS]') + getContentFormat(chalk.hex("#AA00FF")(logMessage)) + getCurrentDate()); break
     case 'botOnline': console.log(chalk.inverse('[LOG][ONLINE]') + chalk.hex("#00FFFF")(` Version ${version.version} `) + getCurrentDate()); break
     case 'dbConnected': console.log(chalk.inverse('[LOG][SYSTEM]') + chalk.hex("#FFAA00")(' Database Connected Successfully ') + getCurrentDate()); break
     case 'botDisconnected': console.log(chalk.inverse('[LOG][DISCONNECT]') + chalk.hex("#00FF00")(' Bot Disconnected ') + getCurrentDate()); break
