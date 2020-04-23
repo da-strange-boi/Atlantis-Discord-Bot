@@ -1,30 +1,28 @@
-const assert = require('assert')
 const client = require('mongodb').MongoClient
 
-let _db
+module.exports = async (bot) => {
+  console.log("ee")
 
-function initDb(callback) {
-  if (_db) {
-    console.warn('trying to init DB again!')
-    return callback(null, _db)
+  const connected = async (err, db) => {
+    if (err) {
+      return err
+    }
+    
+    const client = await db
+    const dbObject = {
+      db: await client,
+      Userdata: await client.db("atlantis").collection("userdata"),
+      Guilddata: await client.db("atlantis").collection("guilddata"),
+      HuntBot: await client.db("atlantis").collection("huntbot"),
+      BotBan: await client.db("atlantis").collection("botban")
+    }
+    bot.database = dbObject
+    bot.log("dbConnected")
+
+    // Once DB is connected, connect the bot
+    bot.connect()
   }
+
   client.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, connected)
 
-  function connected(err, db) {
-    if (err) {
-      return callback(err)
-    }
-    _db = db
-    return callback(null, _db)
-  }
-}
-
-function getDb() {
-  assert.ok(_db, 'Db has not been initialized. Please called init first.')
-  return _db
-}
-
-module.exports = {
-  getDb,
-  initDb
 }

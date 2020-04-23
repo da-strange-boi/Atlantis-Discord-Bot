@@ -31,27 +31,13 @@ const bot = new Eris.CommandClient(process.env.TOKEN, {
 })
 
 // database connection
-const { initDb, getDb } = require('./handlers/database.js')
-initDb((err) => {
-  if (err) throw err
-})
-setTimeout(() => {
-  const client = getDb()
-  const dbObject = {
-    db: client,
-    Userdata: client.db("atlantis").collection("userdata"),
-    Guilddata: client.db("atlantis").collection("guilddata"),
-    HuntBot: client.db("atlantis").collection("huntbot"),
-    BotBan: client.db("atlantis").collection("botban")
-  }
-  bot.database = dbObject
-  bot.log("dbConnected")
-}, 4000)
+require('./handlers/database.js')(bot)
 
 bot.color = {
   green: 0x00FF00,
   red: 0xFF0000
 }
+// da strange boi (tyler), jess (jess), crushed (lee)
 bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
 bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
@@ -72,8 +58,6 @@ const init = async () => {
   loader.run(bot)
 }
 init()
-
-bot.connect()
 
 /*
   I am not a good programmer so please don't die looking at this (probably) bad code
