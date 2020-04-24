@@ -1,13 +1,10 @@
-const fs = require("fs")
 exports.run = async (bot) => {
   bot.registerCommand("ban", async (message, args) => {
     if (await bot.checkPermission(message, "botAdmin")) {
       let userIDToBan = message.mentions[0].id || args[0]
       let banReason = args.splice(1, args.length-1).join(" ")
 
-      console.log(userIDToBan)
-
-      let isUserInGuild = message.member.guild.members.find(member => member.id == userIDToBan) ? true : false
+      let isUserInGuild = message.channel.guild.members.find(member => member.id == userIDToBan) ? true : false
 
       if (userIDToBan, banReason) {
         const gotUser = await bot.getRESTUser(userIDToBan)
