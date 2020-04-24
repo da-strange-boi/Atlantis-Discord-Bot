@@ -61,19 +61,34 @@ module.exports = async (bot) => {
             dailyHuntCount: 0,
             dailyBattleCount: 0,
             dailyPraycurseCount: 0,
-          }
+          },
+          customs: [
+            {
+              id: 1,
+              unlocked: true,
+              name: "Untitled",
+              trigger: "",
+              triggerText: "",
+              time: ""
+            },
+            {
+              id: 2,
+              unlocked: false,
+              name: "Untitled",
+              trigger: "",
+              triggerText: "",
+              time: ""
+            },
+            {
+              id: 3,
+              unlocked: false,
+              name: "Untitled",
+              trigger: "",
+              triggerText: "",
+              time: ""
+            },
+          ]
         })
-      }
-      if (userdata) {
-        if (!userdata.owo) {
-          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"owo":false}})
-        }
-        if (!userdata.stats) {
-          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats":{owoCount: 0,huntCount: 0,battleCount: 0,praycurseCount: 0,completedHuntbots: 0,totalHuntbotTime: 0,dailyOwoCount: 0,dailyHuntCount: 0,dailyPraycurseCount: 0}}})
-        }
-        if (!userdata.stats.dailyBattleCount) {
-          await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyBattleCount":0}})
-        }
       }
     })
     await bot.database.Guilddata.findOne({ guildID: message.channel.guild.id }, async (err, guilddata) => {
