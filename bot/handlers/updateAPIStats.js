@@ -13,7 +13,7 @@ module.exports = async (bot) => {
   new CronJob("0 */30 * * * *", () => {
     dbl.postStats(bot.guilds.size, 0, bot.shards.size)
     bls.postServerCount(bot.guilds.size).catch(err => bot.log("error", err))
-    bot.log("statsPosted", `Guilds: ${bot.guilds.size} || ShardsL ${bot.shards.size}`)
+    bot.log("statsPosted", `Guilds: ${bot.guilds.size} || Shards: ${bot.shards.size}`)
   }, null, true, "America/New_York").start()
 
 }
