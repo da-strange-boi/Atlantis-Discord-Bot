@@ -46,7 +46,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Util",
-              value: "`atlantis`, `help`, `invite`, `stats`"
+              value: "`atlantis`, `custom`, `help`, `invite`, `stats`"
             },
             {
               name: "Admin",
@@ -79,6 +79,7 @@ exports.run = async (bot) => {
         case "huntbot": commandDetailToSend = commandDetails("Huntbot", "`a!huntbot`", "Toggles the reminder for \`owo huntbot\`", false, "`huntbot`"); break
         case "show": commandDetailToSend = commandDetails("Show", "`a!show`", "Shows what is enabled/disabled"); break
         case "atlantis": commandDetailToSend = commandDetails("Atlantis", "`a!atlantis`", "Sends an DM invite link to join Atlantis", false, "`atl`"); break
+        case "custom": commandDetailToSend = commandDetails("Custom", "`a!custom set <trigger check> <time> <trigger phrase>`\n`a!custom delete <1|2|3>`", `To set and delete custom timers\n**<trigger check>** ~ b, a, e\n${bot.emojis.blank} **b** - checks for the trigger phrase in the beginning of the message\n${bot.emojis.blank} **a** - checks for the trigger phrase anywhere in the message (space padded)\n${bot.emojis.blank} **e** - checks for the trigger phrase at the end of the message\n**<time>** - the time it should wait until it reminds you\n${bot.emojis.blank} in the format \`1M30S\`\n**<trigger phrase>** - the text to look for in the message to remind you`, "`a!custom b 15S owo slots`\n`a!custom delete 2`"); break
         case "invite": commandDetailToSend = commandDetails("Invite", "`a!invite`", "Invite Atlantis bot to your server"); break
         case "deluser": commandDetailToSend = commandDetails("Deluser", "`a!deluser add/delete <#channel mention>`", "Deletes user messages in a given channel", "`a!deluser add #general`"); break
         case "delbot": commandDetailToSend = commandDetails("Delbot", "`a!delbot add/delete <#channel mention>`", "Deletes bot messages in a given channel", "`a!delbot delete #owo`"); break
