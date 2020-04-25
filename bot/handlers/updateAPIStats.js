@@ -11,22 +11,23 @@ module.exports = async (bot) => {
 
   dbl.webhook.on("ready", hook => {
     console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`)
-  })
 
-  // when user votes
-  dbl.webhook.on("vote", vote => {
-    bot.database.Userdata.findOne({ userID: vote.id }, async (err, userdata) => {
-      if (err) bot.log("error", err)
+    // when user votes
+    dbl.webhook.on("vote", vote => {
+      bot.database.Userdata.findOne({ userID: vote.id }, async (err, userdata) => {
+        if (err) bot.log("error", err)
 
-      if (userdata) {
-        let modifiedCustom = userdata.customs
-        for (let i = 0; i < modifiedCustom.length; i++) {
-          modifiedCustom[i].unlocked = true
+        if (userdata) {
+          let modifiedCustom = userdata.customs
+          for (let i = 0; i < modifiedCustom.length; i++) {
+            modifiedCustom[i].unlocked = true
+          }
+          await bot.database.Userdata.findOneAndUpdate({ userID: vote.id }, {$set: {"custom": modifiedCustom}})
+          await bot.database.Userdata.findOneAndUpdate({ userID: vote.id }, {$set: {"lastVote": Date.now()}})
         }
-        await bot.database.Userdata.findOneAndUpdate({ userID: vote.id }, {$set: {"custom": modifiedCustom}})
-        await bot.database.Userdata.findOneAndUpdate({ userID: vote.id }, {$set: {"lastVote": Date.now()}})
-      }
+      })
     })
+
   })
 
   // Post stats every 30 mins
