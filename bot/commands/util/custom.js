@@ -36,7 +36,7 @@ exports.run = async (bot) => {
         userdata.customs.forEach(custom => {
           if (custom.triggerText != "") {
             if (!hasCustomSet) hasCustomSet = true
-            customEmbed.embed.fields.push({name:`**${counter}**: \`${custom.triggerText}${!custom.unlocked ? " (Locked)" : ""}\``, value:`Trigger Code: \`${custom.trigger}\`\nTime: \`${custom.displayTime}\``})
+            customEmbed.embed.fields.push({name:`**${counter}**: \`${custom.triggerText}${!custom.unlocked ? " (Locked)" : ""}\``, value:`Trigger Check: \`${custom.trigger}\`\nTime: \`${custom.displayTime}\``})
           } else {
             customEmbed.embed.fields.push({name:`**${counter}**: \`Not Set${!custom.unlocked ? " (Locked)" : ""}\``, value:"---"})
           }
@@ -167,5 +167,8 @@ exports.run = async (bot) => {
         }
       }
     })
+  }, {
+    cooldown: 3000,
+    cooldownMessage: "Whoa there slow down, the cooldown is 3 seconds!"
   })
 }

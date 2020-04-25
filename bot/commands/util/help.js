@@ -46,7 +46,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Util",
-              value: "`atlantis`, `custom`, `help`, `invite`, `stats`"
+              value: "`atlantis`, `custom`, `help`, `invite`, `stats`, `vote`"
             },
             {
               name: "Admin",
@@ -90,6 +90,7 @@ exports.run = async (bot) => {
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <@mention / user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
         case "botban": commandDetailToSend = commandDetails("Botban", "`a!botban <user id> <reason>`", "`a!botban 295255543596187650 for testing`"); break
         case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break
+        case "vote": commandDetailToSend = commandDetails("Vote", "`a!vote`", "To vote for Atlantis on top.gg"); break
         case "checkowo": commandDetailToSend = commandDetails("Checkowo", "`a!checkowo <@mention / user id>`", "To get the count of all 'owo' messages a user has sent", "a!checkowo 296155961230622720"); break
         default: commandDetailToSend = {embed:{title:"Error",color:bot.color.red,description:"You have to add specify a command name",timestamp: new Date()}}; break
       }

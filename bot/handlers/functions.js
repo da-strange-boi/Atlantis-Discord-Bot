@@ -44,6 +44,7 @@ module.exports = async (bot) => {
       if (!userdata) {
         await bot.database.Userdata.insertOne({
           userID: message.author.id,
+          lastVote: 0,
           hunt: true,
           battle: false,
           drop: false,
@@ -160,4 +161,23 @@ module.exports = async (bot) => {
     })
   }, null, true, "America/New_York")
   resetDailyStats.start()
+
+  // check last vote
+  let hours12 = 43200000
+  let checkVotes = new CronJob("0 */10 * * * *", async () => {
+    await bot.database.Userdata.find({}).toArray((err, users) => {
+      if (err) bot.log("error", err)
+      users.forEach(async user => {
+        if ((Date.now() - user.lastVote) >= hours12) {
+          let modifiedCustom = user.customs
+          for (let i = 0; i < modifiedCustom.length; i++) {
+            if (user.id != 1) modifiedCustom[i].unlocked = false
+          }
+          await bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"custom": modifiedCustom}})
+        }
+      })
+    })
+  }, null, true, "America/New_York")
+  checkVotes.start()
+
 }

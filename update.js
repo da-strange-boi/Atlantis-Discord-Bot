@@ -25,6 +25,10 @@ client.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, async 
         await userdata.findOneAndUpdate({ userID: us.userID }, {$set: {"stats.dailyBattleCount":0}})
       }
 
+      if (!us.lastVote) {
+        await userdata.findOneAndUpdate({ userID: us.userID }, {$set: {"lastVote":0}})
+      }
+
       // update customs
       if (!us.customs) {
         await userdata.findOneAndUpdate({ userID: us.userID }, {$set: {"customs":[
