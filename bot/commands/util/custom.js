@@ -6,6 +6,19 @@ exports.run = async (bot) => {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
+      // Error maker
+      const cmdError = async (_message) => {
+        const errorEmbed = {
+          embed: {
+            title: "Error!",
+            color: bot.color.red,
+            description: _message,
+            timestamp: new Date()
+          }
+        }
+        await bot.createMessage(message.channel.id, errorEmbed)
+      }
+
       // Main dashboard
       if (!args[0]) {
         const customEmbed = {
@@ -52,7 +65,7 @@ exports.run = async (bot) => {
 
           if (option == "set") {
 
-            if (!option || !trigger || !time || !triggerText) console.log("wrong syntax") // error
+            if (!option || !trigger || !time || !triggerText) return cmdError("Didn't provide enough information for setting a timer\ncheck `a!help custom` for more help")
 
             if ((trigger == "b") || (trigger == "a") || (trigger == "e")) {
               const setTime = time.match(/[0-9][0-9][M|S]{1}|[0-9][M|S]{1}/g)
@@ -115,19 +128,17 @@ exports.run = async (bot) => {
                   }
 
                   if (!didUpdateCustoms) {
-                    bot.createMessage(message.channel.id, {embed:{title:"Error!",color:bot.color.red,description:"You most likely don't have another slot open or unlocked",timestamp: new Date()}})
+                    return cmdError("You most likely don't have another slot open or unlocked")
                   }
 
                 } else {
-                  // error: probably time out of range
+                  return cmdError("Time is probably out of range\ncheck `a!help custom` for more help")
                 }
               } else {
-                // error: incorrect time format
-                console.log('tf')
+                return cmdError("Incorrect time format\ncheck `a!help custom` for more help")
               }
             } else {
-              // error: incorrect trigger check
-              console.log('tc')
+              return cmdError("Incorrect trigger check\ncheck `a!help custom` for more help")
             }
           } else if (option == "delete") {
 
@@ -145,18 +156,14 @@ exports.run = async (bot) => {
               await bot.createMessage(message.channel.id, {embed:{title:"Success!",color:bot.color.green,description:"Custom timer has been deleted",timestamp:new Date()}})
 
             } else {
-              // error: out of range
-              console.log("ofr")
+              return cmdError("Number out of range 1-3\ncheck `a!help custom` for more help")
             }
 
           } else {
-            // error: incorrect option
-            console.log('o')
+            return cmdError("Incorrect option provided\ncheck `a!help custom` for more help")
           }
-
         } else {
-          // error: incorrect syntax
-          console.log('s')
+          return cmdError("Incorrect syntax provided\ncheck `a!help custom` for more help")
         }
       }
     })
