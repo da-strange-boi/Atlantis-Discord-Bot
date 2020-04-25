@@ -1,9 +1,10 @@
 const addHBTimes = require("../handlers/addHBTimes")
 const CronJob = require("cron").CronJob
+let counter = 0
 exports.run = async (bot) => {
   bot.log("botOnline")
 
-  if (process.env.DEV === "false") require("../handlers/updateAPIStats")(bot)
+  if (process.env.DEV === "false" && counter == 0) require("../handlers/updateAPIStats")(bot); counter == 420
 
   // Setting the bots status
   let updateStatus = new CronJob("0 */30 * * * *", async () => {
