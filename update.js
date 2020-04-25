@@ -31,26 +31,26 @@ client.connect("mongodb://localhost:27017", { useUnifiedTopology: true }, async 
           {
             id: 1,
             unlocked: true,
-            name: "Untitled",
             trigger: "",
             triggerText: "",
-            time: ""
+            time: 0,
+            displayTime: ""
           },
           {
             id: 2,
             unlocked: false,
-            name: "Untitled",
             trigger: "",
             triggerText: "",
-            time: ""
+            time: 0,
+            displayTime: ""
           },
           {
             id: 3,
             unlocked: false,
-            name: "Untitled",
             trigger: "",
             triggerText: "",
-            time: ""
+            time: 0,
+            displayTime: ""
           },
         ]}})
       }

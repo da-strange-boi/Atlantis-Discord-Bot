@@ -66,26 +66,26 @@ module.exports = async (bot) => {
             {
               id: 1,
               unlocked: true,
-              name: "Untitled",
               trigger: "",
               triggerText: "",
-              time: ""
+              time: 0,
+              displayTime: ""
             },
             {
               id: 2,
               unlocked: false,
-              name: "Untitled",
               trigger: "",
               triggerText: "",
-              time: ""
+              time: 0,
+              displayTime: ""
             },
             {
               id: 3,
               unlocked: false,
-              name: "Untitled",
               trigger: "",
               triggerText: "",
-              time: ""
+              time: 0,
+              displayTime: ""
             },
           ]
         })
