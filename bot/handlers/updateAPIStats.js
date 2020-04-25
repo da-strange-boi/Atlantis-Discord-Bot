@@ -2,7 +2,7 @@ const { CronJob } = require("cron")
 const DBL = require("dblapi.js")
 const BLS = require("botlist.space")
 module.exports = async (bot) => {
-  const dbl = new DBL(process.env.DBL_TOKEN, {webhookPort: process.env.PORT, webhookAuth: process.env.WEBHOOK_AUTH}, bot)
+  const dbl = new DBL(process.env.DBL_TOKEN, {webhookPort: process.env.WEBHOOK_PORT, webhookAuth: process.env.WEBHOOK_AUTH})
   const bls = new BLS.Client({id: bot.user.id, botToken: process.env.BLS_TOKEN})
 
   dbl.on("error", (e) => {

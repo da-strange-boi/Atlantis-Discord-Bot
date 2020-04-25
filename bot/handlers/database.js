@@ -1,7 +1,6 @@
 const client = require('mongodb').MongoClient
 
 module.exports = async (bot) => {
-  console.log("ee")
 
   const connected = async (err, db) => {
     if (err) {

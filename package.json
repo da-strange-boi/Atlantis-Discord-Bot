@@ -1,6 +1,6 @@
 {
   "name": "atlantis-discord-bot",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "main": "bot/index.js",
   "license": "MIT",
   "dependencies": {
