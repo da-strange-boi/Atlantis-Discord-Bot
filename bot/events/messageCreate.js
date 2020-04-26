@@ -91,7 +91,6 @@ exports.run = async (bot, message) => {
               }
             }
           } else if (userCustoms[i].id == 2 && userCustoms[i] != "" && userCustoms[i].unlocked) {
-            console.log('aaa')
             if (userCustoms[i].trigger == "b") {
               if (message.content.startsWith(userCustoms[i].triggerText)) {
                 setTimeout(() => {
