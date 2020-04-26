@@ -6,3 +6,6 @@ node_modules/
 
 # vscode project settings
 .vscode
+
+# make pushing to dev then master easier
+publish.bat

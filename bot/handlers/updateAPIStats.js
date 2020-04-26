@@ -14,7 +14,7 @@ module.exports = async (bot) => {
 
     // when user votes
     dbl.webhook.on("vote", (vote) => {
-      console.log(`${vote.user} just voted`)
+      bot.log("system", `${vote.user} just voted`)
       bot.database.Userdata.findOne({ userID: vote.user }, async (err, userdata) => {
         if (err) bot.log("error", err)
 
@@ -25,10 +25,10 @@ module.exports = async (bot) => {
           }
           await bot.database.Userdata.findOneAndUpdate({ userID: vote.user }, {$set: {"customs": modifiedCustom}})
           await bot.database.Userdata.findOneAndUpdate({ userID: vote.user }, {$set: {"lastVote": Date.now()}})
+          bot.log("system", `it all good`)
         }
       })
     })
-
   })
 
   // Post stats every 30 mins

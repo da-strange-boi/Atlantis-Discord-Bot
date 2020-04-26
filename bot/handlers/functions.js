@@ -173,7 +173,7 @@ module.exports = async (bot) => {
           for (let i = 0; i < modifiedCustom.length; i++) {
             if (user.id != 1) modifiedCustom[i].unlocked = false
           }
-          await bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"custom": modifiedCustom}})
+          await bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"customs": modifiedCustom}})
         }
       })
     })

@@ -60,16 +60,17 @@ exports.run = async (bot, message) => {
       if (err) bot.log("error", err)
 
       // beginning of mess (needs redefine-ment)
-      // to skip go to line: 146
+      // to skip go to line: 99
       if (userdata) {
         let userCustoms = userdata.customs
         for (let i = 0; i < userdata.customs.length; i++) {
-          if (userCustoms[i].id == 1 && userCustoms[i] != "") {
+          if ((userCustoms[i].id == 1 && userCustoms[i] != "") || ((userCustoms[i].id == 2 || userCustoms[i].id == 3) && userCustoms[i] != "" && userCustoms[i].unlocked)) {
             if (userCustoms[i].trigger == "b") {
               if (message.content.startsWith(userCustoms[i].triggerText)) {
                 setTimeout(() => {
                   bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
                     setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
+                    return
                   })
                 }, userCustoms[i].time)
               }
@@ -78,6 +79,7 @@ exports.run = async (bot, message) => {
                 setTimeout(() => {
                   bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
                     setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
+                    return
                   })
                 }, userCustoms[i].time)
               }
@@ -86,58 +88,7 @@ exports.run = async (bot, message) => {
                 setTimeout(() => {
                   bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
                     setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
-                  })
-                }, userCustoms[i].time)
-              }
-            }
-          } else if (userCustoms[i].id == 2 && userCustoms[i] != "" && userCustoms[i].unlocked) {
-            if (userCustoms[i].trigger == "b") {
-              if (message.content.startsWith(userCustoms[i].triggerText)) {
-                setTimeout(() => {
-                  bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
-                    setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
-                  })
-                }, userCustoms[i].time)
-              }
-            } else if (userCustoms[i].trigger == "a") {
-              if (message.content.split(" ").includes(userCustoms[i].triggerText)) {
-                setTimeout(() => {
-                  bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
-                    setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
-                  })
-                }, userCustoms[i].time)
-              }
-            } else if (userCustoms[i].trigger == "e") {
-              if (message.content.endsWith(userCustoms[i].triggerText)) {
-                setTimeout(() => {
-                  bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
-                    setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
-                  })
-                }, userCustoms[i].time)
-              }
-            }
-          } else if (userCustoms[i].id == 3 && userCustoms[i] != "" && userCustoms[i].unlocked) {
-            if (userCustoms[i].trigger == "b") {
-              if (message.content.startsWith(userCustoms[i].triggerText)) {
-                setTimeout(() => {
-                  bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
-                    setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
-                  })
-                }, userCustoms[i].time)
-              }
-            } else if (userCustoms[i].trigger == "a") {
-              if (message.content.split(" ").includes(userCustoms[i].triggerText)) {
-                setTimeout(() => {
-                  bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
-                    setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
-                  })
-                }, userCustoms[i].time)
-              }
-            } else if (userCustoms[i].trigger == "e") {
-              if (message.content.endsWith(userCustoms[i].triggerText)) {
-                setTimeout(() => {
-                  bot.createMessage(message.channel.id, `<@${message.author.id}>, your \`${userCustoms[i].triggerText}\` cooldown has passed!`).then(sentMessage => {
-                    setTimeout(async() => {await sentMessage.delete("Custom timer message deleted")}, 5000)
+                    return
                   })
                 }, userCustoms[i].time)
               }
@@ -337,9 +288,3 @@ exports.run = async (bot, message) => {
     }
   }
 }
-
-/*
-
-
-
-*/
