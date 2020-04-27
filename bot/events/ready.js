@@ -1,6 +1,11 @@
 const addHBTimes = require("../handlers/addHBTimes")
 const CronJob = require("cron").CronJob
 let checker = 0
+
+const formatNumber = (number) => {
+  return Intl.NumberFormat().format(number)
+}
+
 exports.run = async (bot) => {
   bot.log("botOnline")
 
@@ -16,7 +21,7 @@ exports.run = async (bot) => {
       await bot.database.Userdata.find({}).toArray((err, userdata) => {
         if (err) bot.log("error", err)
         bot.editStatus("online", {
-          name: `Reminding ${userdata.length} users | a!help`,
+          name: `Reminding ${formatNumber(userdata.length)} users | a!help`,
           type: 0
         })
       })
