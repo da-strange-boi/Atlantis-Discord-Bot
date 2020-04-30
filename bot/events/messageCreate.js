@@ -122,8 +122,12 @@ exports.run = async (bot, message) => {
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyHuntCount":userdata.stats.dailyHuntCount+1}})
           userTimeouts[message.author.id].hunt = false
 
+          // custom messages
+          let huntReminderMessage = `<@${message.author.id}>, \`hunt\` cooldown has passed! ${bot.emojis.native.hunt}`
+          if (message.author.id == "144052828678127616" /* Kazen */) huntReminderMessage = `<@${message.author.id}>, \`hunt\` dulu kesayangan! ${bot.emojis.custom.kazen}`
+
           if (userdata.hunt) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`hunt\` cooldown has passed! ${bot.emojis.native.hunt}`).then(sentMessage => {
+            bot.createMessage(message.channel.id, huntReminderMessage).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted hunt reminder for ${message.author.tag}`)}, 5000)
             })
           }
@@ -152,8 +156,11 @@ exports.run = async (bot, message) => {
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyBattleCount":userdata.stats.dailyBattleCount+1}})
           userTimeouts[message.author.id].battle = false
 
+          let battleReminderMessage = `<@${message.author.id}>, \`battle\` cooldown has passed! ${bot.emojis.native.battle}`
+          if (message.author.id == "524731061180039168" /* zee */) battleReminderMessage = `<@${message.author.id}>, Maus fight ${bot.emojis.custom.zee}`
+
           if (userdata.battle) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`battle\` cooldown has passed! ${bot.emojis.native.battle}`).then(sentMessage => {
+            bot.createMessage(message.channel.id, battleReminderMessage).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted battle reminder for ${message.author.tag}` )}, 5000)
             })
           }
@@ -212,8 +219,12 @@ exports.run = async (bot, message) => {
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyOwoCount":userdata.stats.dailyOwoCount+1}})
           userTimeouts[message.author.id].owo = false
 
+          let owoReminderMessage = `<@${message.author.id}>, \`owo\` cooldown has passed! ${bot.emojis.owo}`
+          if (message.author.id == "144052828678127616" /* Kazen */) owoReminderMessage = `<@${message.author.id}>, \`owo\` dulu kesayangan! ${bot.emojis.custom.kazen2}`
+          if (message.author.id == "498480982471737344" /* Floofie */) owoReminderMessage = `<@${message.author.id}>, oh woah there, your owo cooldown’s done`
+
           if (userdata.owo) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`owo\` cooldown has passed! ${bot.emojis.owo}`).then(sentMessage => {
+            bot.createMessage(message.channel.id, owoReminderMessage).then(sentMessage => {
               setTimeout(() => {sentMessage.delete(`Deleted owo reminder for ${message.author.tag}`)}, 3000)
             })
           }

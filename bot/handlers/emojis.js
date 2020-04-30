@@ -12,6 +12,11 @@ const emojis = {
     hunt: ":bow_and_arrow:",
     battle: ":crossed_swords:",
     trident: ":trident:"
+  },
+  custom: {
+    kazen: "<:kazen:705014301957554238>",
+    kazen2: "<a:kazen2:705022941804363786>",
+    zee: "<a:zee:705438270183702638>"
   }
 }
 module.exports = emojis
