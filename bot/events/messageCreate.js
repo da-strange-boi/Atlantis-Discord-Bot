@@ -106,7 +106,7 @@ exports.run = async (bot, message) => {
   if (messageContent.match(/owobuy[1-7]/g)) {
     setTimeout(async() => {
       if (message.author.id == "648741213154836500" /* lanre */) {
-        bot.createMessage(message.channel.id, `${bot.emojis.custom.lanre.ring} Lanre, you can buy rings now! uwu ${bot.emojis.custom.lanre.randomKanna[Math.floor(Math.random() * bot.emojis.custom.lanre.randomKanna.length)+1]}`).then(sentMessage => {
+        bot.createMessage(message.channel.id, `${bot.emojis.custom.lanre.ring} Lanre, you can buy rings now! uwu ${bot.emojis.custom.lanre.randomKanna[Math.floor(Math.random() * bot.emojis.custom.lanre.randomKanna.length)]}`).then(sentMessage => {
           setTimeout(() => {sentMessage.delete(`Deleted ring reminder for ${message.author.tag}` )}, 5000)
         })
       }
