@@ -4,6 +4,9 @@
 ## Join Atlantis Discord Server
 [![](https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2)](https://discord.gg/FCUZeGb)
 
+# Donations
+I use Ko-fi because they don't take a fee for themselves like Patreon does
+
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B21I7HA)
 
 # Bot Lists
