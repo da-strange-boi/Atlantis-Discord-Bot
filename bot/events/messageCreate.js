@@ -101,6 +101,18 @@ exports.run = async (bot, message) => {
   }
 
   messageContent = message.content.toLowerCase().replace(/\s/g, "")
+
+  // Custom ring reminder for lanre
+  if (messageContent.match(/owobuy[1-7]/g)) {
+    setTimeout(async() => {
+      if (message.author.id == "648741213154836500" /* lanre */) {
+        bot.createMessage(message.channel.id, `${bot.emojis.custom.lanre.ring} Lanre, you can buy rings now! uwu ${bot.emojis.custom.lanre.randomKanna[Math.floor(Math.random() * bot.emojis.custom.lanre.randomKanna.length)+1]}`).then(sentMessage => {
+          setTimeout(() => {sentMessage.delete(`Deleted ring reminder for ${message.author.tag}` )}, 5000)
+        })
+      }
+    }, 5000)
+  }
+
   // Reminder for `owo hunt`
   if (messageContent == "owohunt" || messageContent == "owoh" || messageContent == "owocatch") {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
@@ -125,6 +137,7 @@ exports.run = async (bot, message) => {
           // custom messages
           let huntReminderMessage = `<@${message.author.id}>, \`hunt\` cooldown has passed! ${bot.emojis.native.hunt}`
           if (message.author.id == "144052828678127616" /* Kazen */) huntReminderMessage = `<@${message.author.id}>, \`hunt\` dulu kesayangan! ${bot.emojis.custom.kazen}`
+          if (message.author.id == "648741213154836500" /* lanre */) huntReminderMessage = `Kanna will help you hunt! ${bot.emojis.custom.lanre.hunt}`
 
           if (userdata.hunt) {
             bot.createMessage(message.channel.id, huntReminderMessage).then(sentMessage => {
@@ -158,6 +171,7 @@ exports.run = async (bot, message) => {
 
           let battleReminderMessage = `<@${message.author.id}>, \`battle\` cooldown has passed! ${bot.emojis.native.battle}`
           if (message.author.id == "524731061180039168" /* zee */) battleReminderMessage = `<@${message.author.id}>, Maus fight ${bot.emojis.custom.zee}`
+          if (message.author.id == "648741213154836500" /* lanre */) battleReminderMessage = `Kanna rides into battle with you! Bye bye bad guys! ${bot.emojis.custom.lanre.battle}`
 
           if (userdata.battle) {
             bot.createMessage(message.channel.id, battleReminderMessage).then(sentMessage => {
@@ -222,6 +236,7 @@ exports.run = async (bot, message) => {
           let owoReminderMessage = `<@${message.author.id}>, \`owo\` cooldown has passed! ${bot.emojis.owo}`
           if (message.author.id == "144052828678127616" /* Kazen */) owoReminderMessage = `<@${message.author.id}>, \`owo\` dulu kesayangan! ${bot.emojis.custom.kazen2}`
           if (message.author.id == "498480982471737344" /* Floofie */) owoReminderMessage = `<@${message.author.id}>, oh woah there, your owo cooldown’s done`
+          if (message.author.id == "648741213154836500" /* lanre */) owoReminderMessage = `\`owo\` cooldown has passed! ${bot.emojis.owo}`
 
           if (userdata.owo) {
             bot.createMessage(message.channel.id, owoReminderMessage).then(sentMessage => {
