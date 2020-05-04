@@ -4,17 +4,9 @@ const BLS = require("botlist.space")
 module.exports = async (bot) => {
   const dbl = new DBL(process.env.DBL_TOKEN, {webhookPort: process.env.WEBHOOK_PORT, webhookAuth: process.env.WEBHOOK_AUTH})
   const bls = new BLS.Client({id: bot.user.id, botToken: process.env.BLS_TOKEN})
-  const blsw = new BLS.WebSocket({tokens: [process.env.BLS_TOKEN], reconnect: true})
 
   dbl.on("error", (e) => {
     bot.log("error", e)
-  })
-
-  blsw.on("connected", () => {
-    blsw.on("upvote", (event) => {
-      console.log("blsw test")
-      console.log(event)
-    })
   })
 
   // DBL Ready event
