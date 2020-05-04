@@ -283,7 +283,12 @@ exports.run = async (bot, message) => {
     let reminderRegex = /\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g
     let userUsername = message.content.split(/( `\*\*`|\|\*\* \*\*`)/).pop().split("`**`, YOU SPENT ")[0]
     if (userUsername.match(/\*\*<(.*?)>/g)) return
-    let userUsernameId = await bot.users.find(user => user.username == userUsername).id
+    let userUsernameId = await bot.users.find(user => user.username == userUsername)
+    if (userUsernameId) {
+      userUsernameId = userUsernameId.id
+    } else {
+      return
+    }
 
     // *•.ˎ[BxW] SmittenKittenˏ.•*
     if (userUsernameId == "325273108418396160") {
