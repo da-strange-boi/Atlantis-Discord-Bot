@@ -106,7 +106,7 @@ exports.run = async (bot, message) => {
   if (messageContent.match(/owobuy[1-7]/g)) {
     setTimeout(async() => {
       if (message.author.id == "648741213154836500" /* lanre */) {
-        bot.createMessage(message.channel.id, `${bot.emojis.custom.lanre.ring} Lanre, you can buy rings now! uwu ${bot.emojis.custom.lanre.randomKanna[Math.floor(Math.random() * bot.emojis.custom.lanre.randomKanna.length)+1]}`).then(sentMessage => {
+        bot.createMessage(message.channel.id, `${bot.emojis.custom.lanre.ring} Lanre, you can buy rings now! uwu ${bot.emojis.custom.lanre.randomKanna[Math.floor(Math.random() * bot.emojis.custom.lanre.randomKanna.length)]}`).then(sentMessage => {
           setTimeout(() => {sentMessage.delete(`Deleted ring reminder for ${message.author.tag}` )}, 5000)
         })
       }
@@ -275,14 +275,33 @@ exports.run = async (bot, message) => {
       }
     })
   }
+
   // Reminder for `owo huntbot`
   if (message.author.id == "408785106942164992") {
-    if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP. I AM BACK WITH/g)) return
-    if (message.content.match(/\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g)) {
+
+    let falseReminderRegex = /\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP. I AM BACK WITH/g
+    let reminderRegex = /\*\*<:[a-z]{4}:[0-9]{18}> \|\*\* `BEEP BOOP./g
+    let userUsername = message.content.split(/( `\*\*`|\|\*\* \*\*`)/).pop().split("`**`, YOU SPENT ")[0]
+    if (userUsername.match(/\*\*<(.*?)>/g)) return
+    let userUsernameId = await bot.users.find(user => user.username == userUsername).id
+
+    // *•.ˎ[BxW] SmittenKittenˏ.•*
+    if (userUsernameId == "325273108418396160") {
+      falseReminderRegex = /\*\*<a:[a-z]{11}:[0-9]{18}> \|\*\* `ROSS IS BACK WITH \d+ FRIENDS,`/g
+      reminderRegex = /\*\*<a:[a-z]{11}:[0-9]{18}> \|\*\* \*\*`(.*?)`\*\*`, YOU SPENT \d+ cowoncy and you’re ready to find friends!`/g
+    }
+
+    // *•.ˎ[BxW] SpotifyBotˏ.•*
+    if (userUsernameId == "255750356519223297") {
+      falseReminderRegex = /\*\*<a:[a-z]{7}:[0-9]{18}> \|\*\* \*\*`(.*?)`\*\*`, YOU SPENT \d+ cowoncy AND GOT Spotify Premium!`/g
+      reminderRegex = /\*\*<a:[a-z]{7}:[0-9]{18}> \|\*\* `SPOTIFY Playlist is ready! I AM BACK WITH \d+ SONGS,`/g
+    }
+    
+    if (message.content.match(falseReminderRegex)) return
+    if (message.content.match(reminderRegex)) {
       let huntBotTime = message.content.split("I WILL BE BACK IN ")[1].split(" ")[0] // 6H2M
       let timeElements = huntBotTime.match(/[0-9][0-9][M|H]{1}|[0-9][M|H]{1}/g)
 
-      let userUsername = message.content.split("BEEP BOOP. `**`").pop().split("`**`, YOU SPENT ")[0]
       let getMember = message.member.guild.members.find(member => member.user.username == userUsername)
       if (!getMember) return
 
@@ -314,3 +333,31 @@ exports.run = async (bot, message) => {
     }
   }
 }
+
+// IGNORE ALL BELOW THIS LINE.... TESTING
+
+
+// kitten
+/*
+  **<a:rainbowbird:704924006545096824> |** **`*•.ˎ[BxW] SmittenKittenˏ.•*`**`, YOU SPENT 5 cowoncy and you’re ready to find friends!`
+  **<:blank:427371936482328596> |** `I WILL BE BACK IN 1M WITH 1 FRIENDS,`
+  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
+
+  **<a:rainbowbird:704924006545096824> |** `ROSS IS BACK WITH 1 FRIENDS,`
+  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
+  <:common:416520037713838081> **|** :bug:¹
+
+*/
+
+// spots
+/* 
+
+  **<a:spotify:577027003656437766> |** **`*•.ˎ[BxW] SpotifyBotˏ.•*`**`, YOU SPENT 5 cowoncy AND GOT Spotify Premium!`
+  **<:blank:427371936482328596> |** `I WILL BE BACK IN 1M WITH 1 SONGS,`
+  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
+
+  **<a:spotify:577027003656437766> |** `SPOTIFY Playlist is ready! I AM BACK WITH 1 SONGS,`
+  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
+  <:uncommon:416520056269176842> **|** :baby_chick:¹
+
+*/
