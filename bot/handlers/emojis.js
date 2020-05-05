@@ -21,6 +21,8 @@ const emojis = {
       ring: "<:lanre_ring:705776556504776794>",
       hunt: "<:lanre_hunt:705776556479479858>",
       battle: "<a:lanre_battle:705776559092400238>",
+      angry: "<a:kanna_angry:707346949581308006>",
+      pray: "<a:lanre_pray:707349291680792617>",
       randomKanna: [
         "<:kanna_1:705776411432190032>",
         "<:kanna_2:705776422618398752>",

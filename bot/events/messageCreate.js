@@ -242,8 +242,17 @@ exports.run = async (bot, message) => {
             await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.dailyPraycurseCount`]:userdata.stats.guilds[message.channel.guild.id].dailyPraycurseCount+1}})
           }
 
+          let praycurseText = `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`
+          if (message.author.id == "648741213154836500" /* lanre */) {
+            if (whichText == "pray") {
+              praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.randomKanna[1]} Lan you're supposed to be cursing, not praying, you hypocrite ${bot.emojis.custom.lanre.angry}`
+            } else {
+              praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.pray} Lanny, you can curse Kanzen now! ${bot.emojis.custom.lanre.randomKanna[6]}`
+            }
+          }
+
           if (userdata.praycurse) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`)
+            bot.createMessage(message.channel.id, praycurseText)
           }
         }, praycurseCoolDown)
       }
