@@ -62,6 +62,7 @@ module.exports = async (bot) => {
             dailyHuntCount: 0,
             dailyBattleCount: 0,
             dailyPraycurseCount: 0,
+            guilds: {}
           },
           customs: [
             {

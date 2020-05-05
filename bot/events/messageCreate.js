@@ -98,6 +98,28 @@ exports.run = async (bot, message) => {
       }
       // ending of mess
     })
+
+    // adding to server stats
+    await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+      if (err) bot.log("error", err)
+
+      if (userdata) {
+        if (!userdata.stats.guilds[message.channel.guild.id]) {
+          let guildStats = userdata.stats.guilds
+          guildStats[message.channel.guild.id] = {
+            owoCount: 0,
+            huntCount: 0,
+            battleCount: 0,
+            praycurseCount: 0,
+            dailyOwoCount: 0,
+            dailyHuntCount: 0,
+            dailyBattleCount: 0,
+            dailyPraycurseCount: 0,
+          }
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.guilds":guildStats}})
+        }
+      }
+    })
   }
 
   messageContent = message.content.toLowerCase().replace(/\s/g, "")
@@ -130,8 +152,13 @@ exports.run = async (bot, message) => {
         userTimeouts[message.author.id].hunt = true
 
         setTimeout(async() => {
+          // stats
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.huntCount":userdata.stats.huntCount+1}})
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyHuntCount":userdata.stats.dailyHuntCount+1}})
+          if (userdata.stats.guilds[message.channel.guild.id]) {
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.huntCount`]:userdata.stats.guilds[message.channel.guild.id].huntCount+1}})
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.dailyHuntCount`]:userdata.stats.guilds[message.channel.guild.id].dailyHuntCount+1}})
+          }
           userTimeouts[message.author.id].hunt = false
 
           // custom messages
@@ -165,8 +192,13 @@ exports.run = async (bot, message) => {
         userTimeouts[message.author.id].battle = true
 
         setTimeout(async() => {
+          // stats
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.battleCount":userdata.stats.battleCount+1}})
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyBattleCount":userdata.stats.dailyBattleCount+1}})
+          if (userdata.stats.guilds[message.channel.guild.id]) {
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.battleCount`]:userdata.stats.guilds[message.channel.guild.id].battleCount+1}})
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.dailyBattleCount`]:userdata.stats.guilds[message.channel.guild.id].dailyBattleCount+1}})
+          }
           userTimeouts[message.author.id].battle = false
 
           let battleReminderMessage = `<@${message.author.id}>, \`battle\` cooldown has passed! ${bot.emojis.native.battle}`
@@ -202,11 +234,25 @@ exports.run = async (bot, message) => {
         let whichEmoji = whichText == "pray" ? bot.emojis.pray : bot.emojis.curse
         setTimeout(async() => {
           userTimeouts[message.author.id].praycurse = false
+          //stats
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.praycurseCount":userdata.stats.praycurseCount+1}})
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyPraycurseCount":userdata.stats.dailyPraycurseCount+1}})
-          
+          if (userdata.stats.guilds[message.channel.guild.id]) {
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.praycurseCount`]:userdata.stats.guilds[message.channel.guild.id].praycurseCount+1}})
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.dailyPraycurseCount`]:userdata.stats.guilds[message.channel.guild.id].dailyPraycurseCount+1}})
+          }
+
+          let praycurseText = `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`
+          if (message.author.id == "648741213154836500" /* lanre */) {
+            if (whichText == "pray") {
+              praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.randomKanna[1]} Lan you're supposed to be cursing, not praying, you hypocrite ${bot.emojis.custom.lanre.angry}`
+            } else {
+              praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.pray} Lanny, you can curse Kanzen now! ${bot.emojis.custom.lanre.randomKanna[6]}`
+            }
+          }
+
           if (userdata.praycurse) {
-            bot.createMessage(message.channel.id, `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`)
+            bot.createMessage(message.channel.id, praycurseText)
           }
         }, praycurseCoolDown)
       }
@@ -229,8 +275,13 @@ exports.run = async (bot, message) => {
         userTimeouts[message.author.id].owo = true
 
         setTimeout(async() => {
+          //stats
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.owoCount":userdata.stats.owoCount+1}})
           await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"stats.dailyOwoCount":userdata.stats.dailyOwoCount+1}})
+          if (userdata.stats.guilds[message.channel.guild.id]) {
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.owoCount`]:userdata.stats.guilds[message.channel.guild.id].owoCount+1}})
+            await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {[`stats.guilds.${message.channel.guild.id}.dailyOwoCount`]:userdata.stats.guilds[message.channel.guild.id].dailyOwoCount+1}})
+          }
           userTimeouts[message.author.id].owo = false
 
           let owoReminderMessage = `<@${message.author.id}>, \`owo\` cooldown has passed! ${bot.emojis.owo}`
