@@ -46,7 +46,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Util",
-              value: "`atlantis`, `custom`, `help`, `invite`, `stats`, `vote`"
+              value: "`atlantis`, `custom`, `help`, `invite`, `stats`, `serverstats`, `vote`"
             },
             {
               name: "Admin",
@@ -92,6 +92,7 @@ exports.run = async (bot) => {
         case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break
         case "vote": commandDetailToSend = commandDetails("Vote", "`a!vote`", "To vote for Atlantis on top.gg"); break
         case "checkowo": commandDetailToSend = commandDetails("Checkowo", "`a!checkowo <@mention / user id>`", "To get the count of all 'owo' messages a user has sent", "a!checkowo 296155961230622720"); break
+        case "serverstats": commandDetailToSend = commandDetails("Serverstats", "a!serverstats [@mention | user id]", "To see a users server stats"); break
         default: commandDetailToSend = {embed:{title:"Error",color:bot.color.red,description:"You have to add specify a command name",timestamp: new Date()}}; break
       }
       bot.createMessage(message.channel.id, commandDetailToSend)
