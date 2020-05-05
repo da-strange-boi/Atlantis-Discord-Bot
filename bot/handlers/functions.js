@@ -163,6 +163,24 @@ module.exports = async (bot) => {
   }, null, true, "America/New_York")
   resetDailyStats.start()
 
+  // Delete server stats
+  let resetServerDailyStats = new CronJob("0 0 3 * * *", async () => {
+    await bot.database.Userdata.find({}).toArray((err, users) => {
+      if (err) bot.log("error", err)
+      users.forEach(user => {
+        if (Object.keys(user.stats.guilds).length != 0) {
+          Object.keys(user.stats.guilds).forEach(guildStats => {
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyOwoCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyHuntCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyBattleCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyPraycurseCount`]:0}})
+          })
+        }
+      })
+    })
+  }, null, true, "America/New_York")
+  resetDailyStats.start()
+
   // check last vote (disable this as this is most likely causing lag spikes)
   // let hours12 = 43200000
   // let checkVotes = new CronJob("0 */10 * * * *", async () => {
