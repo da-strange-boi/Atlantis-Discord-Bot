@@ -179,7 +179,7 @@ module.exports = async (bot) => {
       })
     })
   }, null, true, "America/New_York")
-  resetDailyStats.start()
+  resetServerDailyStats.start()
 
   // check last vote (disable this as this is most likely causing lag spikes)
   // let hours12 = 43200000
