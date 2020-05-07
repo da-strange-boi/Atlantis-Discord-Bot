@@ -335,6 +335,7 @@ exports.run = async (bot, message) => {
     let userUsername = message.content.split(/( `\*\*`|\|\*\* \*\*`)/).pop().split("`**`, YOU SPENT ")[0]
     if (userUsername.match(/\*\*<(.*?)>/g)) return
     let userUsernameId = await bot.users.find(user => user.username == userUsername)
+
     if (userUsernameId) {
       userUsernameId = userUsernameId.id
     } else {
@@ -343,14 +344,14 @@ exports.run = async (bot, message) => {
 
     // *•.ˎ[BxW] SmittenKittenˏ.•*
     if (userUsernameId == "325273108418396160") {
-      falseReminderRegex = /\*\*<a:[a-z]{11}:[0-9]{18}> \|\*\* `ROSS IS BACK WITH \d+ FRIENDS,`/g
-      reminderRegex = /\*\*<a:[a-z]{11}:[0-9]{18}> \|\*\* \*\*`(.*?)`\*\*`, YOU SPENT \d+ cowoncy and you’re ready to find friends!`/g
+      falseReminderRegex = /\*\*<a:(.*?)> \|\*\* `ROSS IS BACK WITH/g
+      reminderRegex = /\*\*<a:(.*?)> \|\*\* \*\*`(.*?)`\*\*`, YOU SPENT/g
     }
 
     // *•.ˎ[BxW] SpotifyBotˏ.•*
     if (userUsernameId == "255750356519223297") {
-      falseReminderRegex = /\*\*<a:[a-z]{7}:[0-9]{18}> \|\*\* \*\*`(.*?)`\*\*`, YOU SPENT \d+ cowoncy AND GOT Spotify Premium!`/g
-      reminderRegex = /\*\*<a:[a-z]{7}:[0-9]{18}> \|\*\* `SPOTIFY Playlist is ready! I AM BACK WITH \d+ SONGS,`/g
+      falseReminderRegex = /\*\*<a:(.*?)> \|\*\* `SPOTIFY Playlist is ready! I AM BACK WITH/g
+      reminderRegex = /\*\*<a:(.*?)> \|\*\* \*\*`(.*?)`\*\*`, YOU SPENT/g
     }
     
     if (message.content.match(falseReminderRegex)) return
