@@ -20,10 +20,12 @@ exports.run = async (bot) => {
     let updateStatus = new CronJob("0 */30 * * * *", async () => {
       await bot.database.Userdata.find({}).toArray((err, userdata) => {
         if (err) bot.log("error", err)
-        bot.editStatus("online", {
-          name: `Reminding ${formatNumber(userdata.length)} users | a!help`,
-          type: 0
-        })
+        if (userdata) {
+          bot.editStatus("online", {
+            name: `Reminding ${formatNumber(userdata.length)} users | a!help`,
+            type: 0
+          })
+        }
       })
     }, null, true, "America/New_York")
     updateStatus.start()
