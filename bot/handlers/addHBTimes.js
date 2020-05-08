@@ -3,13 +3,8 @@ const memoryOfAddedUsers = {}
 exports.run = async (bot, huntbotTimeout, timeString, userID, userObj, channelID, makeNew) => {
   if (!bot || !huntbotTimeout) bot.log("error", 'addUserHB does not have all the data needed to run!')
 
-  // Decide how to get the User class
-  let huntbotUser
-  if (userObj) {
-    huntbotUser = userObj
-  } else {
-    huntbotUser = await bot.users.get(userID)
-  }
+  // get the User class
+  let huntbotUser = await bot.getRESTUser(userID)
   
   if (!huntbotUser) return
   await bot.database.Userdata.findOne({userID: huntbotUser.id}, async (err, userdata) => {

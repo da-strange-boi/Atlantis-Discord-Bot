@@ -60,7 +60,7 @@ exports.run = async (bot) => {
         const huntbotTimeout = huntbot[i].timeout
 
         const userObj = await bot.users.find(user => user.id == userID)
-        await addHBTimes.run(bot, huntbotTimeout, false, false, userObj, channelID, false)
+        await addHBTimes.run(bot, huntbotTimeout, false, userID, userObj, channelID, false)
       }
     })
   }
