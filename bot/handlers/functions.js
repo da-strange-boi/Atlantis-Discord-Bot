@@ -170,10 +170,10 @@ module.exports = async (bot) => {
       users.forEach(user => {
         if (Object.keys(user.stats.guilds).length != 0) {
           Object.keys(user.stats.guilds).forEach(guildStats => {
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyOwoCount`]:0}})
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyHuntCount`]:0}})
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyBattleCount`]:0}})
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyPraycurseCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${guildStats}.dailyOwoCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${guildStats}.dailyHuntCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${guildStats}.dailyBattleCount`]:0}})
+            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${guildStats}.dailyPraycurseCount`]:0}})
           })
         }
       })
