@@ -30,13 +30,20 @@ exports.run = async (bot) => {
     }, null, true, "America/New_York")
     updateStatus.start()
 
-    // Setting custom guild prefixes
     await bot.database.Guilddata.find({}).toArray((err, guilddata) => {
       if (err) bot.log("error", err)
       guilddata.forEach(guild => {
+
+        // Setting custom guild prefixes
         if (guild.prefix != "") {
           bot.registerGuildPrefix(guild.guildID, [guild.prefix, "@mention"])
         }
+
+        // Setting custom owo prefixes
+        if (guild.owoPrefix != null) {
+          bot.customOwoPrefix[guild.guildID] = guild.owoPrefix
+        }
+
       })
     })
 

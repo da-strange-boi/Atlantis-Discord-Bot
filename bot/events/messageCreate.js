@@ -122,7 +122,8 @@ exports.run = async (bot, message) => {
     })
   }
 
-  messageContent = message.content.toLowerCase().replace(/\s/g, "")
+  let messageContent = message.content.toLowerCase().replace(/\s/g, "")
+  let customPrefix = bot.customOwoPrefix[message.channel.guild.id] ? new RegExp(`(owo|${bot.customOwoPrefix[message.channel.guild.id]})`, "g") : new RegExp("(owo)", "g")
 
   // Custom ring reminder for lanre
   if (messageContent.match(/owobuy[1-7]/g)) {
@@ -136,7 +137,7 @@ exports.run = async (bot, message) => {
   }
 
   // Reminder for `owo hunt`
-  if (messageContent == "owohunt" || messageContent == "owoh" || messageContent == "owocatch") {
+  if (messageContent.match(new RegExp(customPrefix.source + (/(hunt|h|catch)/g).source))) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
@@ -176,7 +177,7 @@ exports.run = async (bot, message) => {
     })
   }
   // Reminder for `owo battle`
-  if (messageContent == "owobattle" || messageContent == "owob" || messageContent == "owofight") {
+  if (messageContent.match(new RegExp(customPrefix.source + (/(battle|b|fight)/g).source))) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
@@ -215,7 +216,7 @@ exports.run = async (bot, message) => {
     })
   }
   // Reminder for `owo pray/curse`
-  if (messageContent.startsWith("owopray") || messageContent.startsWith("owocurse")) {
+  if (messageContent.match(new RegExp(customPrefix.source + (/(pray|curse)/g).source))) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
@@ -299,7 +300,7 @@ exports.run = async (bot, message) => {
     })
   }
   // Reminder for drop/pickup
-  if (messageContent.startsWith("owodrop") || messageContent.startsWith("owopick")) {
+  if (messageContent.match(new RegExp(customPrefix.source + (/(drop|pick)/g).source))) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
@@ -390,31 +391,3 @@ exports.run = async (bot, message) => {
     }
   }
 }
-
-// IGNORE ALL BELOW THIS LINE.... TESTING
-
-
-// kitten
-/*
-  **<a:rainbowbird:704924006545096824> |** **`*•.ˎ[BxW] SmittenKittenˏ.•*`**`, YOU SPENT 5 cowoncy and you’re ready to find friends!`
-  **<:blank:427371936482328596> |** `I WILL BE BACK IN 1M WITH 1 FRIENDS,`
-  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
-
-  **<a:rainbowbird:704924006545096824> |** `ROSS IS BACK WITH 1 FRIENDS,`
-  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
-  <:common:416520037713838081> **|** :bug:¹
-
-*/
-
-// spots
-/* 
-
-  **<a:spotify:577027003656437766> |** **`*•.ˎ[BxW] SpotifyBotˏ.•*`**`, YOU SPENT 5 cowoncy AND GOT Spotify Premium!`
-  **<:blank:427371936482328596> |** `I WILL BE BACK IN 1M WITH 1 SONGS,`
-  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
-
-  **<a:spotify:577027003656437766> |** `SPOTIFY Playlist is ready! I AM BACK WITH 1 SONGS,`
-  **<:blank:427371936482328596> |** `83 ESSENCE, AND 116 EXPERIENCE`
-  <:uncommon:416520056269176842> **|** :baby_chick:¹
-
-*/
