@@ -50,7 +50,7 @@ exports.run = async (bot) => {
             },
             {
               name: "Admin",
-              value: "`deluser`, `delbot`, `delete`, `owochannel`, `welcome`, `prefix`"
+              value: "`deluser`, `delbot`, `delete`, `owochannel`, `owoprefix`, `welcome`, `prefix`"
             }
           ],
           footer: {
@@ -87,6 +87,7 @@ exports.run = async (bot) => {
         case "owochannel": commandDetailToSend = commandDetails("OwO Channel", "`a!owochannel add/delete <#channel mention>`", "Deletes all messages expect \"owo\"", "`a!owochannel add #owo`"); break
         case "welcome": commandDetailToSend = commandDetails("Welcome", "`a!welcome add/delete <#channel mention>`", "Display a welcome card to new members in a given channel\n(`THIS IS CURRENTLY UNSTABLE`)", "`a!welcome add #welcome`\n`a!welcome text Welcome {user} to **{server}**!`"); break
         case "prefix": commandDetailToSend = commandDetails("Prefix", "`a!prefix [new prefix]`", "Change the server's bot prefix", "`a!prefix atl{space}`\n**{space}** - inserts a space"); break
+        case "owoprefix": commandDetailToSend = commandDetails("OwO Prefix", "`a!owoprefix [new prefix]`", "Adds a custom OwO prefix", "`a!owoprefix uwu`\n**{space}** - inserts a space"); break
         case "ban": commandDetailToSend = commandDetails("Ban", "`a!ban <@mention / user id> <amount of days to delete their messages> <reason>`", "Bans a user from the guild", "a!ban 393096318123245578 2 stealing code"); break
         case "botban": commandDetailToSend = commandDetails("Botban", "`a!botban <user id> <reason>`", "`a!botban 295255543596187650 for testing`"); break
         case "stats": commandDetailToSend = commandDetails("Stats", "`a!stats [@mention]`", "Show your OwO stats"); break

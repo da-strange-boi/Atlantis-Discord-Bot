@@ -26,6 +26,7 @@ exports.run = async (bot) => {
               icon_url: userStats.avatarURL
             },
             color: bot.getEmbedColor(bot, message),
+            description: "*Since 10 April 2020 at 7:34 PM EDT*",
             fields: [
               {
                 name: "OwO Count",

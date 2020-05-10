@@ -1,6 +1,7 @@
 const Eris = require("eris")
 const { CronJob } = require('cron')
 const _ = require("lodash")
+const { spawn } = require("child_process")
 module.exports = async (bot) => {
   /** @typedef {function} bot.checkPermission
    * Checks the permission of the user within the bot
@@ -151,52 +152,32 @@ module.exports = async (bot) => {
 
   // Delete daily stats
   let resetDailyStats = new CronJob("0 0 3 * * *", async () => {
-    await bot.database.Userdata.find({}).toArray((err, users) => {
-      if (err) bot.log("error", err)
-      users.forEach(user => {
-        bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyOwoCount":0}})
-        bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyHuntCount":0}})
-        bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyBattleCount":0}})
-        bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"stats.dailyPraycurseCount":0}})
-      })
-    })
+    const runDailiesResetFile = spawn('node', ['bot/handlers/resettingStatsDailies.js'])
+
+    runDailiesResetFile.stderr.on('data', (data) => {
+      bot.log("error", `stats stderr: ${data}`);
+    });
+    
+    runDailiesResetFile.on('close', (code) => {
+      bot.log("system", "Stats Reset Complete")
+    });
+
   }, null, true, "America/New_York")
   resetDailyStats.start()
 
-  // Delete server stats
-  let resetServerDailyStats = new CronJob("0 0 3 * * *", async () => {
-    await bot.database.Userdata.find({}).toArray((err, users) => {
-      if (err) bot.log("error", err)
-      users.forEach(user => {
-        if (Object.keys(user.stats.guilds).length != 0) {
-          Object.keys(user.stats.guilds).forEach(guildStats => {
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyOwoCount`]:0}})
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyHuntCount`]:0}})
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyBattleCount`]:0}})
-            bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {[`stats.guilds.${user.stats.guilds[guildStats]}.dailyPraycurseCount`]:0}})
-          })
-        }
-      })
-    })
+
+  // check last vote
+  let checkVotes = new CronJob("0 0 */1 * * *", async () => {
+    const runCheckVotes = spawn('node', ['bot/handlers/checkToResetCustom.js'])
+
+    runCheckVotes.stderr.on('data', (data) => {
+      bot.log("error", `vote stderr: ${data}`);
+    });
+    
+    runCheckVotes.on('close', (code) => {
+      bot.log("system", "Votes Check Complete")
+    });
+    
   }, null, true, "America/New_York")
-  resetServerDailyStats.start()
-
-  // check last vote (disable this as this is most likely causing lag spikes)
-  // let hours12 = 43200000
-  // let checkVotes = new CronJob("0 */10 * * * *", async () => {
-  //   await bot.database.Userdata.find({}).toArray((err, users) => {
-  //     if (err) bot.log("error", err)
-  //     users.forEach(async user => {
-  //       if ((Date.now() - user.lastVote) >= hours12) {
-  //         let modifiedCustom = user.customs
-  //         for (let i = 0; i < modifiedCustom.length; i++) {
-  //           if (user.id != 1) modifiedCustom[i].unlocked = false
-  //         }
-  //         await bot.database.Userdata.findOneAndUpdate({ userID: user.userID }, {$set: {"customs": modifiedCustom}})
-  //       }
-  //     })
-  //   })
-  // }, null, true, "America/New_York")
-  // checkVotes.start()
-
+  checkVotes.start()
 }

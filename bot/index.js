@@ -32,17 +32,16 @@ const bot = new Eris.CommandClient(process.env.TOKEN, {
 
 // database connection
 require('./handlers/database.js')(bot)
-
 bot.color = {
   green: 0x00FF00,
   red: 0xFF0000
 }
+bot.customOwoPrefix = {}
 // da strange boi (tyler), jess (jess), crushed (lee)
 bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
 bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
 require("./handlers/functions")(bot)
-
 require("./handlers/webhooks").run(bot)
 
 const init = async () => {
