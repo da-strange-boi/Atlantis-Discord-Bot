@@ -24,6 +24,7 @@ exports.run = async (bot) => {
               icon_url: userStats.avatarURL
             },
             color: bot.getEmbedColor(bot, message),
+            description: "*Since 5 May 2020 at 5:42 PM EDT*",
             thumbnail: {
               url: message.channel.guild.iconURL
             },
