@@ -137,7 +137,7 @@ exports.run = async (bot, message) => {
   }
 
   // Reminder for `owo hunt`
-  if (messageContent.match(new RegExp(customPrefix.source + (/(hunt|h|catch)/g).source))) {
+  if (messageContent.match(new RegExp(customPrefix.source + (/(hunt|h$|catch)/g).source))) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
@@ -177,7 +177,7 @@ exports.run = async (bot, message) => {
     })
   }
   // Reminder for `owo battle`
-  if (messageContent.match(new RegExp(customPrefix.source + (/(battle|b|fight)/g).source))) {
+  if (messageContent.match(new RegExp(customPrefix.source + (/(battle|b$|fight)/g).source))) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
@@ -260,7 +260,7 @@ exports.run = async (bot, message) => {
     })
   }
   // Reminder for owo/uwu
-  if (messageContent == "owo" || messageContent == "uwu") {
+  if (messageContent == "owo" || messageContent == "uwu" || messageContent.match(/(.*?)(owo |uwu )/g)) {
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
       if (err) bot.log("error", err)
 
