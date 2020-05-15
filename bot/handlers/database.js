@@ -13,7 +13,8 @@ module.exports = async (bot) => {
       Userdata: await client.db("atlantis").collection("userdata"),
       Guilddata: await client.db("atlantis").collection("guilddata"),
       HuntBot: await client.db("atlantis").collection("huntbot"),
-      BotBan: await client.db("atlantis").collection("botban")
+      BotBan: await client.db("atlantis").collection("botban"),
+      Website: await client.db("atlantis").collection("website")
     }
     bot.database = dbObject
     bot.log("dbConnected")
