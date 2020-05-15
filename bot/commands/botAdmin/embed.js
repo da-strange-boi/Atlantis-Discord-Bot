@@ -30,14 +30,6 @@ exports.run = async (bot) => {
             description: "This server is for the Atlantis bot. The Atlantis bot is a bot made for <@408785106942164992> to remind you about your cooldowns and more!",
             fields: [
               {
-                name: "• Are you a clan admin/mod?",
-                value: "Contact: <@295255543596187650>"
-              },
-              {
-                name: "• Are you a member of a clan and want your clan's member role?",
-                value: "Contact any <@&700211889744904214>"
-              },
-              {
                 name: "• Want to add atlantis to your server?",
                 value: "[Click Here](https://discordapp.com/oauth2/authorize?client_id=688911718788628496&permissions=321600&scope=bot)"
               },
