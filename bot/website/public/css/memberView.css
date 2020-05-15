@@ -2,13 +2,9 @@ body {
     background-color: #101010;
 }
 
-a {
-    text-decoration: none;
-}
-
 .member {
     border: 1px black solid;
-    width: 70%;
+    width: 90%;
     margin: 0 auto;
     background-color: #333333;
     color: #ffffff;
@@ -17,12 +13,14 @@ a {
     margin-top: 10px;
     text-align: center;
 }
+
 .member img {
     display: block;
     margin: 15px auto;
     border-radius: 50%;
     border: 2px gold ridge;
 }
+
 .hitreq {
     padding: 5px;
 }

@@ -1,0 +1,11 @@
+<nav>
+    <a href="/">Home</a>
+    <a href="/members">Members</a>
+</nav>
+
+<div class="member">
+    <img src="{{getPfp member}}" alt="{{member.0.userTag}} profile picture">
+    <span>{{member.0.userTag}}<img id="boost" width="16" height="16" src="{{getBoost member}}" alt="boost"><br><span class="small">({{member.0.userID}})</span></span>
+    <p class="{{getLevelColor member}}">{{getLevel member}}</p>
+    <p class="hitreq"><span class="{{hitreqColor member}}">{{hitreqText member}}</span></p>
+</div>

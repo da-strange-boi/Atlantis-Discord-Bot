@@ -2,3 +2,24 @@
     <a href="/">Home</a>
     <a href="/members" class="active">Members</a>
 </nav>
+<h2 id="date"></h2>
+<div class="members">
+    {{#each members}}
+        <a href="/member/{{./userID}}">
+            <div class="member">
+                <img src="{{getPfp .}}" alt="{{./userTag}} profile picture">
+                <span>{{./userTag}}<img id="boost" width="16" height="16" src="{{getBoost .}}" alt="boost"><br><span class="small">({{./userID}})</span></span>
+                <p class="{{getLevelColor .}}">{{getLevel .}}</p>
+                <p class="hitreq"><span class="{{hitreqColor .}}">{{hitreqText .}}<br>{{getOwoCount .}}</span></p>
+            </div>
+        </a>
+    {{/each}}
+</div>
+
+<script>
+    // do the date
+    const date = new Date()
+    let time = `The week of\n${date.getMonth()+1}/${date.getDate()-date.getDay()} - ${date.getMonth()+1}/${(date.getDate()-date.getDay())+6}`
+    document.getElementById("date").innerHTML = time
+
+</script>
