@@ -131,16 +131,18 @@ exports.run = async (bot, message) => {
             userID: message.author.id,
             avatar: message.author.avatar,
             userTag: `${message.author.username}#${message.author.discriminator}`,
-            level: message.member.roles.includes("667916293651038228") ? 2 : 1,
+            level: message.member.roles.includes("667918448508272691") || message.member.roles.includes("696426968962302023") ? 3 : message.member.roles.includes("667916293651038228") ? 2 : 1,
             nickname: message.member.nick,
             premium: message.member.premiumSince,
             joinedAtlantis: message.member.joinedAt,
             owosPastWeek: 0,
-            noreq: false,
             owosArchive: {}
           })
+        } else {
+          if (message.content.toLowerCase().replace(/\s/g, "") == ("owo" || "uwu")) {
+            await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"owosPastWeek":webUser.owosPastWeek+1}})
+          }
         }
-
       })
     }
   }
