@@ -43,6 +43,7 @@ bot.emojis = require("./handlers/emojis")
 bot.log = require("./handlers/logging")
 require("./handlers/functions")(bot)
 require("./handlers/webhooks").run(bot)
+require("./website/app").run(bot)
 
 const init = async () => {
   // Load Events

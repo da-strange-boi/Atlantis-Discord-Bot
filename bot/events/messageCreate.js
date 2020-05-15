@@ -120,6 +120,29 @@ exports.run = async (bot, message) => {
         }
       }
     })
+
+    // Get data from atlantis members for website
+    if (message.channel.guild.id == "667900803528261657" && (message.member.roles.includes("667916293651038228") || message.member.roles.includes("668105514785308682"))) {
+      await bot.database.Website.findOne({ userID: message.author.id }, async (err, webUser) => {
+        if (err) bot.log("error", err)
+
+        if (!webUser) {
+          await bot.database.Website.insertOne({
+            userID: message.author.id,
+            avatar: message.author.avatar,
+            userTag: `${message.author.username}#${message.author.discriminator}`,
+            level: message.member.roles.includes("667916293651038228") ? 2 : 1,
+            nickname: message.member.nick,
+            premium: message.member.premiumSince,
+            joinedAtlantis: message.member.joinedAt,
+            owosPastWeek: 0,
+            noreq: false,
+            owosArchive: {}
+          })
+        }
+
+      })
+    }
   }
 
   let messageContent = message.content.toLowerCase().replace(/\s/g, "")

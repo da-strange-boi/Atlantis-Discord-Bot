@@ -1,6 +1,6 @@
 {
   "name": "atlantis-discord-bot",
-  "version": "1.7.0",
+  "version": "1.7.2",
   "main": "bot/index.js",
   "license": "MIT",
   "dependencies": {
@@ -12,6 +12,7 @@
     "dblapi.js": "^2.4.0",
     "eris": "^0.11.2",
     "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
     "lodash": "^4.17.15",
     "mongodb": "^3.5.5",
     "node-fetch": "^2.6.0",

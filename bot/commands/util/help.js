@@ -61,7 +61,7 @@ exports.run = async (bot) => {
       }
 
       if (bot.admins.includes(message.author.id) && args[0] == "admin") {
-        helpEmbed.embed.fields.push({name: "Bot Admin", value: "`ban`, `botban`, `checkowo`, `eval`, `status`, `servers`"})
+        helpEmbed.embed.fields.push({name: "Bot Admin", value: "`botban`, `eval`, `status`"})
       }
 
       bot.createMessage(message.channel.id, helpEmbed)
