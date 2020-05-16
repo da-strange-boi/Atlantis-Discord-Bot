@@ -5,7 +5,7 @@
 }
 
 nav {
-    background-color: #333;
+    background-color: #2f3136;
     overflow: hidden;
 }
 
@@ -17,6 +17,7 @@ nav a {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    border-radius: 15px;
 }
 
 nav a:hover {
@@ -25,6 +26,6 @@ nav a:hover {
 }
 
 nav a.active {
-    background-color: #4CAF50;
+    background-color: #cbbe50;
     color: white;
 }

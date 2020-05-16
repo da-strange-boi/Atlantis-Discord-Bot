@@ -5,7 +5,42 @@
 
 <div class="member">
     <img src="{{getPfp member}}" alt="{{member.0.userTag}} profile picture">
-    <span>{{member.0.userTag}}<img id="boost" width="16" height="16" src="{{getBoost member}}" alt="boost"><br><span class="small">({{member.0.userID}})</span></span>
+    <span>{{member.0.userTag}}{{#if member.0.nickname}} ({{member.0.nickname}}){{/if}}<img id="boost" width="16" height="16" src="{{getBoost member}}" alt="boost"><br><span class="small">({{member.0.userID}})</span></span>
     <p class="{{getLevelColor member}}">{{getLevel member}}</p>
+    <p class="stats">Joined Atlantis:<br>{{getAtlantisJoin member}}</p>
+    <p class="stats">Minium time to get {{getOwoCount member.0.owosPastWeek}} is {{owoCountTime member.0.owosPastWeek}}</p>
     <p class="hitreq"><span class="{{hitreqColor member}}">{{hitreqText member}}</span></p>
+    <div class="archives">
+        {{#each member.0.owosArchive}}
+            <div class="archive">
+                <hr>
+                <h2>{{./weekOf}}</h2>
+                <button class="excuseBtn">Excuse</button>
+                <h3 class="{{hitreqColor .}} hitreq">{{getHitReq ./hitreq}}<br><span class="amount">{{getOwoCount ./amountOfOwos}}</span></h3>
+                <h5 style="display: none;">{{./time}}</h5>
+            </div>
+        {{/each}}
+    </div>
 </div>
+<button id="delete">Delete Member</button>
+
+<script>
+    // Hide excuse button where its not needed
+    let archives = document.querySelectorAll(".archive")
+    for (let i = 0; i < archives.length; i++) {
+        if (archives[i].querySelector("h3").innerText.match(/⚠️|✔️/g)) {
+            archives[i].querySelector("button").style.display = "none"
+        }
+        // set button to excuse link
+        archives[i].querySelector("button").onclick = () => {
+            window.location = `/excuse/${window.location.href.split("/member/")[1]}/${archives[i].querySelector("h5").innerText}`
+        }
+        if (archives[i].querySelector("h3").innerText.startsWith("⚠️")) {
+            archives[i].querySelector("h3").style.color = "yellow"
+        }
+        // delete current user
+        document.getElementById("delete").onclick = () => {
+            window.location = `/delete/${window.location.href.split("/member/")[1]}`
+        }
+    }
+</script>

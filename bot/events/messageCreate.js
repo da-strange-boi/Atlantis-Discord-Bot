@@ -136,7 +136,7 @@ exports.run = async (bot, message) => {
             premium: message.member.premiumSince,
             joinedAtlantis: message.member.joinedAt,
             owosPastWeek: 0,
-            owosArchive: {}
+            owosArchive: []
           })
         } else {
           if (message.content.toLowerCase().replace(/\s/g, "") == ("owo" || "uwu")) {
