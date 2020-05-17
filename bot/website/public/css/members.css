@@ -28,17 +28,21 @@ h3 {
     margin: 15px auto;
     border-radius: 50%;
     border: 2px gold ridge;
+    width: 132px;
+    height: 132px;
 }
 .hitreq {
     padding: 5px;
 }
 
 #boost {
-    display: inline;
+    display: inline-block;
     padding: 0;
     position: absolute;
     margin-left: 20px;
     border: none;
+    width: 25px;
+    height: 25px;
 }
 #date {
     color: white;
@@ -47,7 +51,7 @@ h3 {
 }
 
 .aotwMember {
-    border: 1px black solid;
+    border: 1px #06748d solid;
     width: 70%;
     margin: 0 auto;
     background-color: #cbbe50;
@@ -62,7 +66,9 @@ h3 {
     display: block;
     margin: 15px auto;
     border-radius: 50%;
-    border: 2px black ridge;
+    border: 2px #06748d ridge;
+    width: 132px;
+    height: 132px;
 }
 
 #week {
