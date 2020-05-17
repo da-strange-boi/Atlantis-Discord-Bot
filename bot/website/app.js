@@ -39,18 +39,18 @@ exports.run = async (bot) => {
 
   // Admin View Members Page
   app.get("/members", async (req, res) => {
-    let aotwMmebers = await bot.database.Website.find({}).sort({ owosPastWeek: -1 }).limit(3).toArray()
+    let aotwMembers = await bot.database.Website.find({}).sort({ owosPastWeek: -1 }).limit(3).toArray()
     let aotwID = []
-    for (let i = 0; i < aotwMmebers.length; i++) { aotwID.push(aotwMmebers[i].userID) }
+    for (let i = 0; i < aotwMembers.length; i++) { aotwID.push(aotwMembers[i].userID) }
     let members = await bot.database.Website.find({ userID: {$nin: aotwID } }).sort({ owosPastWeek: -1 }).toArray()
 
     res.render("members", {
       title: "Atlantis Members",
       cssFileName: "members",
       members: members,
-      aotw: aotwMmebers,
+      aotw: aotwMembers,
       helpers: {
-        getPfp: function(obj) {return `https://cdn.discordapp.com/avatars/${obj.userID}/${obj.avatar.startsWith("a_") ? `${obj.avatar}.gif` : `${obj.avatar}.png`}`},
+        getPfp: function(obj) {return obj.avatar == null ? `https://cdn.discordapp.com/embed/avatars/${obj.userTag.split("#")[1] % 5}.png` : `https://cdn.discordapp.com/avatars/${obj.userID}/${obj.avatar.startsWith("a_") ? `${obj.avatar}.gif` : `${obj.avatar}.png`}`},
         getLevel: function(obj) {return obj.level == 3 ? "Atlantis Admin/Mod" : obj.level == 1 ? "Atlantis Recruit" : "Atlantis Member"},
         getLevelColor: function(obj) {return obj.level == 3 ? "level blue" : "level gold"},
         getBoost: function(obj) {return obj.premium != null ? `/images/server_boost.png` : `/images/blank.png`},
