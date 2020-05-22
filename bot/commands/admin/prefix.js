@@ -3,6 +3,7 @@ exports.run = async (bot) => {
     bot.database.Guilddata.findOne({ guildID: message.channel.guild.id }, async (err, guilddata) => {
       if (err) bot.log("error", err)
       if (bot.checkBannedUsers(message.author.id)) return
+      if (!await bot.checkBotPermission(message, ["readMessages", "sendMessages"])) return
 
       let prefix = args.join(" ").replace("{space}", " ")
 

@@ -2,6 +2,7 @@ exports.run = async (bot) => {
   bot.registerCommand("invite", async (message, args) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
+    if (!await bot.checkBotPermission(message, ["readMessages", "sendMessages"])) return
 
     const inviteEmbed = {
       embed: {

@@ -150,6 +150,16 @@ module.exports = async (bot) => {
     }
   }
 
+  bot.checkBotPermission = async (message, permissionsReq=[]) => {
+    let permissions = await message.channel.permissionsOf(bot.user.id)
+    let allowedPermissions = []
+    for (let i = 0; i < permissionsReq.length; i++) {
+      await permissions.has(permissionsReq[i]) ? allowedPermissions.push(1) : allowedPermissions.push(0)
+    }
+    console.log(`${allowedPermissions} - ${allowedPermissions.includes(0) ? false : true}`)
+    return allowedPermissions.includes(0) ? false : true
+  }
+
   // Delete daily stats
   let resetDailyStats = new CronJob("0 0 3 * * *", async () => {
     const runDailiesResetFile = spawn('node', ['bot/handlers/resettingStatsDailies.js'])
