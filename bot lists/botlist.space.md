@@ -4,6 +4,9 @@
 ## Join Atlantis Discord Server
 [![](https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2)](https://discord.gg/FCUZeGb)
 
+# Donations
+I use Ko-fi because they don't take a fee for themselves like Patreon does
+
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B21I7HA)
 
 # Invite Atlantis to your server!
@@ -23,4 +26,4 @@ You can do just that. By running the help command `a!help` you can see all the c
 ![](https://i.imgur.com/oymBTPB.png)
 
 # Issues / Suggestions / New Features
-## As far as this goes if you find an issue/bug with Atlantis or have a new suggestion to be made rather DM me (`da strange boi#7087`) or join [Atlantis](https://discord.gg/FCUZeGb) and contact me through there
+## As far as this goes if you find an issue/bug with Atlantis or have a new suggestion to be made rather DM me (`da strange boi#7087`) or join [Atlantis Support Server](https://discord.gg/w7Sk8hC) and make a suggestion there and or issue report
