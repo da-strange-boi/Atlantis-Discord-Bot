@@ -156,7 +156,6 @@ module.exports = async (bot) => {
     for (let i = 0; i < permissionsReq.length; i++) {
       await permissions.has(permissionsReq[i]) ? allowedPermissions.push(1) : allowedPermissions.push(0)
     }
-    console.log(`${allowedPermissions} - ${allowedPermissions.includes(0) ? false : true}`)
     return allowedPermissions.includes(0) ? false : true
   }
 
