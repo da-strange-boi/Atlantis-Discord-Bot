@@ -11,7 +11,7 @@ exports.run = async (bot) => {
     } else if (message.mentions[0]) {
       userStats = message.mentions[0]
     } else {
-      userStats = bot.getUser(message, args.join(" "))
+      userStats = await bot.getUser(message, args.join(" "))
       if (!userStats) userStats = message.author
     }
 
