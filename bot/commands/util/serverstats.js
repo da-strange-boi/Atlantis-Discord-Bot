@@ -2,7 +2,6 @@ exports.run = async (bot) => {
   bot.registerCommand("serverstats", async (message, args) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
-    if (!await bot.checkBotPermission(message, ["readMessages", "sendMessages"])) return
 
     let userStats
     if (!args[0]) {

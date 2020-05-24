@@ -150,6 +150,7 @@ module.exports = async (bot) => {
     }
   }
 
+  // doesn't currently work
   bot.checkBotPermission = async (message, permissionsReq=[]) => {
     let permissions = await message.channel.permissionsOf(bot.user.id)
     let allowedPermissions = []

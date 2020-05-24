@@ -48,7 +48,7 @@ exports.run = async (bot, message) => {
           }
         }
         guilddata.delete.forEach(deleteObj => {
-          if ((message.channel.id == deleteObj.channel) && (message.content.startsWith(deleteObj.word))) {
+          if ((message.channel.id == deleteObj.channel) && (message.content.toLowerCase().startsWith(deleteObj.word))) {
             setTimeout(() => {message.delete("Messages started with a word specified in delete")}, 150)
           }
         })
