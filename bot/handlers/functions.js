@@ -159,6 +159,33 @@ module.exports = async (bot) => {
     return allowedPermissions.includes(0) ? false : true
   }
 
+  bot.getUser = async (message, input) => {
+    await message.guild.fetchAllMembers();
+    let members = message.guild.members;
+    for (let [key, value] in members) {
+      if (input === value.id) return value.user;
+    }
+    for (let [key, value] in members) {
+      if (input === value.username) return value.user;
+    }
+    for (let [key, value] in members) {
+      if (input.toLowerCase() === value.username.toLowerCase()) return value.user;
+    }
+    for (let [key, value] in members) {
+      if (value.username.startsWith(input)) return value.user;
+    }
+    for (let [key, value] in members) {
+      if (value.username.toLowerCase().startsWith(input.toLowerCase())) return value.user;
+    }
+    for (let [key, value] in members) {
+      if (value.username.includes(input)) return value.user;
+    }
+    for (let [key, value] in members) {
+      if (value.username.toLowerCase().includes(input.toLowerCase())) return value.user;
+    }
+    return false
+  }
+
   // Delete daily stats
   let resetDailyStats = new CronJob("0 0 3 * * *", async () => {
     const runDailiesResetFile = spawn('node', ['bot/handlers/resettingStatsDailies.js'])
