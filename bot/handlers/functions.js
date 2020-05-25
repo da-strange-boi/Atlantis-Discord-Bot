@@ -167,11 +167,23 @@ module.exports = async (bot) => {
 
     members.forEach(member => {
       if (input == member.id) userObj = member.user
+    })
+    members.forEach(member => {
       if (input == member.username) userObj = member.user
+    })
+    members.forEach(member => {
       if (input.toLowerCase() == member.username.toLowerCase()) userObj = member.user
+    })
+    members.forEach(member => {
       if (member.username.startsWith(input)) userObj = member.user
+    })
+    members.forEach(member => {
       if (member.username.toLowerCase().startsWith(input.toLowerCase())) userObj = member.user
+    })
+    members.forEach(member => {
       if (member.username.includes(input)) userObj = member.user
+    })
+    members.forEach(member => {
       if (member.username.toLowerCase().includes(input.toLowerCase())) userObj = member.user
     })
 
