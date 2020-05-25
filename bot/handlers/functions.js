@@ -160,30 +160,21 @@ module.exports = async (bot) => {
   }
 
   bot.getUser = async (message, input) => {
-    await message.guild.fetchAllMembers();
-    let members = message.guild.members;
-    for (let [key, value] in members) {
-      if (input === value.id) return value.user;
-    }
-    for (let [key, value] in members) {
-      if (input === value.username) return value.user;
-    }
-    for (let [key, value] in members) {
-      if (input.toLowerCase() === value.username.toLowerCase()) return value.user;
-    }
-    for (let [key, value] in members) {
-      if (value.username.startsWith(input)) return value.user;
-    }
-    for (let [key, value] in members) {
-      if (value.username.toLowerCase().startsWith(input.toLowerCase())) return value.user;
-    }
-    for (let [key, value] in members) {
-      if (value.username.includes(input)) return value.user;
-    }
-    for (let [key, value] in members) {
-      if (value.username.toLowerCase().includes(input.toLowerCase())) return value.user;
-    }
-    return false
+    await message.channel.guild.fetchAllMembers()
+    let members = await message.channel.guild.members
+    let userObj
+
+    members.forEach(member => {
+      if (input == member.id) userObj = member.user
+      if (input == member.username) userObj = member.user
+      if (input.toLowerCase() == member.username.toLowerCase()) userObj = member.user
+      if (member.username.startsWith(input)) userObj = member.user
+      if (member.username.toLowerCase().startsWith(input.toLowerCase())) userObj = member.user
+      if (member.username.includes(input)) userObj = member.user
+      if (member.username.toLowerCase().includes(input.toLowerCase())) userObj = member.user
+    })
+
+    return userObj
   }
 
   // Delete daily stats
