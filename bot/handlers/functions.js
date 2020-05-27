@@ -161,33 +161,38 @@ module.exports = async (bot) => {
   }
 
   bot.getUser = async (message, input) => {
+    let mention = input.match(/<@!?[0-9]{17,21}>/)
+    if (mention) input = mention[0]
+    
     await message.channel.guild.fetchAllMembers()
-    let members = await message.channel.guild.members
-    let userObj
+    const members = []
+    
+    await message.channel.guild.members.forEach(member => members.push(member.user))
+    
+    for (let value of members) {
+      if (input === value.id) return value
+    }
+    for (let value of members) {
+      if (input === value.username) return value
+    }
+    for (let value of members) {
+      if (input.toLowerCase() === value.username.toLowerCase()) return value
+    }
+    for (let value of members) {
+      if (value.username.startsWith(input)) return value
+    }
+    for (let value of members) {
+      if (value.username.toLowerCase().startsWith(input.toLowerCase())) return value
+    }
+    for (let value of members) {
+      if (value.username.includes(input)) return value
+    }
+    for (let value of members) {
+      if (value.username.toLowerCase().includes(input.toLowerCase())) return value
+    }
 
-    members.forEach(member => {
-      if (input == member.id) userObj = member.user
-    })
-    members.forEach(member => {
-      if (input == member.username) userObj = member.user
-    })
-    members.forEach(member => {
-      if (input.toLowerCase() == member.username.toLowerCase()) userObj = member.user
-    })
-    members.forEach(member => {
-      if (member.username.startsWith(input)) userObj = member.user
-    })
-    members.forEach(member => {
-      if (member.username.toLowerCase().startsWith(input.toLowerCase())) userObj = member.user
-    })
-    members.forEach(member => {
-      if (member.username.includes(input)) userObj = member.user
-    })
-    members.forEach(member => {
-      if (member.username.toLowerCase().includes(input.toLowerCase())) userObj = member.user
-    })
+    return message.author
 
-    return userObj
   }
 
   // Delete daily stats
