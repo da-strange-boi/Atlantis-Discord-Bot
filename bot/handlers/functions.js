@@ -161,8 +161,8 @@ module.exports = async (bot) => {
   }
 
   bot.getUser = async (message, input) => {
-    let mention = input.match(/<@!?[0-9]{17,21}>/)
-    if (mention) input = mention[0]
+    let mention = input.match(/^<@!?[0-9]{17,21}>$/)
+    if (mention) input = input.match(/\d+/)[0]
     
     await message.channel.guild.fetchAllMembers()
     const members = []
