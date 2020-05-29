@@ -167,28 +167,31 @@ module.exports = async (bot) => {
     await message.channel.guild.fetchAllMembers()
     const members = []
     
-    await message.channel.guild.members.forEach(member => members.push(member.user))
+    await message.channel.guild.members.forEach(member => members.push(member))
     
     for (let value of members) {
       if (input === value.id) return value
     }
-    for (let value of members) {
-      if (input === value.username) return value
-    }
-    for (let value of members) {
-      if (input.toLowerCase() === value.username.toLowerCase()) return value
-    }
-    for (let value of members) {
-      if (value.username.startsWith(input)) return value
-    }
-    for (let value of members) {
-      if (value.username.toLowerCase().startsWith(input.toLowerCase())) return value
-    }
-    for (let value of members) {
-      if (value.username.includes(input)) return value
-    }
-    for (let value of members) {
-      if (value.username.toLowerCase().includes(input.toLowerCase())) return value
+
+    for (let type of ['username', 'nick']) {
+      for (let value of members) {
+        if (value[type] && input === value[type]) return value.user
+      }
+      for (let value of members) {
+        if (value[type] && input.toLowerCase() === value[type].toLowerCase()) return value.user
+      }
+      for (let value of members) {
+        if (value[type] && value[type].startsWith(input)) return value.user
+      }
+      for (let value of members) {
+        if (value[type] && value[type].toLowerCase().startsWith(input.toLowerCase())) return value.user
+      }
+      for (let value of members) {
+        if (value[type] && value[type].includes(input)) return value.user
+      }
+      for (let value of members) {
+        if (value[type] && value[type].toLowerCase().includes(input.toLowerCase())) return value.user
+      }
     }
 
     return message.author
