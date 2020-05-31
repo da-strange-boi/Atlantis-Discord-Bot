@@ -6,10 +6,8 @@ exports.run = async (bot) => {
     let userStats
     if (!args[0]) {
       userStats = message.author
-    } else if (message.mentions[0]) {
-      userStats = message.mentions[0]
     } else {
-      userStats = message.author
+      userStats = await bot.getUser(message, args.join(" "))
     }
 
 
