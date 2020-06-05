@@ -1,9 +1,6 @@
 # Atlantis Discord Bot
 ### Atlantis is a Discord Bot made for the [OwO Discord Bot](https://top.gg/bot/owo) community Atlantis
 
-## Join Atlantis Discord Server
-[![](https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2)](https://discord.gg/FCUZeGb)
-
 # Donations
 I use Ko-fi because they don't take a fee for themselves like Patreon does
 
