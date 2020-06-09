@@ -1,14 +1,14 @@
-const ms = require("parse-ms")
-const package = require("../../../package.json")
+const ms = require('parse-ms')
+const packageData = require('../../../package.json')
 exports.run = async (bot) => {
-  bot.registerCommand("status", async (message, args) => {
-    bot.database.Userdata.find({}).toArray(async(err, docsUS) => {
-      if (err) bot.log("error", err)
+  bot.registerCommand('status', async (message, args) => {
+    bot.database.Userdata.find({}).toArray(async (err, docsUS) => {
+      if (err) bot.log('error', err)
 
-      bot.database.HuntBot.find({}).toArray(async(err, docsHB) => {
-        if (err) bot.log("error", err)
+      bot.database.HuntBot.find({}).toArray(async (err, docsHB) => {
+        if (err) bot.log('error', err)
 
-        if (await bot.checkPermission(message, "botAdmin")) {
+        if (await bot.checkPermission(message, 'botAdmin')) {
           const uptime = ms(bot.uptime)
           const statusEmbed = {
             embed: {
@@ -19,28 +19,28 @@ exports.run = async (bot) => {
               },
               fields: [
                 {
-                  name: "Total Guilds",
+                  name: 'Total Guilds',
                   value: `\`${bot.guilds.size}\``,
                   inline: true
                 },
                 {
-                  name: "Total Users",
+                  name: 'Total Users',
                   value: `\`${docsUS.length}\``,
                   inline: true
                 },
                 {
-                  name: "Current HuntBot",
+                  name: 'Current HuntBot',
                   value: `\`${docsHB.length}\``,
                   inline: true
                 },
                 {
-                  name: "Uptime",
+                  name: 'Uptime',
                   value: `\`${uptime.days} days, ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s\``,
                   inline: true
                 },
                 {
-                  name: "Version",
-                  value: `\`${package.version}\``,
+                  name: 'Version',
+                  value: `\`${packageData.version}\``,
                   inline: true
                 }
               ],

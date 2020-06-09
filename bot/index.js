@@ -1,11 +1,10 @@
-/** @type {import("eris")} */
-const Eris = require("eris")
-const fs = require("fs")
-const _ = require("lodash")
-require("dotenv").config({path:".env"})
-const bot = new Eris.CommandClient(process.env.TOKEN, {
+const Eris = require('eris')
+const fs = require('fs')
+const config = require('../config.json')
+
+const bot = new Eris.CommandClient(config.BOT_TOKEN, {
   disableEveryone: true,
-  defaultImageFormat: "png",
+  defaultImageFormat: 'png',
   restMode: true,
   disableEvents: {
     CHANNEL_DELETE: true,
@@ -23,11 +22,9 @@ const bot = new Eris.CommandClient(process.env.TOKEN, {
   }
 }, {
   defaultHelpCommand: false,
-  description: "A Discord bot made for the OwO bot community, Atlantis",
   ignoreBots: false,
   ignoreSelf: true,
-  owner: "da-strange-boi",
-  prefix: ["a!", "@mention"]
+  prefix: ['a!', '@mention']
 })
 
 // database connection
@@ -37,30 +34,23 @@ bot.color = {
   red: 0xFF0000
 }
 bot.customOwoPrefix = {}
-// da strange boi (tyler), jess (jess), crushed (lee)
-bot.admins = ["295255543596187650", "494540660943224844", "296155961230622720"]
-bot.emojis = require("./handlers/emojis")
-bot.log = require("./handlers/logging")
-require("./handlers/functions")(bot)
-require("./handlers/webhooks").run(bot)
-require("./website/app").run(bot)
+bot.admins = config.BOT_ADMINS
+bot.emojis = require('./handlers/emojis')
+bot.log = require('./handlers/logging')
+require('./handlers/functions')(bot)
 
 const init = async () => {
   // Load Events
-  fs.readdir("./bot/events/", (err, files) => {
-    if (err) bot.log("error", err)
+  fs.readdir('./bot/events/', (err, files) => {
+    if (err) bot.log('error', err)
     files.forEach(file => {
       const eventFunction = require(`./events/${file}`)
-      const eventName = file.split(".")[0]
+      const eventName = file.split('.')[0]
       bot.on(eventName, (...args) => eventFunction.run(bot, ...args))
     })
   })
   // load commands
-  const loader = require("./commands/loader.js")
+  const loader = require('./commands/loader.js')
   loader.run(bot)
 }
 init()
-
-/*
-  I am not a good programmer so please don't die looking at this (probably) bad code
-*/

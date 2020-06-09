@@ -1,24 +1,27 @@
 {
   "name": "atlantis-discord-bot",
-  "version": "1.7.6",
+  "version": "2.0.0",
   "main": "bot/index.js",
   "license": "MIT",
+  "author": "da-strange-boi",
+  "scripts": {
+    "bot": "node ."
+  },
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "botlist.space": "^3.3.1",
-    "canvas": "^2.6.1",
     "chalk": "^4.0.0",
     "cron": "^1.8.2",
-    "dblapi.js": "^2.4.0",
     "eris": "^0.11.2",
-    "express": "^4.17.1",
-    "express-handlebars": "^4.0.4",
     "lodash": "^4.17.15",
     "mongodb": "^3.5.5",
     "node-fetch": "^2.6.0",
     "parse-ms": "^2.1.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "eslint": "^7.2.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.21.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
   }
 }

@@ -1,17 +1,17 @@
 exports.run = async (bot) => {
-  bot.registerCommand("owo", async (message, args) => {
+  bot.registerCommand('owo', async (message, args) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
-    
+
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
-      if (err) bot.log("error", err)
-  
+      if (err) bot.log('error', err)
+
       if (userdata) {
         // if user does exist
         if (userdata.owo) {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"owo":false}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { owo: false } })
         } else {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"owo":true}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { owo: true } })
         }
         const owoEmbed = {
           embed: {
@@ -20,12 +20,12 @@ exports.run = async (bot) => {
             timestamp: new Date()
           }
         }
-  
+
         bot.createMessage(message.channel.id, owoEmbed)
       }
     })
   }, {
     cooldown: 3000,
-    cooldownMessage: "Whoa there slow down, the cooldown is 3 seconds!"
+    cooldownMessage: 'Whoa there slow down, the cooldown is 3 seconds!'
   })
 }

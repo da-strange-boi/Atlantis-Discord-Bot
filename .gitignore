@@ -1,11 +1,5 @@
 # modules
 node_modules/
 
-# contains bot token
-.env
-
 # vscode project settings
 .vscode
-
-# make pushing to dev then master easier
-publish.bat
