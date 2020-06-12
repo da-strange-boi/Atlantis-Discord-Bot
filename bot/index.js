@@ -29,6 +29,7 @@ const bot = new Eris.CommandClient(config.BOT_TOKEN, {
 
 // database connection
 require('./handlers/database.js')(bot)
+
 bot.color = {
   green: 0x00FF00,
   red: 0xFF0000

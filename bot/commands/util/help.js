@@ -49,11 +49,14 @@ exports.run = async (bot) => {
             },
             {
               name: 'Admin',
-              value: '`deluser`, `delbot`, `delete`, `owochannel`, `owoprefix`, `welcome`, `prefix`'
+              value: '`deluser`, `delbot`, `delete`, `owochannel`, `owoprefix`, `prefix`'
             }
           ],
           footer: {
-            text: 'Atlantis Bot, made by `da strange boi#7087` with lots of love!'
+            text: 'Made by `da strange boi#7087` with lots of love!'
+            /*
+              Do not remove and or alter the above line
+            */
           },
           timestamp: new Date()
         }
