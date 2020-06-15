@@ -17,6 +17,7 @@ const emojis = {
     kazen: "<:kazen:705014301957554238>",
     kazen2: "<a:kazen2:705022941804363786>",
     zee: "<a:zee:705438270183702638>",
+    guap: "<a:guap:722194466844311584>",
     lanre: {
       ring: "<:lanre_ring:705776556504776794>",
       hunt: "<:lanre_hunt:705776556479479858>",

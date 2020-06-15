@@ -250,11 +250,16 @@ exports.run = async (bot, message) => {
           }
 
           let praycurseText = `<@${message.author.id}>, \`${whichText}\` cooldown has passed! ${whichEmoji}`
-          if (message.author.id == "648741213154836500" /* lanre */) {
+          if (message.author.id === "648741213154836500" /* lanre */) {
             if (whichText == "pray") {
               praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.randomKanna[1]} Lan you're supposed to be cursing, not praying, you hypocrite ${bot.emojis.custom.lanre.angry}`
             } else {
               praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.pray} Lanny, you can curse Kanzen now! ${bot.emojis.custom.lanre.randomKanna[6]}`
+            }
+          }
+          if (message.author.id === "369996055737008149" /* guap */) {
+            if (whichText == "pray") {
+              praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.guap} Prayers up :pray_tone3:999:black_heart: ${bot.emojis.custom.guap}`
             }
           }
 
