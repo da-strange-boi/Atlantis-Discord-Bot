@@ -34,11 +34,11 @@
 <script>
     // do the date
     const date = new Date()
-    let time = `The week of\n${date.getMonth()+1}/${date.getDate()-date.getDay()+1} - ${date.getMonth()+1}/${(date.getDate()-date.getDay())+7}`
+    let time = `The week of\n${date.getMonth()}/${date.getDate()-date.getDay()} - ${date.getMonth()}/${(date.getDate()-date.getDay())+6}`
     document.getElementById("date").innerHTML = time
 
     // Show button if end of week
-    if ((date.getDate() - date.getDay()) + 6 == date.getDate()+1) {
+    if ((date.getDate() - date.getDay()) + 6 == date.getDate()) {
         document.getElementById("week").style.display = "inline-block"
     }
 
