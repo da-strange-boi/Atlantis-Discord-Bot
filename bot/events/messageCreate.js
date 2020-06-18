@@ -123,21 +123,11 @@ exports.run = async (bot, message) => {
           if (message.content.toLowerCase().replace(/\s/g, "") == ("owo" || "uwu")) {
             await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"owosPastWeek":webUser.owosPastWeek+1}})
           }
-          if (webUser.avatar !== message.author.avatar) {
-            await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"avatar":message.author.avatar}})
-          }
-          if (webUser.userTag !== `${message.author.username}#${message.author.discriminator}`) {
-            await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"userTag":`${message.author.username}#${message.author.discriminator}`}})
-          }
-          if (webUser.level !== message.member.roles.includes("667918448508272691") || message.member.roles.includes("696426968962302023") ? 3 : message.member.roles.includes("667916293651038228") ? 2 : 1) {
-            await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"level":message.member.roles.includes("667918448508272691") || message.member.roles.includes("696426968962302023") ? 3 : message.member.roles.includes("667916293651038228") ? 2 : 1}})
-          }
-          if (webUser.nickname !== message.member.nick) {
-            await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"nickname":message.member.nick}})
-          }
-          if (webUser.premium !== message.member.premiumSince) {
-            await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"premium":message.member.premiumSince}})
-          }
+          await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"avatar":message.author.avatar}})
+          await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"userTag":`${message.author.username}#${message.author.discriminator}`}})
+          await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"level":message.member.roles.includes("667918448508272691") || message.member.roles.includes("696426968962302023") ? 3 : message.member.roles.includes("667916293651038228") ? 2 : 1}})
+          await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"nickname":message.member.nick}})
+          await bot.database.Website.findOneAndUpdate({ userID: message.author.id }, {$set: {"premium":message.member.premiumSince}})
         }
       })
     }
