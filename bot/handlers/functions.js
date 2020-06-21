@@ -202,6 +202,8 @@ module.exports = async (bot) => {
   let resetDailyStats = new CronJob("0 0 3 * * *", async () => {
     const runDailiesResetFile = spawn('node', ['bot/handlers/resettingStatsDailies.js'])
 
+    bot.log("system", "Stats reset")
+
     runDailiesResetFile.stderr.on('data', (data) => {
       bot.log("error", `stats stderr: ${data}`);
     });
