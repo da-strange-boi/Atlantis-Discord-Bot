@@ -1,16 +1,16 @@
 exports.run = async (bot) => {
-  bot.registerCommand("drop", async (message, args) => {
+  bot.registerCommand('drop', async (message, args) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
 
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
-      if (err) bot.log("error", err)
-  
+      if (err) bot.log('error', err)
+
       if (userdata) {
         if (userdata.drop) {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"drop":false}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { drop: false } })
         } else {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"drop":true}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { drop: true } })
         }
         const dropEmbed = {
           embed: {
@@ -19,13 +19,13 @@ exports.run = async (bot) => {
             timestamp: new Date()
           }
         }
-  
+
         bot.createMessage(message.channel.id, dropEmbed)
       }
     })
   }, {
-    aliases: ["pickup"],
+    aliases: ['pickup'],
     cooldown: 3000,
-    cooldownMessage: "Whoa there slow down, the cooldown is 3 seconds!"
+    cooldownMessage: 'Whoa there slow down, the cooldown is 3 seconds!'
   })
 }

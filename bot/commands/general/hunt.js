@@ -1,16 +1,16 @@
 exports.run = async (bot) => {
-  bot.registerCommand("hunt", async (message, args) => {
+  bot.registerCommand('hunt', async (message, args) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
-  
+
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
-      if (err) bot.log("error", err)
-  
+      if (err) bot.log('error', err)
+
       if (userdata) {
         if (userdata.hunt) {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"hunt":false}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { hunt: false } })
         } else {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"hunt":true}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { hunt: true } })
         }
         const huntEmbed = {
           embed: {
@@ -19,13 +19,13 @@ exports.run = async (bot) => {
             timestamp: new Date()
           }
         }
-  
+
         bot.createMessage(message.channel.id, huntEmbed)
       }
     })
   }, {
-    aliases: ["h", "catch"],
+    aliases: ['h', 'catch'],
     cooldown: 3000,
-    cooldownMessage: "Whoa there slow down, the cooldown is 3 seconds!"
+    cooldownMessage: 'Whoa there slow down, the cooldown is 3 seconds!'
   })
 }

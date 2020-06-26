@@ -1,18 +1,18 @@
 exports.run = async (bot) => {
-  bot.registerCommand("praycurse", async (message, args) => {
+  bot.registerCommand('praycurse', async (message, args) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
 
     bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
-      if (err) bot.log("error", err)
-  
+      if (err) bot.log('error', err)
+
       // if userdata doesn't exist make it
       if (userdata) {
         // if user does exist
         if (userdata.praycurse) {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"praycurse":false}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { praycurse: false } })
         } else {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, {$set: {"praycurse":true}})
+          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { praycurse: true } })
         }
         const praycurseEmbed = {
           embed: {
@@ -21,13 +21,13 @@ exports.run = async (bot) => {
             timestamp: new Date()
           }
         }
-  
+
         bot.createMessage(message.channel.id, praycurseEmbed)
       }
     })
   }, {
-    aliases: ["pray", "curse"],
+    aliases: ['pray', 'curse'],
     cooldown: 3000,
-    cooldownMessage: "Whoa there slow down, the cooldown is 3 seconds!"
+    cooldownMessage: 'Whoa there slow down, the cooldown is 3 seconds!'
   })
 }

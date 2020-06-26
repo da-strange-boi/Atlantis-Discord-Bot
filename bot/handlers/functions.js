@@ -1,7 +1,6 @@
-const Eris = require("eris")
 const { CronJob } = require('cron')
-const _ = require("lodash")
-const { spawn } = require("child_process")
+const _ = require('lodash')
+const { spawn } = require('child_process')
 module.exports = async (bot) => {
   /** @typedef {function} bot.checkPermission
    * Checks the permission of the user within the bot
@@ -12,8 +11,8 @@ module.exports = async (bot) => {
   bot.checkPermission = async (message, typeOfPermission) => {
     let hasPermission
     switch (typeOfPermission) {
-      case "botAdmin": bot.admins.includes(message.author.id) ? hasPermission = true : hasPermission = false; break
-      case "botOwner": message.author.id == "295255543596187650" ? hasPermission = true : hasPermission = false; break
+      case 'botAdmin': bot.admins.includes(message.author.id) ? hasPermission = true : hasPermission = false; break
+      case 'botOwner': message.author.id === '295255543596187650' ? hasPermission = true : hasPermission = false; break
       default: return new TypeError("Invalid 'typeOfPermission' type")
     }
     return hasPermission
@@ -27,11 +26,11 @@ module.exports = async (bot) => {
    * @param {MongoDB.Collection} guilddata The guilddata document
    */
   bot.checkAndUpdateCategories = (msg, category, channelID, guilddata) => {
-    let updatedList = guilddata[category]
-    _.remove(updatedList, function(n) {
-      return n == channelID
+    const updatedList = guilddata[category]
+    _.remove(updatedList, function (n) {
+      return n === channelID
     })
-    return bot.database.Guilddata.findOneAndUpdate({ guildID: msg.member.guild.id }, {$set: {[category]:updatedList}})
+    return bot.database.Guilddata.findOneAndUpdate({ guildID: msg.member.guild.id }, { $set: { [category]: updatedList } })
   }
 
   /** @typedef {function} bot.checkUserAndGuild
@@ -41,7 +40,7 @@ module.exports = async (bot) => {
   bot.checkUserAndGuild = async (message) => {
     if (message.author.bot) return
     await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
-      if (err) bot.log("error", err)
+      if (err) bot.log('error', err)
       if (!userdata) {
         await bot.database.Userdata.insertOne({
           userID: message.author.id,
@@ -69,41 +68,41 @@ module.exports = async (bot) => {
             {
               id: 1,
               unlocked: true,
-              trigger: "",
-              triggerText: "",
+              trigger: '',
+              triggerText: '',
               time: 0,
-              displayTime: ""
+              displayTime: ''
             },
             {
               id: 2,
               unlocked: false,
-              trigger: "",
-              triggerText: "",
+              trigger: '',
+              triggerText: '',
               time: 0,
-              displayTime: ""
+              displayTime: ''
             },
             {
               id: 3,
               unlocked: false,
-              trigger: "",
-              triggerText: "",
+              trigger: '',
+              triggerText: '',
               time: 0,
-              displayTime: ""
-            },
+              displayTime: ''
+            }
           ]
         })
       }
     })
     await bot.database.Guilddata.findOne({ guildID: message.channel.guild.id }, async (err, guilddata) => {
-      if (err) bot.log("error", err)
+      if (err) bot.log('error', err)
       if (!guilddata) {
         await bot.database.Guilddata.insertOne({
           guildID: message.member.guild.id,
-          prefix: "",
+          prefix: '',
           deleteUserMessagesChannels: [],
           deleteBotMessagesChannels: [],
           owoChannel: [],
-          welcomeChannel: [" ", "Welcome {user} to **{server}**!"],
+          welcomeChannel: [' ', 'Welcome {user} to **{server}**!'],
           delete: []
         })
       }
@@ -118,22 +117,22 @@ module.exports = async (bot) => {
   */
   bot.getEmbedColor = (bot, message) => {
     const comparePositions = (role1, role2) => {
-      if (role1.position === role2.position) return role2.id - role1.id;
-      return role1.position - role2.position;
+      if (role1.position === role2.position) return role2.id - role1.id
+      return role1.position - role2.position
     }
 
     const memberRoleObjects = []
     message.member.guild.roles.forEach(guildRole => {
       message.member.guild.members.get(bot.user.id).roles.forEach(memberRole => {
-        if (guildRole.id == memberRole) {
+        if (guildRole.id === memberRole) {
           memberRoleObjects.push(guildRole)
         }
       })
     })
 
     const coloredRoles = memberRoleObjects.filter(role => role.color)
-    if (coloredRoles.length == 0) return 0xd4af37
-    const color = coloredRoles.reduce((prev, role) => (!prev || comparePositions(role, prev) > 0 ? role : prev));
+    if (coloredRoles.length === 0) return 0xd4af37
+    const color = coloredRoles.reduce((prev, role) => (!prev || comparePositions(role, prev) > 0 ? role : prev))
     return color.color
   }
 
@@ -151,83 +150,79 @@ module.exports = async (bot) => {
   }
 
   // doesn't currently work
-  bot.checkBotPermission = async (message, permissionsReq=[]) => {
-    let permissions = await message.channel.permissionsOf(bot.user.id)
-    let allowedPermissions = []
+  bot.checkBotPermission = async (message, permissionsReq = []) => {
+    const permissions = await message.channel.permissionsOf(bot.user.id)
+    const allowedPermissions = []
     for (let i = 0; i < permissionsReq.length; i++) {
       await permissions.has(permissionsReq[i]) ? allowedPermissions.push(1) : allowedPermissions.push(0)
     }
-    return allowedPermissions.includes(0) ? false : true
+    return !allowedPermissions.includes(0)
   }
 
   bot.getUser = async (message, input) => {
-    let mention = input.match(/^<@!?[0-9]{17,21}>$/)
+    const mention = input.match(/^<@!?[0-9]{17,21}>$/)
     if (mention) input = input.match(/\d+/)[0]
-    
+
     await message.channel.guild.fetchAllMembers()
     const members = []
-    
+
     await message.channel.guild.members.forEach(member => members.push(member))
-    
-    for (let value of members) {
+
+    for (const value of members) {
       if (input === value.id) return value
     }
 
-    for (let type of ['username', 'nick']) {
-      for (let value of members) {
+    for (const type of ['username', 'nick']) {
+      for (const value of members) {
         if (value[type] && input === value[type]) return value.user
       }
-      for (let value of members) {
+      for (const value of members) {
         if (value[type] && input.toLowerCase() === value[type].toLowerCase()) return value.user
       }
-      for (let value of members) {
+      for (const value of members) {
         if (value[type] && value[type].startsWith(input)) return value.user
       }
-      for (let value of members) {
+      for (const value of members) {
         if (value[type] && value[type].toLowerCase().startsWith(input.toLowerCase())) return value.user
       }
-      for (let value of members) {
+      for (const value of members) {
         if (value[type] && value[type].includes(input)) return value.user
       }
-      for (let value of members) {
+      for (const value of members) {
         if (value[type] && value[type].toLowerCase().includes(input.toLowerCase())) return value.user
       }
     }
 
     return message.author
-
   }
 
   // Delete daily stats
-  let resetDailyStats = new CronJob("0 0 3 * * *", async () => {
+  const resetDailyStats = new CronJob('0 0 3 * * *', async () => {
     const runDailiesResetFile = spawn('node', ['bot/handlers/resettingStatsDailies.js'])
 
-    bot.log("system", "Stats reset")
+    bot.log('system', 'Stats reset')
 
     runDailiesResetFile.stderr.on('data', (data) => {
-      bot.log("error", `stats stderr: ${data}`);
-    });
-    
-    runDailiesResetFile.on('close', (code) => {
-      bot.log("system", "Stats Reset Complete")
-    });
+      bot.log('error', `stats stderr: ${data}`)
+    })
 
-  }, null, true, "America/New_York")
+    runDailiesResetFile.on('close', (code) => {
+      bot.log('system', 'Stats Reset Complete')
+    })
+  }, null, true, 'America/New_York')
   resetDailyStats.start()
 
-
   // check last vote
-  let checkVotes = new CronJob("0 0 */1 * * *", async () => {
+  const checkVotes = new CronJob('0 0 */1 * * *', async () => {
     const runCheckVotes = spawn('node', ['bot/handlers/checkToResetCustom.js'])
 
     runCheckVotes.stderr.on('data', (data) => {
-      bot.log("error", `vote stderr: ${data}`);
-    });
-    
+      bot.log('error', `vote stderr: ${data}`)
+    })
+
     runCheckVotes.on('close', (code) => {
-      bot.log("system", "Votes Check Complete")
-    });
-    
-  }, null, true, "America/New_York")
+      bot.log('system', 'Votes Check Complete')
+    })
+  }, null, true, 'America/New_York')
   checkVotes.start()
 }

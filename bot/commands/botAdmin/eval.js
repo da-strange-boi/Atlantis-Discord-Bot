@@ -1,21 +1,21 @@
-const { inspect } = require("util")
+const { inspect } = require('util')
 exports.run = async (bot) => {
-  bot.registerCommand("eval", async (message, args) => {
-    if (await bot.checkPermission(message, "botAdmin")) {
-      const toEval = args.join(" ")
+  bot.registerCommand('eval', async (message, args) => {
+    if (await bot.checkPermission(message, 'botAdmin')) {
+      const toEval = args.join(' ')
       try {
         const hrStart = process.hrtime()
+        // eslint-disable-next-line no-eval
         const evaluated = inspect(eval(toEval, { depth: 0 }))
-        hrDiff = process.hrtime(hrStart)
+        const hrDiff = process.hrtime(hrStart)
         if (toEval) {
-    
           const evalEmbed = {
             embed: {
-              title: "Evaluation",
+              title: 'Evaluation',
               color: bot.getEmbedColor(bot, message),
               fields: [
                 {
-                  name: ":scroll: Script",
+                  name: ':scroll: Script',
                   value: `\`\`\`javascript\n${toEval}\n\`\`\``
                 },
                 {
@@ -23,7 +23,7 @@ exports.run = async (bot) => {
                   value: `\`\`\`javascript\n${evaluated}\n\`\`\``
                 },
                 {
-                  name: ":alarm_clock: Evaluation Time",
+                  name: ':alarm_clock: Evaluation Time',
                   value: `${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.`
                 }
               ]
@@ -32,7 +32,7 @@ exports.run = async (bot) => {
 
           await bot.createMessage(message.channel.id, evalEmbed)
         } else {
-          await bot.createMessage(message.channel.id, "Error whilst evaluating: `cannot evaluated air`")
+          await bot.createMessage(message.channel.id, 'Error whilst evaluating: `cannot evaluated air`')
         }
       } catch (e) {
         await bot.createMessage(message.channel.id, `Error whilst evaluating: \`${e.message}\``)
