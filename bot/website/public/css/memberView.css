@@ -1,0 +1,108 @@
+body {
+    background-color: #101010;
+}
+
+.member {
+    border: 1px black solid;
+    width: 90%;
+    margin: 0 auto;
+    background-color: #333333;
+    color: #ffffff;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.member img {
+    display: block;
+    margin: 15px auto;
+    border-radius: 50%;
+    border: 2px gold ridge;
+}
+
+.hitreq {
+    padding: 5px;
+}
+
+#boost {
+    display: inline;
+    padding: 0;
+    position: absolute;
+    margin-left: 20px;
+    border: none;
+}
+#date {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.archives {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.archive {
+    text-align: left;
+}
+.archive h2 {
+    padding: 10px;
+    padding-bottom: 20px;
+    display: inline-block;
+}
+.archive h3 {
+    padding-left: 10px;
+    padding: 10px
+}
+.archive .amount {
+    padding-left: 30px;
+}
+
+.excuseBtn {
+    background-color: #ffff00;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 20px;
+    float: right;
+}
+
+#delete {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    background-color: #AA0000;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+#delete:hover {
+    background-color: #770000;
+}
+
+.stats {
+    margin: 10px;
+    color: gray;
+}
+
+.level {
+    margin: 10px;
+}
+.small {
+    font-size: 12px;
+}
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+.blue {
+    color: #b9f2ff;
+}
+.gold {
+    color: #cbbe50;
+}
+.yellow {
+    color: #ffff00;
+}
