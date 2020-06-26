@@ -16,9 +16,16 @@ const emojis = {
     trident: ':trident:'
   },
   custom: {
+<<<<<<< HEAD
     kazen: '<:kazen:705014301957554238>',
     kazen2: '<a:kazen2:705022941804363786>',
     zee: '<a:zee:705438270183702638>',
+=======
+    kazen: "<:kazen:705014301957554238>",
+    kazen2: "<a:kazen2:705022941804363786>",
+    zee: "<a:zee:705438270183702638>",
+    guap: "<a:guap:722194466844311584>",
+>>>>>>> 804b293070f66c7f79dad0479a32bd79942f2c24
     lanre: {
       ring: '<:lanre_ring:705776556504776794>',
       hunt: '<:lanre_hunt:705776556479479858>',

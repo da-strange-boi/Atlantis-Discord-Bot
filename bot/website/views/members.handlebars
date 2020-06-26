@@ -1,0 +1,49 @@
+<nav>
+    <a href="/">Home</a>
+    <a href="/members" class="active">Members</a>
+</nav>
+<h2 id="date"></h2>
+<button id="week">Finish Week</button>
+<h3>Possible AOTW</h3>
+<div class="possibleAOTW">
+    {{#each aotw}}
+        <a href="/member/{{./userID}}">
+            <div class="aotwMember">
+                <img src="{{getPfp .}}" alt="{{./userTag}} profile picture">
+                <span>{{./userTag}}<img id="boost" width="16" height="16" src="{{getBoost .}}" alt="boost"><br><span class="small">({{./userID}})</span></span>
+                <p class="black">{{getLevel .}}</p>
+                <p class="hitreq"><span class="{{hitreqColor .}}">{{hitreqText .}}<br>{{getOwoCount .}}</span></p>
+            </div>
+        </a>
+    {{/each}}
+</div>
+<h3>All Atlantis Members</h3>
+<div class="members">
+    {{#each members}}
+        <a href="/member/{{./userID}}">
+            <div class="member">
+                <img src="{{getPfp .}}" alt="{{./userTag}} profile picture">
+                <span>{{./userTag}}<img id="boost" width="16" height="16" src="{{getBoost .}}" alt="boost"><br><span class="small">({{./userID}})</span></span>
+                <p class="{{getLevelColor .}}">{{getLevel .}}</p>
+                <p class="hitreq"><span class="{{hitreqColor .}}">{{hitreqText .}}<br>{{getOwoCount .}}</span></p>
+            </div>
+        </a>
+    {{/each}}
+</div>
+
+<script>
+    // do the date
+    const date = new Date()
+    let time = `The week of\n${date.getMonth()}/${date.getDate()-date.getDay()} - ${date.getMonth()}/${(date.getDate()-date.getDay())+6}`
+    document.getElementById("date").innerHTML = time
+
+    // Show button if end of week
+    if ((date.getDate() - date.getDay()) + 6 == date.getDate()) {
+        document.getElementById("week").style.display = "inline-block"
+    }
+
+    document.getElementById("week").onclick = () => {
+        window.location = "/weekReset"
+    }
+
+</script>
