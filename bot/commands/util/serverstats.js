@@ -79,6 +79,7 @@ exports.run = async (bot) => {
       }
     })
   }, {
+    aliases: ['ss'],
     cooldown: 3000,
     cooldownMessage: 'Whoa there slow down, the cooldown is 3 seconds!'
   })
