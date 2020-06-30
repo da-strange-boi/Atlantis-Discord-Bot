@@ -1,14 +1,6 @@
 # Atlantis Discord Bot
 ### Atlantis is a Discord Bot made for the [OwO Discord Bot](https://top.gg/bot/owo) community Atlantis
 
-## Join Atlantis Discord Server
-[![](https://discordapp.com/api/guilds/667900803528261657/widget.png?style=banner2)](https://discord.gg/FCUZeGb)
-
-# Donations
-I use Ko-fi because they don't take a fee for themselves like Patreon does
-
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B21I7HA)
-
 # Invite Atlantis to your server!
 [![Atlantis's Widget](https://api.botlist.space/widget/688911718788628496/6?rounded=true&background=017a97&shadows=true "Atlantis's Widget")](https://botlist.space/bot/688911718788628496?utm_source=bls&utm_medium=widget&utm_campaign=688911718788628496)
 
@@ -26,4 +18,7 @@ You can do just that. By running the help command `a!help` you can see all the c
 ![](https://i.imgur.com/oymBTPB.png)
 
 # Issues / Suggestions / New Features
-## As far as this goes if you find an issue/bug with Atlantis or have a new suggestion to be made rather DM me (`da strange boi#7087`) or join [Atlantis Support Server](https://discord.gg/w7Sk8hC) and make a suggestion there and or issue report
+## As far as this goes if you find an issue/bug with Atlantis or have a new suggestion to be made join [Atlantis](https://discord.gg/FCUZeGb) and contact me through there
+
+# To-Do List
+## [Trello](https://trello.com/b/ax8kNXuk/atlantis-discord-bot)

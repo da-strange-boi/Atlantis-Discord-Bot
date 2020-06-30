@@ -38,7 +38,7 @@ exports.run = async (bot) => {
         embed: {
           title: `Atlantis Help ${bot.emojis.native.trident}`,
           color: bot.getEmbedColor(bot, message),
-          description: `**Support** me on ${bot.emojis.kofi} **[Ko-fi](https://ko-fi.com/dastrangeboi)** | **Join** Atlantis ${bot.emojis.atlantisPfp} **[here](https://discord.gg/FCUZeGb)**\nThis is the full command list for **${bot.user.username}**! For more info on what a command does do \`a!help <command name>\`\nThanks to \`pri8000#8266\` for the profile picture art!`,
+          description: `Join **Atlantis Support Server** ${bot.emojis.atlantisPfp} **[here](https://discord.gg/w7Sk8hC)**\nThis is the full command list for **${bot.user.username}**! For more info on what a command does do \`a!help <command name>\`\nThanks to \`pri8000#8266\` for the profile picture art!`,
           fields: [
             {
               name: 'General',
@@ -46,7 +46,7 @@ exports.run = async (bot) => {
             },
             {
               name: 'Util',
-              value: '`atlantis`, `custom`, `help`, `invite`, `stats`, `serverstats`, `vote`'
+              value: '`atlantis`, `custom`, `help`, `invite`, `stats`, `serverstats`, `vote`, `zoostats`'
             },
             {
               name: 'Admin',
@@ -90,7 +90,8 @@ exports.run = async (bot) => {
         case 'botban': commandDetailToSend = commandDetails('Botban', '`a!botban <user id> <reason>`', '`a!botban 295255543596187650 for testing`'); break
         case 'stats': commandDetailToSend = commandDetails('Stats', '`a!stats [@mention]`', 'Show your OwO stats'); break
         case 'vote': commandDetailToSend = commandDetails('Vote', '`a!vote`', 'To vote for Atlantis on top.gg'); break
-        case 'serverstats': commandDetailToSend = commandDetails('Serverstats', 'a!serverstats [@mention | user id]', 'To see a users server stats', false, 'ss'); break
+        case 'serverstats': commandDetailToSend = commandDetails('Serverstats', '`a!serverstats [@mention | user id]`', 'To see a users server stats', false, '`ss`'); break
+        case 'zoostats': commandDetailToSend = commandDetails('Zoostats', '`a!zoostats {list of zoo message ID\'s}`', 'Figure out how much your zoo will give cowoncy or essence\n- must be ran in the same channel the message ids were sent', '`a!zoostats 727554593449312308 727554594401681422`'); break
         default: commandDetailToSend = { embed: { title: 'Error', color: bot.color.red, description: 'You have to add specify a command name', timestamp: new Date() } }; break
       }
       bot.createMessage(message.channel.id, commandDetailToSend)
