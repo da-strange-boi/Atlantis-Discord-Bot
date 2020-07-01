@@ -1,8 +1,11 @@
 {
   "name": "atlantis-discord-bot",
-  "version": "1.7.10",
+  "version": "1.7.11",
   "main": "bot/index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "concurrently --kill-others \"node .\" \"node statsAndVotesReset/index.js\""
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "botlist.space": "^3.3.1",

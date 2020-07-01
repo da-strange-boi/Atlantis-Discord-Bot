@@ -1,6 +1,4 @@
-const { CronJob } = require('cron')
 const _ = require('lodash')
-const { spawn } = require('child_process')
 module.exports = async (bot) => {
   /** @typedef {function} bot.checkPermission
    * Checks the permission of the user within the bot
@@ -195,34 +193,4 @@ module.exports = async (bot) => {
 
     return message.author
   }
-
-  // Delete daily stats
-  const resetDailyStats = new CronJob('0 0 3 * * *', async () => {
-    const runDailiesResetFile = spawn('node', ['bot/handlers/resettingStatsDailies.js'])
-
-    bot.log('system', 'Stats reset')
-
-    runDailiesResetFile.stderr.on('data', (data) => {
-      bot.log('error', `stats stderr: ${data}`)
-    })
-
-    runDailiesResetFile.on('close', (code) => {
-      bot.log('system', 'Stats Reset Complete')
-    })
-  }, null, true, 'America/New_York')
-  resetDailyStats.start()
-
-  // check last vote
-  const checkVotes = new CronJob('0 0 */1 * * *', async () => {
-    const runCheckVotes = spawn('node', ['bot/handlers/checkToResetCustom.js'])
-
-    runCheckVotes.stderr.on('data', (data) => {
-      bot.log('error', `vote stderr: ${data}`)
-    })
-
-    runCheckVotes.on('close', (code) => {
-      bot.log('system', 'Votes Check Complete')
-    })
-  }, null, true, 'America/New_York')
-  checkVotes.start()
 }
