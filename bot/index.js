@@ -36,10 +36,10 @@ bot.color = {
   red: 0xFF0000
 }
 bot.customOwoPrefix = {}
-// da strange boi (tyler), jess (jess), crushed (lee)
-bot.admins = ['295255543596187650', '494540660943224844', '296155961230622720']
+bot.admins = ['295255543596187650', '494540660943224844']
 bot.emojis = require('./handlers/emojis')
 bot.log = require('./handlers/logging')
+bot.utilData = require('./handlers/utilData')
 require('./handlers/functions')(bot)
 require('./handlers/webhooks').run(bot)
 require('./website/app').run(bot)

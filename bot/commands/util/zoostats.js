@@ -1,74 +1,7 @@
-const smallNumbersToBig = {
-  '⁰': 0,
-  '¹': 1,
-  '²': 2,
-  '³': 3,
-  '⁴': 4,
-  '⁵': 5,
-  '⁶': 6,
-  '⁷': 7,
-  '⁸': 8,
-  '⁹': 9
-}
-
-const rankData = {
-  common: {
-    cowoncy: 1,
-    essence: 1
-  },
-  uncommon: {
-    cowoncy: 3,
-    essence: 5
-  },
-  rare: {
-    cowoncy: 10,
-    essence: 20
-  },
-  epic: {
-    cowoncy: 250,
-    essence: 250
-  },
-  mythic: {
-    cowoncy: 5000,
-    essence: 3000
-  },
-  patreon: {
-    cowoncy: 1000,
-    essence: 500
-  },
-  cpatreon: {
-    cowoncy: 50000,
-    essence: 25000
-  },
-  legendary: {
-    cowoncy: 15000,
-    essence: 10000
-  },
-  gem: {
-    cowoncy: 30000,
-    essence: 20000
-  },
-  botrank: {
-    cowoncy: 10000,
-    essence: 50000
-  },
-  fabled: {
-    cowoncy: 250000,
-    essence: 100000
-  },
-  special: {
-    cowoncy: 6000,
-    essence: 5000
-  },
-  hidden: {
-    cowoncy: 500000,
-    essence: 1000000
-  }
-}
-
 const formatter = new Intl.NumberFormat('en-US')
-
 exports.run = (bot) => {
+  const smallNumbersToBig = bot.utilData.smallNumbersToBig
+  const rankData = bot.utilData.rankData
   bot.registerCommand('zoostats', async (message, args) => {
     if (!args[0]) {
       const errorEmbed = {
