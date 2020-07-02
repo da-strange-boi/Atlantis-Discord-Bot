@@ -1,6 +1,6 @@
 {
   "name": "atlantis-discord-bot",
-  "version": "1.7.12",
+  "version": "1.7.13",
   "main": "bot/index.js",
   "license": "MIT",
   "scripts": {
@@ -19,7 +19,8 @@
     "lodash": "^4.17.15",
     "mongodb": "^3.5.5",
     "node-fetch": "^2.6.0",
-    "parse-ms": "^2.1.0"
+    "parse-ms": "^2.1.0",
+    "systeminformation": "^4.26.9"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
