@@ -46,7 +46,7 @@ exports.run = async (bot) => {
             },
             {
               name: 'Util',
-              value: '`support`, `custom`, `help`, `invite`, `stats`, `status`, `serverstats`, `vote`, `zoostats`'
+              value: '`support`, `custom`, `help`, `invite`, `stats`, `status`, `serverstats`, `ping`, `vote`, `zoostats`'
             },
             {
               name: 'Admin',
@@ -88,11 +88,12 @@ exports.run = async (bot) => {
         case 'owoprefix': commandDetailToSend = commandDetails('OwO Prefix', '`a!owoprefix [new prefix]`', 'Adds a custom OwO prefix', '`a!owoprefix uwu`\n**{space}** - inserts a space'); break
         case 'botban': commandDetailToSend = commandDetails('Botban', '`a!botban <user id> <reason>`', '`a!botban 295255543596187650 for testing`'); break
         case 'stats': commandDetailToSend = commandDetails('Stats', '`a!stats [@mention]`', 'Show your OwO stats'); break
-        case 'status': commandDetailToSend = commandDetails('Status', 'a!status', 'Displays bot information'); break
+        case 'status': commandDetailToSend = commandDetails('Status', '`a!status`', 'Displays bot information'); break
         case 'vote': commandDetailToSend = commandDetails('Vote', '`a!vote`', 'To vote for Atlantis on top.gg'); break
         case 'serverstats': commandDetailToSend = commandDetails('Serverstats', '`a!serverstats [@mention | user id]`', 'To see a users server stats', false, '`ss`'); break
         case 'zoostats': commandDetailToSend = commandDetails('Zoostats', '`a!zoostats {list of zoo message ID\'s}`', 'Figure out how much your zoo will give cowoncy or essence\n- must be ran in the same channel the message ids were sent', '`a!zoostats 727554593449312308 727554594401681422`'); break
         case 'support': commandDetailToSend = commandDetails('Support', '`a!support`', 'Sends the link to join the Atlantis Support Server'); break
+        case 'ping': commandDetailToSend = commandDetails('Ping', '`a!ping`', 'Gets the ping of the bot'); break
         default: commandDetailToSend = { embed: { title: 'Error', color: bot.color.red, description: 'You have to add specify a command name', timestamp: new Date() } }; break
       }
       bot.createMessage(message.channel.id, commandDetailToSend)
