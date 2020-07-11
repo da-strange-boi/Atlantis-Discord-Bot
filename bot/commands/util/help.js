@@ -87,7 +87,7 @@ exports.run = async (bot) => {
         case 'prefix': commandDetailToSend = commandDetails('Prefix', '`a!prefix [new prefix]`', "Change the server's bot prefix", '`a!prefix atl{space}`\n**{space}** - inserts a space'); break
         case 'owoprefix': commandDetailToSend = commandDetails('OwO Prefix', '`a!owoprefix [new prefix]`', 'Adds a custom OwO prefix', '`a!owoprefix uwu`\n**{space}** - inserts a space'); break
         case 'botban': commandDetailToSend = commandDetails('Botban', '`a!botban <user id> <reason>`', '`a!botban 295255543596187650 for testing`'); break
-        case 'stats': commandDetailToSend = commandDetails('Stats', '`a!stats [@mention]`', 'Show your OwO stats'); break
+        case 'stats': commandDetailToSend = commandDetails('Stats', '`a!stats [@mention]`', 'Show your OwO stats', null, '`s`'); break
         case 'status': commandDetailToSend = commandDetails('Status', '`a!status`', 'Displays bot information'); break
         case 'vote': commandDetailToSend = commandDetails('Vote', '`a!vote`', 'To vote for Atlantis on top.gg'); break
         case 'serverstats': commandDetailToSend = commandDetails('Serverstats', '`a!serverstats [@mention | user id]`', 'To see a users server stats', false, '`ss`'); break

@@ -41,7 +41,6 @@ bot.emojis = require('./handlers/emojis')
 bot.log = require('./handlers/logging')
 bot.utilData = require('./handlers/utilData')
 require('./handlers/functions')(bot)
-require('./handlers/webhooks').run(bot)
 require('./website/app').run(bot)
 
 const init = async () => {

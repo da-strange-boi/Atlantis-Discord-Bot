@@ -61,8 +61,8 @@ const rankData = {
     essence: 5000
   },
   hidden: {
-    cowoncy: 500000,
-    essence: 1000000
+    cowoncy: 1000000,
+    essence: 500000
   }
 }
 

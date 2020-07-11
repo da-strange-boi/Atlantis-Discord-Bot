@@ -3,7 +3,8 @@ let hasDisconnectEventTrigger = false
 setInterval(() => { hasDisconnectEventTrigger = false }, 300000) // 5 minutes
 
 exports.run = async (bot) => {
-  if (hasDisconnectEventTrigger) return
-  hasDisconnectEventTrigger = true
-  bot.log('botDisconnected')
+  if (!hasDisconnectEventTrigger) {
+    hasDisconnectEventTrigger = true
+    bot.log('botDisconnected')
+  }
 }

@@ -7,5 +7,5 @@ node_modules/
 # vscode project settings
 .vscode
 
-# make pushing to dev then master easier
-publish.bat
+# not sure why they were being pushed
+bot/images/
