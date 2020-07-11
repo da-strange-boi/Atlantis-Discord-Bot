@@ -1,4 +1,10 @@
 const praycurseCoolDown = 300000
+const battleReminder = require('../reminders/battle')
+const dropReminder = require('../reminders/drop')
+const huntReminder = require('../reminders/hunt')
+const huntbotReminder = require('../reminders/huntbot')
+const owoReminder = require('../reminders/owo')
+const praycurseReminder = require('../reminders/praycurse')
 
 exports.run = async (bot, message) => {
   if (!message.member) return
@@ -95,12 +101,12 @@ exports.run = async (bot, message) => {
       await bot.checkUserAndGuild(message)
 
       // getting reminders
-      require('../reminders/battle').reminder(bot, message, messageContent, customPrefix, userdata)
-      require('../reminders/drop').reminder(bot, message, messageContent, customPrefix, userdata)
-      require('../reminders/hunt').reminder(bot, message, messageContent, customPrefix, userdata)
-      require('../reminders/huntbot').reminder(bot, message)
-      require('../reminders/owo').reminder(bot, message, messageContent, customPrefix, userdata)
-      require('../reminders/praycurse').reminder(bot, message, messageContent, customPrefix, userdata)
+      battleReminder.reminder(bot, message, messageContent, customPrefix, userdata)
+      dropReminder.reminder(bot, message, messageContent, customPrefix, userdata)
+      huntReminder.reminder(bot, message, messageContent, customPrefix, userdata)
+      huntbotReminder.reminder(bot, message)
+      owoReminder.reminder(bot, message, messageContent, customPrefix, userdata)
+      praycurseReminder.reminder(bot, message, messageContent, customPrefix, userdata)
 
       // Custom ring reminder for lanre
       if (messageContent.match(/owobuy[1-7]/g)) {

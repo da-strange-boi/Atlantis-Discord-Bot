@@ -4,7 +4,7 @@ const owoTimeouts = {}
 
 // Reminder for owo/uwu
 exports.reminder = async (bot, message, messageContent, customPrefix, userdata) => {
-  if (messageContent === 'owo' || messageContent === 'uwu' || message.content.match(/(.*?)(owo |uwu )/g)) {
+  if (messageContent === 'owo' || messageContent === 'uwu' || message.content.match(/.+(?:owo|uwu)\s/g)) {
     if (userdata) {
       if (!_.has(owoTimeouts, message.author.id)) {
         owoTimeouts[message.author.id] = {}
