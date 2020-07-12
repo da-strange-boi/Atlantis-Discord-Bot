@@ -100,7 +100,6 @@ module.exports = async (bot) => {
           deleteUserMessagesChannels: [],
           deleteBotMessagesChannels: [],
           owoChannel: [],
-          welcomeChannel: [' ', 'Welcome {user} to **{server}**!'],
           delete: []
         })
       }
@@ -192,5 +191,14 @@ module.exports = async (bot) => {
     }
 
     return message.author
+  }
+
+  bot.editUserdata = async (userID, key, value) => {
+    let userdata = await bot.redis.hget('userdata', userID)
+    userdata = JSON.parse(userdata)
+
+    userdata[key] = value
+
+    await bot.redis.hset('userdata', userID, JSON.stringify(userdata))
   }
 }

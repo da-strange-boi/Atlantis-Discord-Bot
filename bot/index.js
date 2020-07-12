@@ -45,10 +45,11 @@ bot.admins = ['295255543596187650', '494540660943224844']
 bot.emojis = require('./handlers/emojis')
 bot.log = require('./handlers/logging')
 bot.utilData = require('./handlers/utilData')
-require('./handlers/functions')(bot)
 if (process.env.DEV === 'false') require('./website/app').run(bot)
 bot.redis = redis.createClient(bot.keys.redis)
 bot.redis.hget = util.promisify(bot.redis.hget)
+// bot.redis.expire('userdata', parseInt(43200)) // half a day (12 hours)
+require('./handlers/functions')(bot)
 
 const init = async () => {
   // Load Events

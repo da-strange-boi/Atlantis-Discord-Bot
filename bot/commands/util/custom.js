@@ -94,6 +94,7 @@ exports.run = async (bot) => {
                       modifyCustom[i].time = userSetTime
                       modifyCustom[i].displayTime = time
 
+                      bot.editUserdata(message.author.id, 'customs', modifyCustom)
                       await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
                       await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been added', timestamp: new Date() } })
                       break
@@ -105,6 +106,7 @@ exports.run = async (bot) => {
                       modifyCustom[i].time = userSetTime
                       modifyCustom[i].displayTime = time
 
+                      bot.editUserdata(message.author.id, 'customs', modifyCustom)
                       await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
                       await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been added', timestamp: new Date() } })
                       break
@@ -116,6 +118,7 @@ exports.run = async (bot) => {
                       modifyCustom[i].time = userSetTime
                       modifyCustom[i].displayTime = time
 
+                      bot.editUserdata(message.author.id, 'customs', modifyCustom)
                       await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
                       await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been added', timestamp: new Date() } })
                       break
@@ -144,6 +147,7 @@ exports.run = async (bot) => {
               modifyCustom[number].time = 0
               modifyCustom[number].displayTime = ''
 
+              bot.editUserdata(message.author.id, 'customs', modifyCustom)
               await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
               await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been deleted', timestamp: new Date() } })
             } else {

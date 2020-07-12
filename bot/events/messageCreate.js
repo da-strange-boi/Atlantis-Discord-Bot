@@ -60,8 +60,9 @@ exports.run = async (bot, message) => {
       await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdataFromDB) => {
         if (err) bot.log('error', err)
 
-        await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdataFromDB))
-        await bot.redis.expire('userdata', parseInt(43200)) // half a day (12 hours)
+        if (userdataFromDB) {
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdataFromDB))
+        }
       })
     }
 
