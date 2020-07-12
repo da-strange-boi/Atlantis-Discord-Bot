@@ -14,55 +14,68 @@ const smallNumbersToBig = {
 const rankData = {
   common: {
     cowoncy: 1,
-    essence: 1
+    essence: 1,
+    points: 1
   },
   uncommon: {
     cowoncy: 3,
-    essence: 5
+    essence: 5,
+    points: 5
   },
   rare: {
     cowoncy: 10,
-    essence: 20
+    essence: 20,
+    points: 20
   },
   epic: {
     cowoncy: 250,
-    essence: 250
+    essence: 250,
+    points: 250
   },
   mythic: {
     cowoncy: 5000,
-    essence: 3000
+    essence: 3000,
+    points: 3000
   },
   patreon: {
     cowoncy: 1000,
-    essence: 500
+    essence: 500,
+    points: 500
   },
   cpatreon: {
     cowoncy: 50000,
-    essence: 25000
+    essence: 25000,
+    points: 25000
   },
   legendary: {
     cowoncy: 15000,
-    essence: 10000
+    essence: 10000,
+    points: 10000
   },
   gem: {
     cowoncy: 30000,
-    essence: 20000
+    essence: 20000,
+    points: 20000
   },
   botrank: {
-    cowoncy: 10000,
-    essence: 50000
+    cowoncy: 50000,
+    essence: 10000,
+    points: 30000
   },
   fabled: {
     cowoncy: 250000,
-    essence: 100000
+    essence: 100000,
+    points: 100000
   },
   special: {
     cowoncy: 6000,
-    essence: 5000
+    essence: 5000,
+    points: 500
   },
   hidden: {
     cowoncy: 1000000,
-    essence: 500000
+    essence: 500000,
+    points: 500000
   }
 }
 
