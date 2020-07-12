@@ -1,6 +1,7 @@
-/** @type {import("eris")} */
 const Eris = require('eris')
+const redis = require('redis')
 const fs = require('fs')
+const util = require('util')
 require('dotenv').config({ path: '.env' })
 const bot = new Eris.CommandClient(process.env.TOKEN, {
   disableEveryone: true,
@@ -29,6 +30,10 @@ const bot = new Eris.CommandClient(process.env.TOKEN, {
   prefix: ['a!', '@mention']
 })
 
+bot.keys = {
+  mongodb: 'mongodb://localhost:27017',
+  redis: 'redis://127.0.0.1:6379'
+}
 // database connection
 require('./handlers/database.js')(bot)
 bot.color = {
@@ -41,7 +46,9 @@ bot.emojis = require('./handlers/emojis')
 bot.log = require('./handlers/logging')
 bot.utilData = require('./handlers/utilData')
 require('./handlers/functions')(bot)
-require('./website/app').run(bot)
+if (process.env.DEV === 'false') require('./website/app').run(bot)
+bot.redis = redis.createClient(bot.keys.redis)
+bot.redis.hget = util.promisify(bot.redis.hget)
 
 const init = async () => {
   // Load Events

@@ -22,5 +22,5 @@ module.exports = async (bot) => {
     bot.connect()
   }
 
-  client.connect('mongodb://localhost:27017', { useUnifiedTopology: true }, connected)
+  client.connect(bot.keys.mongodb, { useUnifiedTopology: true }, connected)
 }
