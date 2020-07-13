@@ -8,8 +8,12 @@ exports.run = async (bot) => {
 
       if (userdata) {
         if (userdata.drop) {
+          userdata.drop = false
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { drop: false } })
         } else {
+          userdata.battle = true
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { drop: true } })
         }
         const dropEmbed = {

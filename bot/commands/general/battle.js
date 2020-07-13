@@ -9,8 +9,12 @@ exports.run = async (bot) => {
       if (userdata) {
         // if user does exist
         if (userdata.battle) {
+          userdata.battle = false
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { battle: false } })
         } else {
+          userdata.battle = true
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { battle: true } })
         }
         const battleEmbed = {

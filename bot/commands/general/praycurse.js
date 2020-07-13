@@ -10,8 +10,12 @@ exports.run = async (bot) => {
       if (userdata) {
         // if user does exist
         if (userdata.praycurse) {
+          userdata.praycurse = false
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { praycurse: false } })
         } else {
+          userdata.praycurse = true
+          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { praycurse: true } })
         }
         const praycurseEmbed = {

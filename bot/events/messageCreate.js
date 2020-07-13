@@ -118,14 +118,14 @@ exports.run = async (bot, message) => {
     praycurseReminder.reminder(bot, message, messageContent, customPrefix, userdata)
 
     // Custom ring reminder for lanre
-    if (messageContent.match(/owobuy[1-7]/g)) {
-      setTimeout(async () => {
-        if (message.author.id === '648741213154836500' /* lanre */) {
+    if (message.author.id === '648741213154836500' /* lanre */) {
+      if (messageContent.match(/owobuy[1-7]/g)) {
+        setTimeout(async () => {
           bot.createMessage(message.channel.id, `${bot.emojis.custom.lanre.ring} Lanre, you can buy rings now! uwu ${bot.emojis.custom.lanre.randomKanna[Math.floor(Math.random() * bot.emojis.custom.lanre.randomKanna.length)]}`).then(sentMessage => {
             setTimeout(() => { sentMessage.delete(`Deleted ring reminder for ${message.author.tag}`) }, 5000)
           })
-        }
-      }, 5000)
+        }, 5000)
+      }
     }
 
     // Get data from atlantis members for website
