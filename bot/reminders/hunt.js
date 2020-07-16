@@ -14,16 +14,12 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
       }
       huntTimeouts[message.author.id].hunt = true
 
-      // stats & serverstats update
-      userdata.stats.huntCount = userdata.stats.huntCount + 1
-      userdata.stats.dailyHuntCount = userdata.stats.dailyHuntCount + 1
-      await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { stats: userdata.stats } })
+      // stats
+      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.huntCount': userdata.stats.huntCount + 1 } })
+      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.dailyHuntCount': userdata.stats.dailyHuntCount + 1 } })
       if (userdata.stats.guilds[message.channel.guild.id]) {
-        userdata.stats.guilds[message.channel.guild.id].huntCount = userdata.stats.guilds[message.channel.guild.id].huntCount + 1
-        userdata.stats.guilds[message.channel.guild.id].dailyHuntCount = userdata.stats.guilds[message.channel.guild.id].dailyHuntCount + 1
-        await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { stats: userdata.stats } })
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.huntCount`]: userdata.stats.guilds[message.channel.guild.id].huntCount + 1 } })
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.dailyHuntCount`]: userdata.stats.guilds[message.channel.guild.id].dailyHuntCount + 1 } })
       }
 
       setTimeout(async () => {

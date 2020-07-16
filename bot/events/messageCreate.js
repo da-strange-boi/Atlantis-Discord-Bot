@@ -54,14 +54,14 @@ exports.run = async (bot, message) => {
       }
     })
 
-    let userdata = await bot.redis.hget('userdata', message.author.id)
+    let userdata
 
     if (!userdata) {
       await bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdataFromDB) => {
         if (err) bot.log('error', err)
 
         if (userdataFromDB) {
-          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdataFromDB))
+          userdata = userdataFromDB
         }
       })
     }

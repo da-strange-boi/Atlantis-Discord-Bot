@@ -22,18 +22,6 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
         await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.dailyPraycurseCount`]: userdata.stats.guilds[message.channel.guild.id].dailyPraycurseCount + 1 } })
       }
 
-      // stats & serverstats update
-      userdata.stats.praycurseCount = userdata.stats.praycurseCount + 1
-      userdata.stats.dailyPraycurseCount = userdata.stats.dailyPraycurseCount + 1
-      await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { stats: userdata.stats } })
-      if (userdata.stats.guilds[message.channel.guild.id]) {
-        userdata.stats.guilds[message.channel.guild.id].praycurseCount = userdata.stats.guilds[message.channel.guild.id].praycurseCount + 1
-        userdata.stats.guilds[message.channel.guild.id].dailyPraycurseCount = userdata.stats.guilds[message.channel.guild.id].dailyPraycurseCount + 1
-        await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { stats: userdata.stats } })
-      }
-
       const whichText = messageContent.startsWith('owopray') ? 'pray' : 'curse'
       const whichEmoji = whichText === 'pray' ? bot.emojis.pray : bot.emojis.curse
 

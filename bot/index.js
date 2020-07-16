@@ -1,7 +1,5 @@
 const Eris = require('eris')
-const redis = require('redis')
 const fs = require('fs')
-const util = require('util')
 require('dotenv').config({ path: '.env' })
 const bot = new Eris.CommandClient(process.env.TOKEN, {
   disableEveryone: true,
@@ -31,8 +29,7 @@ const bot = new Eris.CommandClient(process.env.TOKEN, {
 })
 
 bot.keys = {
-  mongodb: 'mongodb://localhost:27017',
-  redis: 'redis://127.0.0.1:6379'
+  mongodb: 'mongodb://localhost:27017'
 }
 // database connection
 require('./handlers/database.js')(bot)
@@ -46,9 +43,6 @@ bot.emojis = require('./handlers/emojis')
 bot.log = require('./handlers/logging')
 bot.utilData = require('./handlers/utilData')
 if (process.env.DEV === 'false') require('./website/app').run(bot)
-bot.redis = redis.createClient(bot.keys.redis)
-bot.redis.hget = util.promisify(bot.redis.hget)
-// bot.redis.expire('userdata', parseInt(43200)) // half a day (12 hours)
 require('./handlers/functions')(bot)
 
 const init = async () => {

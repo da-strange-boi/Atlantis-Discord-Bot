@@ -14,16 +14,12 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
       }
       owoTimeouts[message.author.id].owo = true
 
-      // stats & serverstats update
-      userdata.stats.owoCount = userdata.stats.owoCount + 1
-      userdata.stats.dailyOwoCount = userdata.stats.dailyOwoCount + 1
-      await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { stats: userdata.stats } })
+      // stats
+      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.owoCount': userdata.stats.owoCount + 1 } })
+      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.dailyOwoCount': userdata.stats.dailyOwoCount + 1 } })
       if (userdata.stats.guilds[message.channel.guild.id]) {
-        userdata.stats.guilds[message.channel.guild.id].owoCount = userdata.stats.guilds[message.channel.guild.id].owoCount + 1
-        userdata.stats.guilds[message.channel.guild.id].dailyOwoCount = userdata.stats.guilds[message.channel.guild.id].dailyOwoCount + 1
-        await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { stats: userdata.stats } })
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.owoCount`]: userdata.stats.guilds[message.channel.guild.id].owoCount + 1 } })
+        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.dailyOwoCount`]: userdata.stats.guilds[message.channel.guild.id].dailyOwoCount + 1 } })
       }
 
       setTimeout(async () => {
