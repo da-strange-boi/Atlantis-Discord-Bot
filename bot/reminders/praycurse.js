@@ -33,7 +33,7 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
           if (whichText === 'pray') {
             praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.randomKanna[1]} Lan you're supposed to be cursing, not praying, you hypocrite ${bot.emojis.custom.lanre.angry}`
           } else {
-            praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.pray} Lanny, you can curse Kanzen now! ${bot.emojis.custom.lanre.randomKanna[6]}`
+            praycurseText = `<@${message.author.id}>, ${bot.emojis.custom.lanre.pray} Lanny, you can curse Blackblood now! ${bot.emojis.custom.lanre.randomKanna[6]}`
           }
         }
         if (message.author.id === '369996055737008149' /* guap */) {
