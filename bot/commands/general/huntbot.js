@@ -10,12 +10,8 @@ exports.run = async (bot) => {
       // if userdata doesn't exist make it
       if (userdata) {
         if (userdata.huntbot) {
-          userdata.huntbot = false
-          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { huntbot: false } })
         } else {
-          userdata.huntbot = true
-          await bot.redis.hset('userdata', message.author.id, JSON.stringify(userdata))
           bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { huntbot: true } })
         }
         const huntbotEmbed = {
