@@ -37,6 +37,7 @@ bot.color = {
   green: 0x00FF00,
   red: 0xFF0000
 }
+bot.botBannedUsers = []
 bot.customOwoPrefix = {}
 bot.admins = ['295255543596187650', '494540660943224844']
 bot.emojis = require('./handlers/emojis')

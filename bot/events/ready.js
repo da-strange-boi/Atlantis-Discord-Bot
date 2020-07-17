@@ -46,7 +46,6 @@ exports.run = async (bot) => {
     })
 
     // Add bot banned users
-    bot.botBannedUsers = []
     await bot.database.BotBan.find({}).toArray(async (err, users) => {
       if (err) bot.log('error', err)
       users.forEach(user => {
