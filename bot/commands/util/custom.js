@@ -94,7 +94,7 @@ exports.run = async (bot) => {
                       modifyCustom[i].time = userSetTime
                       modifyCustom[i].displayTime = time
 
-                      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
+                      await bot.updateUserdata('customs', modifyCustom, message.author.id, userdata)
                       await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been added', timestamp: new Date() } })
                       break
                     } else if (userdata.customs[i].id === 2 && userdata.customs[i].triggerText === '' && userdata.customs[i].unlocked) {
@@ -105,7 +105,7 @@ exports.run = async (bot) => {
                       modifyCustom[i].time = userSetTime
                       modifyCustom[i].displayTime = time
 
-                      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
+                      await bot.updateUserdata('customs', modifyCustom, message.author.id, userdata)
                       await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been added', timestamp: new Date() } })
                       break
                     } else if (userdata.customs[i].id === 3 && userdata.customs[i].triggerText === '' && userdata.customs[i].unlocked) {
@@ -116,7 +116,7 @@ exports.run = async (bot) => {
                       modifyCustom[i].time = userSetTime
                       modifyCustom[i].displayTime = time
 
-                      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
+                      await bot.updateUserdata('customs', modifyCustom, message.author.id, userdata)
                       await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been added', timestamp: new Date() } })
                       break
                     }
@@ -144,7 +144,7 @@ exports.run = async (bot) => {
               modifyCustom[number].time = 0
               modifyCustom[number].displayTime = ''
 
-              await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { customs: modifyCustom } })
+              await bot.updateUserdata('customs', modifyCustom, message.author.id, userdata)
               await bot.createMessage(message.channel.id, { embed: { title: 'Success!', color: bot.color.green, description: 'Custom timer has been deleted', timestamp: new Date() } })
             } else {
               return cmdError('Number out of range 1-3\ncheck `a!help custom` for more help')

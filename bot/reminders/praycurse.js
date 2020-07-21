@@ -15,11 +15,9 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
       praycurseTimeouts[message.author.id].praycurse = true
 
       // stats
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.praycurseCount': userdata.stats.praycurseCount + 1 } })
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.dailyPraycurseCount': userdata.stats.dailyPraycurseCount + 1 } })
+      await bot.updateUserdataStats('praycurseCount', message.author.id, userdata)
       if (userdata.stats.guilds[message.channel.guild.id]) {
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.praycurseCount`]: userdata.stats.guilds[message.channel.guild.id].praycurseCount + 1 } })
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.dailyPraycurseCount`]: userdata.stats.guilds[message.channel.guild.id].dailyPraycurseCount + 1 } })
+        await bot.updateUserdataStats('praycurseCount', message.author.id, userdata, message.channel.guild.id)
       }
 
       const whichText = messageContent.startsWith('owopray') ? 'pray' : 'curse'
