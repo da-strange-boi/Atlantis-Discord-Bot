@@ -15,11 +15,9 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
       battleTimeouts[message.author.id].battle = true
 
       // stats & serverstats update
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.battleCount': userdata.stats.battleCount + 1 } })
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.dailyBattleCount': userdata.stats.dailyBattleCount + 1 } })
+      await bot.updateUserdataStats('battleCount', message.author.id, userdata)
       if (userdata.stats.guilds[message.channel.guild.id]) {
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.battleCount`]: userdata.stats.guilds[message.channel.guild.id].battleCount + 1 } })
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.dailyBattleCount`]: userdata.stats.guilds[message.channel.guild.id].dailyBattleCount + 1 } })
+        await bot.updateUserdataStats('battleCount', message.author.id, userdata, message.channel.guild.id)
       }
 
       setTimeout(async () => {

@@ -3,26 +3,24 @@ exports.run = async (bot) => {
     await bot.checkUserAndGuild(message)
     if (bot.checkBannedUsers(message.author.id)) return
 
-    bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
-      if (err) bot.log('error', err)
+    const userdata = await bot.getUserdata(message.author.id)
 
-      if (userdata) {
-        if (userdata.drop) {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { drop: false } })
-        } else {
-          bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { drop: true } })
-        }
-        const dropEmbed = {
-          embed: {
-            color: !userdata.drop ? bot.color.green : bot.color.red,
-            description: !userdata.drop ? `<@${message.author.id}>, You have **enabled** the reminder for \`owo drop\`!` : `<@${message.author.id}>, You have **disabled** the reminder for \`owo drop\`!`,
-            timestamp: new Date()
-          }
-        }
-
-        bot.createMessage(message.channel.id, dropEmbed)
+    if (userdata) {
+      if (userdata.drop) {
+        bot.updateUserdata('drop', false, message.author.id, userdata)
+      } else {
+        bot.updateUserdata('drop', true, message.author.id, userdata)
       }
-    })
+      const dropEmbed = {
+        embed: {
+          color: userdata.drop ? bot.color.green : bot.color.red,
+          description: userdata.drop ? `<@${message.author.id}>, You have **enabled** the reminder for \`owo drop\`!` : `<@${message.author.id}>, You have **disabled** the reminder for \`owo drop\`!`,
+          timestamp: new Date()
+        }
+      }
+
+      bot.createMessage(message.channel.id, dropEmbed)
+    }
   }, {
     aliases: ['pickup'],
     cooldown: 3000,

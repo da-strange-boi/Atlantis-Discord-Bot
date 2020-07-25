@@ -192,4 +192,47 @@ module.exports = async (bot) => {
 
     return message.author
   }
+
+  bot.getUserdata = async (userID) => {
+    const userdata = await bot.redis.hget('userdata', userID)
+
+    if (!userdata) {
+      await bot.database.Userdata.findOne({ userID: userID }, async (err, userdataFromDB) => {
+        if (err) bot.log('error', err)
+
+        if (userdataFromDB) {
+          bot.redis.hset('userdata', userID, JSON.stringify(userdataFromDB))
+          return userdataFromDB
+        }
+      })
+    }
+
+    if (userdata) {
+      return JSON.parse(userdata)
+    }
+  }
+
+  bot.updateUserdata = async (key, value, userID, userdata) => {
+    const oldUserdata = userdata
+    oldUserdata[key] = value
+    await bot.database.Userdata.findOneAndUpdate({ userID: userID }, { $set: { [key]: value } })
+    bot.redis.hset('userdata', userID, JSON.stringify(oldUserdata))
+  }
+
+  bot.updateUserdataStats = async (key, userID, userdata, guildID = false) => {
+    const dailyKey = `daily${key[0].toUpperCase() + key.slice(1)}`
+    if (guildID) {
+      userdata.stats.guilds[guildID][key] += 1
+      userdata.stats.guilds[guildID][dailyKey] += 1
+      await bot.database.Userdata.findOneAndUpdate({ userID: userID }, { $set: { [`stats.guilds.${guildID}.${key}`]: userdata.stats.guilds[guildID][key] } })
+      await bot.database.Userdata.findOneAndUpdate({ userID: userID }, { $set: { [`stats.guilds.${guildID}.${dailyKey}`]: userdata.stats.guilds[guildID][dailyKey] } })
+      bot.redis.hset('userdata', userID, JSON.stringify(userdata))
+    } else {
+      userdata.stats[key] += 1
+      userdata.stats[dailyKey] += 1
+      await bot.database.Userdata.findOneAndUpdate({ userID: userID }, { $set: { [`stats.${key}`]: userdata.stats[key] } })
+      await bot.database.Userdata.findOneAndUpdate({ userID: userID }, { $set: { [`stats.${dailyKey}`]: userdata.stats[dailyKey] } })
+      bot.redis.hset('userdata', userID, JSON.stringify(userdata))
+    }
+  }
 }

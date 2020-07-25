@@ -15,11 +15,9 @@ exports.reminder = async (bot, message, messageContent, customPrefix, userdata) 
       owoTimeouts[message.author.id].owo = true
 
       // stats
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.owoCount': userdata.stats.owoCount + 1 } })
-      await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { 'stats.dailyOwoCount': userdata.stats.dailyOwoCount + 1 } })
+      await bot.updateUserdataStats('owoCount', message.author.id, userdata)
       if (userdata.stats.guilds[message.channel.guild.id]) {
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.owoCount`]: userdata.stats.guilds[message.channel.guild.id].owoCount + 1 } })
-        await bot.database.Userdata.findOneAndUpdate({ userID: message.author.id }, { $set: { [`stats.guilds.${message.channel.guild.id}.dailyOwoCount`]: userdata.stats.guilds[message.channel.guild.id].dailyOwoCount + 1 } })
+        await bot.updateUserdataStats('owoCount', message.author.id, userdata, message.channel.guild.id)
       }
 
       setTimeout(async () => {
