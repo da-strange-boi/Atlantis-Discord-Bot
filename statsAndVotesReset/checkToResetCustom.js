@@ -15,7 +15,7 @@ client.connect('mongodb://localhost:27017', { useUnifiedTopology: true }, async 
       if ((Date.now() - user.lastVote) >= hours12) {
         const modifiedCustom = user.customs
         for (let i = 0; i < modifiedCustom.length; i++) {
-          if (modifiedCustom[i].id === 1) modifiedCustom[i].unlocked = false
+          if (modifiedCustom[i].id !== 1) modifiedCustom[i].unlocked = false
         }
         await userdata.findOneAndUpdate({ userID: user.userID }, { $set: { customs: modifiedCustom } })
       }

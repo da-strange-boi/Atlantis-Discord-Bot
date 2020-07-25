@@ -5,7 +5,7 @@ const { CronJob } = require('cron')
 const resetDailyStats = new CronJob('0 0 3 * * *', async () => {
   const runDailiesResetFile = spawn('node', ['statsAndVotesReset/resettingStatsDailies.js'])
 
-  console.log('system - Stats reset')
+  console.log('system - Stats reset start')
 
   runDailiesResetFile.stderr.on('data', (data) => {
     console.log(data)
