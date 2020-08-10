@@ -2,20 +2,26 @@ package dastrangeboi.atlantis;
 
 import dastrangeboi.atlantis.Events.Message;
 import dastrangeboi.atlantis.Events.Ready;
+
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 
 public class Bot {
 
+    // setting up dependencies
+    public static Dotenv dotenv = Dotenv.load();
+
     // static variables
     public static JDA bot;
     public static String prefix = "a!";
-    private static String token = "no no. don't even try :)";
 
     public static void startBot() throws LoginException {
-        bot = JDABuilder.createDefault(token).build();
+        bot = JDABuilder.createDefault(dotenv.get("TOKEN")).build();
 
         // Loading events
         bot.addEventListener(new Ready());
