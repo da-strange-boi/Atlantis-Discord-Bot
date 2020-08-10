@@ -2,13 +2,14 @@ package dastrangeboi.atlantis.Commands;
 
 import dastrangeboi.atlantis.Bot;
 import dastrangeboi.atlantis.Database;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import org.bson.Document;
 
+import org.bson.Document;
 import java.awt.*;
 
 public class Show {

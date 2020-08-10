@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-version '1.0-BETA'
+version '1.1-BETA'
 
 repositories {
     jcenter()
@@ -10,9 +10,7 @@ repositories {
 
 dependencies {
     compile group: 'net.dv8tion', name: 'JDA', version: '4.2.0_189'
-    compile group: 'com.jagrosh', name: 'jda-utilities', version: '3.0.2'
-    compile group: 'me.duncte123', name: 'botCommons', version: '1.0.78'
     compile 'org.mongodb:mongodb-driver-sync:4.1.0'
     compile 'io.github.cdimascio:java-dotenv:5.2.1'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
 }

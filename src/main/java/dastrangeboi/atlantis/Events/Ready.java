@@ -2,6 +2,7 @@ package dastrangeboi.atlantis.Events;
 
 import dastrangeboi.atlantis.Bot;
 import dastrangeboi.atlantis.Database;
+
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
