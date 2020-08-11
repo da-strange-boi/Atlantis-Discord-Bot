@@ -1,10 +1,8 @@
 package dastrangeboi.atlantis.Events;
 
+import com.mongodb.internal.connection.Server;
 import dastrangeboi.atlantis.Bot;
-import dastrangeboi.atlantis.Commands.Help;
-import dastrangeboi.atlantis.Commands.Stop;
-import dastrangeboi.atlantis.Commands.ToggleReminder;
-import dastrangeboi.atlantis.Commands.Show;
+import dastrangeboi.atlantis.Commands.*;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -28,6 +26,24 @@ public class Message extends ListenerAdapter {
             }
             if (cmd.equalsIgnoreCase("stop")) {
                 Stop.run(message);
+            }
+            if (cmd.equalsIgnoreCase("support")) {
+                Support.run(message);
+            }
+            if (cmd.equalsIgnoreCase("invite")) {
+                Invite.run(message);
+            }
+            if (cmd.equalsIgnoreCase("stats")) {
+                Stats.run(message);
+            }
+            if (cmd.equalsIgnoreCase("serverstats")) {
+                Serverstats.run(message);
+            }
+            if (cmd.equalsIgnoreCase("ping")) {
+                Ping.run(message);
+            }
+            if (cmd.equalsIgnoreCase("vote")) {
+                Vote.run(message);
             }
 
             // Reminders

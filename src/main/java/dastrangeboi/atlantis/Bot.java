@@ -3,12 +3,10 @@ package dastrangeboi.atlantis;
 import dastrangeboi.atlantis.Events.Message;
 import dastrangeboi.atlantis.Events.Ready;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import org.apache.log4j.BasicConfigurator;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javax.security.auth.login.LoginException;
 
 public class Bot {
@@ -35,7 +33,6 @@ public class Bot {
     }
 
     public static void main(String[] args) throws LoginException {
-        BasicConfigurator.configure();
         startBot();
     }
 }
