@@ -8,10 +8,9 @@ repositories {
     jcenter()
 }
 
-// compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
 dependencies {
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '0.9.26'
     compile group: 'net.dv8tion', name: 'JDA', version: '4.2.0_189'
     compile 'org.mongodb:mongodb-driver-sync:4.1.0'
     compile 'io.github.cdimascio:java-dotenv:5.2.1'
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: '0.9.26'
 }

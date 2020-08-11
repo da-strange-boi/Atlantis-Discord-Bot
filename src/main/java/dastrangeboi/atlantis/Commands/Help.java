@@ -38,8 +38,8 @@ public class Help {
                     .setColor(getRoleColor(message.getGuild().getSelfMember()))
                     .setDescription("This is the full command list for **Atlantis**! For more information on what a command does, do `a!help <command name>`\nThanks to `pri8000#8266` for the profile picture art!")
                     .addField("General", "`hunt`, `battle`, `drop`, `owo`, `praycurse`, `huntbot`, `show`", false)
-                    .addField("Utilities", "`support`, `custom`, `help`, `invite`, `stats`, `status`, `serverstats`, `ping`, `vote`, `zoostats`", false)
-                    .setFooter("Atlantis, made by da strange boi#7087 with lots of \u2764");
+                    .addField("Utilities", "`start`, `support`, `custom`, `help`, `invite`, `stats`, `status`, `serverstats`, `ping`, `vote`, `zoostats`", false)
+                    .setFooter("Made by da strange boi#7087 with lots of \u2764");
 
             message.getChannel().sendMessage(helpEmbed.build()).queue();
         } else {
