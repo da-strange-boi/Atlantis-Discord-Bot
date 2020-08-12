@@ -11,11 +11,16 @@ import org.bson.Document;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Message extends ListenerAdapter {
 
+    private final Map<String, Long> cooldown = new HashMap<>();
+
     public void onGuildMessageReceived(GuildMessageReceivedEvent message) {
 
+        // message startup
         String owoBotID = "408785106942164992";
         if (message.getAuthor().isBot() && message.getAuthor().getId().equalsIgnoreCase(owoBotID)) return;
 
@@ -37,6 +42,19 @@ public class Message extends ListenerAdapter {
         if (args[0].startsWith(prefix)) {
             String cmd = args[0].replace(prefix, "");
             args = Arrays.copyOfRange(args, 1, args.length);
+
+            // check cooldown
+            if (cooldown.get(message.getAuthor().getId()) == null) {
+                cooldown.put(message.getAuthor().getId(), System.currentTimeMillis());
+            } else {
+                long timeDifference = System.currentTimeMillis() - cooldown.get(message.getAuthor().getId());
+                if ((timeDifference - 3000) <= 0) {
+                    message.getChannel().sendMessage("Please slow down, the cooldown is 3 seconds").queue();
+                    return;
+                } else {
+                    cooldown.put(message.getAuthor().getId(), System.currentTimeMillis());
+                }
+            }
 
             if (cmd.equalsIgnoreCase("start")) {
                 Start.run(message);
@@ -91,7 +109,7 @@ public class Message extends ListenerAdapter {
                 Prefix.run(message, args);
             }
             else if (cmd.equalsIgnoreCase("owoprefix")) {
-
+                Owoprefix.run(message, args);
             }
 
             // Toggle Reminders Commands
@@ -100,7 +118,6 @@ public class Message extends ListenerAdapter {
             }
 
             // Reminders
-
         }
     }
 }
