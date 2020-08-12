@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import javax.security.auth.login.LoginException;
+import java.util.Date;
 
 public class Bot {
 
@@ -17,10 +18,15 @@ public class Bot {
     // static variables
     public static JDA bot;
     public static String prefix = "a!";
+    public static String version = "1.7.17";
     public static String adminID = "295255543596187650";
+
+    // Uptime
+    public static long startUpTime;
 
     public static void startBot() throws LoginException {
         bot = JDABuilder.createDefault(dotenv.get("TOKEN")).build();
+        startUpTime = System.currentTimeMillis();
 
         // Loading events
         bot.addEventListener(new Ready());

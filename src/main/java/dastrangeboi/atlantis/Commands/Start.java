@@ -11,9 +11,11 @@ import java.util.ArrayList;
 public class Start {
     public static void run(GuildMessageReceivedEvent message) {
         Document userFound = Database.userdata.find(new Document("userID", message.getAuthor().getId())).first();
+        Document guildFound = Database.guilddata.find(new Document("guildID", message.getGuild().getId())).first();
+
         if (userFound == null) {
 
-            // customs
+            // userdata customs
             ArrayList<Document> customs = new ArrayList<>();
             customs.add(new Document()
                 .append("id", 1)
@@ -40,7 +42,7 @@ public class Start {
                     .append("displayTime", "")
             );
 
-            // main database object
+            // userdata database object
             Document newUser = new Document()
                     .append("userID", message.getAuthor().getId())
                     .append("lastVote", 0)
@@ -67,14 +69,33 @@ public class Start {
 
             Database.userdata.insertOne(newUser);
 
-            EmbedBuilder startEmbed = new EmbedBuilder()
+            EmbedBuilder startUserEmbed = new EmbedBuilder()
                     .setColor(Color.yellow)
                     .setAuthor(null, null, message.getAuthor().getAvatarUrl())
                     .setDescription("Welcome **" + message.getAuthor().getName() + "**, to Atlantis!");
 
-            message.getChannel().sendMessage(startEmbed.build()).queue();
+            message.getChannel().sendMessage(startUserEmbed.build()).queue();
         } else {
             message.getChannel().sendMessage("<@" + message.getAuthor().getId() + ">, you are already a user!").queue();
         }
+
+        // check if a guilddata database object has been made. if no create one
+        if (guildFound == null) {
+            // new guild
+            Document newGuild = new Document()
+                    .append("guildID", message.getGuild().getId())
+                    .append("prefix", "")
+                    .append("owoPrefix", "");
+
+            Database.guilddata.insertOne(newGuild);
+
+            EmbedBuilder startGuildEmbed = new EmbedBuilder()
+                    .setColor(Color.green)
+                    .setAuthor(null, null, message.getAuthor().getAvatarUrl())
+                    .setDescription("Registered **" + message.getGuild().getName() + "**!");
+
+            message.getChannel().sendMessage(startGuildEmbed.build()).queue();
+        }
+
     }
 }
