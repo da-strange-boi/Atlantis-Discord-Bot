@@ -4,6 +4,7 @@ import dastrangeboi.atlantis.Bot;
 import dastrangeboi.atlantis.Commands.*;
 
 import dastrangeboi.atlantis.Database;
+import dastrangeboi.atlantis.Reminders.Hunt;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -116,8 +117,10 @@ public class Message extends ListenerAdapter {
             if (cmd.toLowerCase().matches("hunt|battle|praycurse|huntbot|owo|drop")) {
                 ToggleReminder.run(Bot.bot, message, args);
             }
-
-            // Reminders
+        }
+        // Reminders
+        if (message.getMessage().getContentRaw().matches("(owo|"+guildData.getString("owoPrefix")+")(h|hunt|catch)")) {
+            Hunt.reminder(message);
         }
     }
 }

@@ -3,7 +3,6 @@ package dastrangeboi.atlantis;
 import javax.security.auth.login.LoginException;
 import javax.swing.*;
 import java.awt.*;
-import java.io.PrintStream;
 
 import static dastrangeboi.atlantis.Bot.startBot;
 
