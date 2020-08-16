@@ -4,7 +4,10 @@ import dastrangeboi.atlantis.Bot;
 import dastrangeboi.atlantis.Commands.*;
 
 import dastrangeboi.atlantis.Database;
+import dastrangeboi.atlantis.Reminders.Battle;
+import dastrangeboi.atlantis.Reminders.Drop;
 import dastrangeboi.atlantis.Reminders.Hunt;
+import dastrangeboi.atlantis.Reminders.Praycurse;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -119,8 +122,18 @@ public class Message extends ListenerAdapter {
             }
         }
         // Reminders
+        assert guildData != null;
         if (message.getMessage().getContentRaw().matches("(owo|"+guildData.getString("owoPrefix")+")(h|hunt|catch)")) {
             Hunt.reminder(message);
+        }
+        if (message.getMessage().getContentRaw().matches("(owo|"+guildData.getString("owoPrefix")+")(battle|b|fight)")) {
+            Battle.reminder(message);
+        }
+        if (message.getMessage().getContentRaw().matches("(owo|"+guildData.getString("owoPrefix")+")(pick|drop)")) {
+            Drop.reminder(message);
+        }
+        if (message.getMessage().getContentRaw().matches("(owo|"+guildData.getString("owoPrefix")+")(pray|curse)")) {
+            Praycurse.reminder(message);
         }
     }
 }

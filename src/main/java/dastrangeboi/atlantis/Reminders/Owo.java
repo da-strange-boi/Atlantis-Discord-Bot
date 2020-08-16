@@ -6,25 +6,25 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Hunt {
+public class Owo {
 
-    private static final ArrayList<String> huntTimeouts = new ArrayList<>();
+    private static final ArrayList<String> owoTimeouts = new ArrayList<>();
     public static void reminder(GuildMessageReceivedEvent message) {
         String userID = message.getAuthor().getId();
 
-        if (!huntTimeouts.contains(userID)) {
-            huntTimeouts.add(userID);
+        if (!owoTimeouts.contains(userID)) {
+            owoTimeouts.add(userID);
 
-            ActionListener huntReminder = e -> message.getChannel().sendMessage("<@"+message.getAuthor().getId()+">, `hunt` cooldown has passed!").queue(messageSent -> {
-                huntTimeouts.remove(userID);
+            ActionListener owoReminder = e -> message.getChannel().sendMessage("<@"+message.getAuthor().getId()+">, `owo` cooldown has passed!").queue(messageSent -> {
+                owoTimeouts.remove(userID);
                 ActionListener timeout = e1 -> messageSent.delete().queue();
                 Timer timer2 = new Timer(5000, timeout);
                 timer2.setRepeats(false);
                 timer2.start();
             });
 
-            int huntCoolDown = 15000;
-            Timer timer = new Timer(huntCoolDown, huntReminder);
+            int owoCoolDown = 10000;
+            Timer timer = new Timer(owoCoolDown, owoReminder);
             timer.setRepeats(false);
             timer.start();
         }
