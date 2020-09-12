@@ -18,7 +18,7 @@
     "express-handlebars": "^4.0.6",
     "lodash": "^4.17.19",
     "mongodb": "^3.5.9",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "parse-ms": "^2.1.0",
     "redis": "^3.0.2",
     "systeminformation": "^4.26.10"
